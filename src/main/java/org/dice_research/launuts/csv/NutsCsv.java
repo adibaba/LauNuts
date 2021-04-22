@@ -16,9 +16,8 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  * 
  * This class provides an Iterator to loop through the underlying data payload.
  * The iterator depends on {@link #rowIndexDataBegin} and
- * {@link #rowIndexDataEnd}. It does not check data values. In some cases, the
- * NUTS-code is missing. That can be checked by {@link #hasCode(int)} to omit
- * respective rows.
+ * {@link #rowIndexDataEnd}. It omits rows with missing code and rows with
+ * missing {@link #columnIndexValueCheck}.
  * 
  * Configuration: Use the constructor {@link #NutsCsv(CsvReader)} and read the
  * underlying data using {@link CsvReader#read()}. After optionally setting the
@@ -32,7 +31,9 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  */
 public class NutsCsv implements Iterable<Integer> {
 
-	// Default table row/columns based on 2013/2016
+	private String id;
+
+	// Default table row/columns based on 2013-2016
 	public int columnIndexValueCheck = 0;
 	public int columnIndexCodeOld = 1;
 	public int columnIndexCodeNew = 2;
@@ -56,7 +57,8 @@ public class NutsCsv implements Iterable<Integer> {
 	// Underlying data
 	private final CsvReader csvReader;
 
-	public NutsCsv(CsvReader csvReader) {
+	public NutsCsv(String id, CsvReader csvReader) {
+		this.id = id;
 		this.csvReader = csvReader;
 	}
 
@@ -104,7 +106,8 @@ public class NutsCsv implements Iterable<Integer> {
 	}
 
 	/**
-	 * Iterates through data. Use {@link #hasCode(int)} to omit rows without code.
+	 * Iterates through data. Use columns 'code' and 'value-check' to omit rows
+	 * without code.
 	 */
 	@Override
 	public Iterator<Integer> iterator() {
@@ -114,19 +117,30 @@ public class NutsCsv implements Iterable<Integer> {
 
 			@Override
 			public boolean hasNext() {
-				return index <= rowIndexDataEnd;
+				return (getNext(index + 1) != -1);
 			}
 
 			@Override
 			public Integer next() {
-				return index++;
+				index = getNext(index + 1);
+				return index;
+			}
+
+			private int getNext(int rowToCheck) {
+				if (rowToCheck > rowIndexDataEnd) {
+					return -1;
+				} else if (hasCode(rowToCheck) && !csvReader.getValue(rowToCheck, columnIndexValueCheck).isEmpty()) {
+					return rowToCheck;
+				} else {
+					return getNext(rowToCheck + 1);
+				}
 			}
 		};
 	}
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[" + csvReader.getFile().getName() + "]";
+		return getClass().getSimpleName() + "<" + id + "|" + csvReader.getFile().getName() + ">";
 	}
 
 	public String getDataString() {
@@ -135,9 +149,6 @@ public class NutsCsv implements Iterable<Integer> {
 		int row;
 		while (it.hasNext()) {
 			row = it.next();
-			if (!hasCode(row)) {
-				continue;
-			}
 			stringBuilder.append(getLevel(row));
 			stringBuilder.append(", ");
 			stringBuilder.append(getCode(row));
