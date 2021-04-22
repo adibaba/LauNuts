@@ -1,8 +1,6 @@
 package org.dice_research.launuts;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -40,10 +38,26 @@ public class Main {
 		Map<String, NutsCsv> csvNutsIndex = new TreeMap<>();
 		for (Entry<String, File> entry : Io.getFilesIndex(Configuration.DIRECTORY_CSV_NUTS).entrySet()) {
 			NutsCsv nutsCsv = new NutsCsv(new CsvReader(entry.getValue()).read());
-			nutsCsv.setRowHeadings(1).setDefaultDataRange().setRowCode(2);
+			nutsCsv.setRowIndexHeadings(1).setDefaultDataRange();
 			csvNutsIndex.put(entry.getKey().substring(0, entry.getKey().lastIndexOf('.')).toUpperCase(), nutsCsv);
 		}
-		csvNutsIndex.get("NUTS-2021").setRowHeadings(0).setDefaultDataRange().setRowCode(0);
+
+		// Empty lines are removed. This is end of official / start of partners
+		// TODO: add partners in another instance
+		csvNutsIndex.get("NUTS-2021").setDefaultDataRange().setRowIndexDataEnd(1844);
+		csvNutsIndex.get("NUTS-2021").columnIndexValueCheck = -1;
+		csvNutsIndex.get("NUTS-2021").columnIndexCodeNew = -1;
+		csvNutsIndex.get("NUTS-2021").columnIndexCodeOld = 0;
+		csvNutsIndex.get("NUTS-2021").columnIndexNameCountry = 1;
+		csvNutsIndex.get("NUTS-2021").columnIndexNameNuts1 = 2;
+		csvNutsIndex.get("NUTS-2021").columnIndexNameNuts2 = 3;
+		csvNutsIndex.get("NUTS-2021").columnIndexNameNuts3 = 4;
+		csvNutsIndex.get("NUTS-2021").columnIndexLevel = 5;
+		csvNutsIndex.get("NUTS-2021").columnIndexCountrySort = 6;
+		csvNutsIndex.get("NUTS-2021").columnIndexCodeOldSort = 7;
+		csvNutsIndex.get("NUTS-2021").columnIndexCodeNewSort = -1;
+
+		// TODO: Check correctness of parsed values
 
 		// Print map above
 		for (Entry<String, NutsCsv> entry : csvNutsIndex.entrySet()) {
@@ -60,11 +74,14 @@ public class Main {
 
 		// Print payload
 		for (NutsCsv nutsCsv : csvNutsIndex.values()) {
+
 			System.err.println(nutsCsv);
-			Iterator<List<String>> it = nutsCsv.iterator();
-			while (it.hasNext()) {
-				System.out.println(it.next());
-			}
+//			Iterator<Integer> it = nutsCsv.iterator();
+//			while (it.hasNext()) {
+//				int row = it.next();
+//				System.out.println(row);
+//			}
+			System.out.println(nutsCsv.getDataString());
 		}
 		// Works. Next step: set correct row-indexes. Implement methods to access
 		// NUTS-level and titles.
