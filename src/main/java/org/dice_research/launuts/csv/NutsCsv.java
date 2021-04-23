@@ -1,6 +1,7 @@
 package org.dice_research.launuts.csv;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.dice_research.launuts.exceptions.CsvRuntimeException;
@@ -16,8 +17,8 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  * 
  * This class provides an Iterator to loop through the underlying data payload.
  * The iterator depends on {@link #rowIndexDataBegin} and
- * {@link #rowIndexDataEnd}. It omits rows with missing code and rows with
- * missing {@link #columnIndexValueCheck}.
+ * {@link #rowIndexDataEnd}. It omits rows with missing code, rows with missing
+ * {@link #columnIndexValueCheck} and rows in {@link #skipRows}.
  * 
  * Configuration: Use the constructor {@link #NutsCsv(CsvReader)} and read the
  * underlying data using {@link CsvReader#read()}. After optionally setting the
@@ -34,7 +35,7 @@ public class NutsCsv implements Iterable<Integer> {
 	private String id;
 
 	// Default table row/columns based on 2013-2016
-	public int columnIndexValueCheck = 0;
+	public int columnIndexValueCheck = 10;
 	public int columnIndexCodeOld = 1;
 	public int columnIndexCodeNew = 2;
 	public int columnIndexNameCountry = 3;
@@ -53,6 +54,9 @@ public class NutsCsv implements Iterable<Integer> {
 
 	// Use columnIndexCodeOld (or columnIndexCodeNew)
 	private boolean useCodeOld = true;
+
+	// Row indexes to skip
+	private List<Integer> skipRows = new LinkedList<>();
 
 	// Underlying data
 	private final CsvReader csvReader;
@@ -80,17 +84,18 @@ public class NutsCsv implements Iterable<Integer> {
 	public NutsCsv setDefaultDataRange() {
 		setRowIndexDataBegin(rowIndexHeadings + 1);
 		setRowIndexDataEnd(csvReader.getRowSize() - 1);
-		for (int i = rowIndexDataBegin; i < rowIndexDataEnd; i++) {
-			if (csvReader.getValue(i, columnIndexValueCheck).isEmpty()) {
-				setRowIndexDataEnd(i - 1);
-			}
-		}
 		return this;
 	}
 
 	public NutsCsv setUseCodeOld(boolean useCodeOld) {
 		this.useCodeOld = useCodeOld;
 		return this;
+	}
+
+	public NutsCsv addRowToSkip(int row) {
+		skipRows.add(row);
+		return this;
+
 	}
 
 	public List<String> getHeadings() {
@@ -113,7 +118,7 @@ public class NutsCsv implements Iterable<Integer> {
 	public Iterator<Integer> iterator() {
 		return new Iterator<Integer>() {
 
-			private int index = rowIndexDataBegin;
+			private int index = rowIndexDataBegin - 1;
 
 			@Override
 			public boolean hasNext() {
@@ -129,6 +134,8 @@ public class NutsCsv implements Iterable<Integer> {
 			private int getNext(int rowToCheck) {
 				if (rowToCheck > rowIndexDataEnd) {
 					return -1;
+				} else if (skipRows.contains(rowToCheck)) {
+					return getNext(rowToCheck + 1);
 				} else if (hasCode(rowToCheck) && !csvReader.getValue(rowToCheck, columnIndexValueCheck).isEmpty()) {
 					return rowToCheck;
 				} else {
@@ -140,7 +147,7 @@ public class NutsCsv implements Iterable<Integer> {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "<" + id + "|" + csvReader.getFile().getName() + ">";
+		return getClass().getSimpleName() + "|" + id + "|" + csvReader.getFile().getName();
 	}
 
 	public String getDataString() {
@@ -149,14 +156,20 @@ public class NutsCsv implements Iterable<Integer> {
 		int row;
 		while (it.hasNext()) {
 			row = it.next();
-			stringBuilder.append(getLevel(row));
-			stringBuilder.append(", ");
 			stringBuilder.append(getCode(row));
-			stringBuilder.append(", ");
+			stringBuilder.append("; ");
+			stringBuilder.append(getLevel(row));
+			stringBuilder.append("; ");
 			stringBuilder.append(getName(row));
+			stringBuilder.append("; ");
+			stringBuilder.append(row);
 			stringBuilder.append(System.lineSeparator());
 		}
 		return stringBuilder.toString();
+	}
+
+	public String getDataSourceString(String separator) {
+		return csvReader.getDataAsString(separator);
 	}
 
 	public String getCode(int row) {

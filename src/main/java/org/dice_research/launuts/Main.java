@@ -1,70 +1,71 @@
 package org.dice_research.launuts;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.dice_research.launuts.csv.CsvReader;
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
 
 /**
- * TODO Dev.
+ * Development.
+ * 
+ * TODO following:
+ *
+ * Check in xlsx ranges, which code (old/new) has to be used. FR7 in 2013-16.
+ * Validation: By RDF.
+ *
+ * There are duplicate coes in nuts csv, see NutsCsvTest verbose
+ *
+ * Dynamic config for CLI / Webservices
+ * 
+ * Source files as resources
  *
  * @author Adrian Wilke
  */
 public class Main {
 
+	Map<String, NutsCsv> nutsCsvIndex;
+
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Main main = new Main();
 
-		// TODO: Dynamic config for CLI / Webservices
-
-		// Current dev
-		if (true)
+		if (false)
 			main.dev();
 
-		// Take a look into data
-		if (false)
-			main.printParsedCsv(new File("/home/adi/DICE/Data/LauNuts/Sources-2021/data/nuts/nuts-2021.csv"));
+		if (true)
+			main.csvRdf();
 	}
 
-	/**
-	 * TODO: Check correctness of parsed values; use {@link NutsCsvTest#testSizes};
-	 * check {@link NutsCsv#columnIndexValueCheck}
-	 */
-	@SuppressWarnings("unused")
 	private void dev() {
+	}
 
-		Map<String, NutsCsv> csvNutsIndex = new NutsCsvIndex().get();
+	@SuppressWarnings("unused")
+	private void csvRdf() {
 
-		// Print map above
-		for (Entry<String, NutsCsv> entry : csvNutsIndex.entrySet()) {
-			System.out.println(entry);
+		// Load
+		nutsCsvIndex = new NutsCsvIndex().get();
+
+		// Print index
+		if (true) {
+			for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
+				System.out.println("ID:       " + idToNutsCsv.getKey());
+				System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
+			}
+			System.out.println();
 		}
 
-		if (false)
-			// Check headings
-			for (Entry<String, NutsCsv> entry : csvNutsIndex.entrySet()) {
-				System.out.println(entry.getValue().getHeadings());
-				// Get example code
-				System.out.println(entry.getValue().getCode(3));
-			}
+		// Print important data
+		if (true) {
+			String id = "NUTS-2021";
+			System.out.println(nutsCsvIndex.get(id).getDataString());
+		}
 
-		// Print payload
-		if (true)
-			for (NutsCsv nutsCsv : csvNutsIndex.values()) {
-				System.err.println(nutsCsv);
-				System.out.println(nutsCsv.getDataString());
-			}
-
-//		System.out.println(csvNutsIndex.get("NUTS-2021-EXTRA"));
-
-	}
-
-	private void printParsedCsv(File file) {
-		System.out.println(new CsvReader(file).read());
+		// Print data
+		if (false) {
+			String id = "NUTS-2021";
+			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
+		}
 	}
 
 }

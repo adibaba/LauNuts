@@ -140,6 +140,18 @@ public class CsvReader {
 		return data;
 	}
 
+	public String getDataAsString(String separator) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (List<String> row : data) {
+			for (String cell : row) {
+				stringBuilder.append(cell);
+				stringBuilder.append(separator);
+			}
+			stringBuilder.append(System.lineSeparator());
+		}
+		return stringBuilder.toString();
+	}
+
 	public List<String> getRow(int row) {
 		return data.get(row);
 	}

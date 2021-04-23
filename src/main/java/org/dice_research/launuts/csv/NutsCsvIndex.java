@@ -39,14 +39,18 @@ public class NutsCsvIndex {
 			csvNutsIndex.put(id, nutsCsv);
 		}
 
+		// NUTS 2013-2016: Duplicate code 'FR7', 'CENTRE-EST' is also in RDF,
+		// 'AUVERGNE-RHÔNE-ALPES' is not
+		csvNutsIndex.get("NUTS-2013-2016").addRowToSkip(909);
+
 		// NUTS CSV 2021 has another format and is splitted
-		csvNutsIndex.get("NUTS-2021").setDefaultDataRange().setRowIndexDataEnd(1844);
+		csvNutsIndex.get("NUTS-2021").setRowIndexHeadings(0).setDefaultDataRange().setRowIndexDataEnd(1844);
 		setIndexes2021(csvNutsIndex.get("NUTS-2021"));
 
 		// NUTS CSV 2021 has additional data
 		String id = "NUTS-2021-EXTRA";
 		NutsCsv nutsCsv = new NutsCsv(id, new CsvReader(filenameToFile.get("nuts-2021.csv")).read());
-		nutsCsv.setRowIndexHeadings(1848).setDefaultDataRange();
+		nutsCsv.setRowIndexHeadings(0).setDefaultDataRange().setRowIndexDataBegin(1846);
 		setIndexes2021(nutsCsv);
 		csvNutsIndex.put(id, nutsCsv);
 	}
