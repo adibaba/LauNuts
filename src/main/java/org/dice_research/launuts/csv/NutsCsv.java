@@ -102,6 +102,10 @@ public class NutsCsv implements Iterable<Integer> {
 		return csvReader.getRow(rowIndexHeadings);
 	}
 
+	public CsvReader getCsvReader() {
+		return csvReader;
+	}
+
 	private int getColumnIndexCode() {
 		return useCodeOld ? columnIndexCodeOld : columnIndexCodeNew;
 	}
@@ -157,11 +161,11 @@ public class NutsCsv implements Iterable<Integer> {
 		while (it.hasNext()) {
 			row = it.next();
 			stringBuilder.append(getCode(row));
-			stringBuilder.append("; ");
+			stringBuilder.append(" | ");
 			stringBuilder.append(getLevel(row));
-			stringBuilder.append("; ");
+			stringBuilder.append(" | ");
 			stringBuilder.append(getName(row));
-			stringBuilder.append("; ");
+			stringBuilder.append(" | ");
 			stringBuilder.append(row);
 			stringBuilder.append(System.lineSeparator());
 		}

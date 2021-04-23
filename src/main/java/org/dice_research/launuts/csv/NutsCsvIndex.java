@@ -49,7 +49,7 @@ public class NutsCsvIndex {
 
 		// NUTS CSV 2021 has additional data
 		String id = "NUTS-2021-EXTRA";
-		NutsCsv nutsCsv = new NutsCsv(id, new CsvReader(filenameToFile.get("nuts-2021.csv")).read());
+		NutsCsv nutsCsv = new NutsCsv(id, csvNutsIndex.get("NUTS-2021").getCsvReader());
 		nutsCsv.setRowIndexHeadings(0).setDefaultDataRange().setRowIndexDataBegin(1846);
 		setIndexes2021(nutsCsv);
 		csvNutsIndex.put(id, nutsCsv);

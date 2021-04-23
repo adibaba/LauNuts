@@ -32,11 +32,13 @@ public class CsvReader {
 	private Charset charset = StandardCharsets.UTF_8;
 	private CSVFormat csvFormat = CSVFormat.DEFAULT;
 	private boolean trimValues = true;
-	private boolean removeEmptyRows = true;
+	private boolean trimMatrix = true;
+
 	private CSVParser csvParser;
 
 	private List<List<String>> data;
-	private int columnSize;
+	private int maxRowIndex;
+	private int maxColumnIndex;
 
 	public CsvReader() {
 	}
@@ -66,57 +68,65 @@ public class CsvReader {
 		return this;
 	}
 
-	public CsvReader setRemoveEmptyRows(boolean removeEmptyRows) {
-		this.removeEmptyRows = removeEmptyRows;
+	public CsvReader setTrimMatrix(boolean trimMatrix) {
+		this.trimMatrix = trimMatrix;
 		return this;
 	}
 
 	public CsvReader read() {
 		this.data = new LinkedList<List<String>>();
-		this.columnSize = 0;
+		this.maxRowIndex = -1;
+		this.maxColumnIndex = -1;
 
 		Iterator<String> iterator;
 		List<String> rowValues;
-		boolean isEmptyRow;
-		int column;
+		int r, c, columnWithContent;
 		String value;
 
 		try {
+
 			// Rows
+			r = -1;
 			for (CSVRecord record : parse().csvParser.getRecords()) {
+				r++;
 				iterator = record.iterator();
 				rowValues = new ArrayList<String>(record.size());
-				isEmptyRow = true;
-				column = 0;
 
 				// Cells
+				c = columnWithContent = -1;
 				while (iterator.hasNext()) {
-
+					c++;
 					value = iterator.next();
+
 					if (trimValues) {
 						value = value.trim();
 					}
 
 					if (!value.isEmpty()) {
-						isEmptyRow = false;
-						column++;
+						columnWithContent = c;
 					}
 
 					rowValues.add(value);
 				}
 
-				if (!removeEmptyRows || !isEmptyRow) {
-					this.data.add(rowValues);
-				}
+				this.data.add(rowValues);
 
-				if (column > this.columnSize) {
-					this.columnSize = column;
+				if (columnWithContent > this.maxColumnIndex) {
+					this.maxColumnIndex = columnWithContent;
+				}
+				if (columnWithContent > -1) {
+					this.maxRowIndex = r;
 				}
 			}
 
 		} catch (IOException e) {
 			throw new CsvRuntimeException(e);
 		}
+
+		if (trimMatrix) {
+			clean();
+		}
+
 		return this;
 	}
 
@@ -132,24 +142,21 @@ public class CsvReader {
 		return this;
 	}
 
+	private void clean() {
+		for (int r = 0; r <= maxRowIndex; r++) {
+			data.set(r, data.get(r).subList(0, maxColumnIndex + 1));
+		}
+		for (int r = data.size() - 1; r > maxRowIndex; r--) {
+			data.remove(r);
+		}
+	}
+
 	public File getFile() {
 		return file;
 	}
 
 	public List<List<String>> getData() {
 		return data;
-	}
-
-	public String getDataAsString(String separator) {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (List<String> row : data) {
-			for (String cell : row) {
-				stringBuilder.append(cell);
-				stringBuilder.append(separator);
-			}
-			stringBuilder.append(System.lineSeparator());
-		}
-		return stringBuilder.toString();
 	}
 
 	public List<String> getRow(int row) {
@@ -165,21 +172,29 @@ public class CsvReader {
 	}
 
 	public int getColumnSize() {
-		return columnSize;
+		if (data.isEmpty()) {
+			return 0;
+		} else {
+			return data.get(0).size();
+		}
 	}
 
-	@Override
-	public String toString() {
+	public String getDataAsString(String separator) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int r = 0; r < getRowSize(); r++) {
 			for (int c = 0; c < getColumnSize(); c++) {
 				if (c != 0) {
-					stringBuilder.append(", ");
+					stringBuilder.append(separator);
 				}
 				stringBuilder.append(getValue(r, c));
 			}
 			stringBuilder.append(System.lineSeparator());
 		}
 		return stringBuilder.toString();
+	}
+
+	@Override
+	public String toString() {
+		return getDataAsString("|");
 	}
 }

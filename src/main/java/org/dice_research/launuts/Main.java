@@ -31,15 +31,15 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 
-		if (true)
-			main.dev();
-
 		if (false)
-			main.csvRdf();
+			main.rdfNuts();
+
+		if (true)
+			main.csvNuts();
 	}
 
 	@SuppressWarnings("unused")
-	private void dev() {
+	private void rdfNuts() {
 
 		NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
 
@@ -66,7 +66,7 @@ public class Main {
 	}
 
 	@SuppressWarnings("unused")
-	private void csvRdf() {
+	private void csvNuts() {
 
 		// Load
 		nutsCsvIndex = new NutsCsvIndex().get();
@@ -81,14 +81,14 @@ public class Main {
 		}
 
 		// Print important data
-		if (true) {
-			String id = "NUTS-2021";
+		if (false) {
+			String id = "NUTS-2021-EXTRA";
 			System.out.println(nutsCsvIndex.get(id).getDataString());
 		}
 
 		// Print data
-		if (false) {
-			String id = "NUTS-2021";
+		if (true) {
+			String id = "NUTS-2021-EXTRA";
 			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
 		}
 	}
