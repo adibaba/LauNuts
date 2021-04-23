@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
+import org.dice_research.launuts.rdf.NutsRdfReader;
 
 /**
  * Development.
@@ -30,14 +31,38 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 
-		if (false)
+		if (true)
 			main.dev();
 
-		if (true)
+		if (false)
 			main.csvRdf();
 	}
 
+	@SuppressWarnings("unused")
 	private void dev() {
+
+		NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
+
+		if (false) {
+			for (String uri : nutsRdfReader.getAllResourceUris()) {
+				System.out.println(uri);
+			}
+			System.out.println();
+		}
+
+		if (false) {
+			for (String uri : nutsRdfReader.getAllPredicateUris()) {
+				System.out.println(uri);
+			}
+			System.out.println();
+		}
+
+		if (true) {
+			for (String uri : nutsRdfReader.getResourceUrisInSchemeAndLevel(2016, 2)) {
+				System.out.println(uri);
+			}
+			System.out.println();
+		}
 	}
 
 	@SuppressWarnings("unused")
