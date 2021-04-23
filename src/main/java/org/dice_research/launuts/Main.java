@@ -1,7 +1,10 @@
 package org.dice_research.launuts;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
@@ -26,22 +29,55 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
 public class Main {
 
 	Map<String, NutsCsv> nutsCsvIndex;
+	NutsRdfReader nutsRdfReader;
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Main main = new Main();
+		main.nutsCsvIndex = new NutsCsvIndex().get();
+		main.nutsRdfReader = new NutsRdfReader().read();
+
+		if (true)
+			main.dev();
 
 		if (false)
 			main.rdfNuts();
 
-		if (true)
+		if (false)
 			main.csvNuts();
+	}
+
+	private void dev() {
+		csvNutsPrintIndex();
+
+//		int rdfId = 2010;
+//		String csvId = "NUTS-2010-2013";
+		int rdfId = 2013;
+		String csvId = "NUTS-2013-2016";
+
+		Set<String> nutsCodesRdf = new TreeSet<>();
+		for (String uri : nutsRdfReader.getResourceUrisInScheme(rdfId)) {
+			nutsCodesRdf.add(uri.substring(uri.lastIndexOf('/') + 1));
+		}
+
+		Set<String> nutsCodesCsv = new TreeSet<>();
+		NutsCsv nutsCsv = nutsCsvIndex.get(csvId);
+		Iterator<Integer> it = nutsCsv.iterator();
+		while (it.hasNext()) {
+			nutsCodesCsv.add(nutsCsv.getCode(it.next()));
+		}
+
+		Set<String> nutsCodesRdfCheck = new TreeSet<>(nutsCodesRdf);
+		nutsCodesRdfCheck.removeAll(nutsCodesCsv);
+		Set<String> nutsCodesCsvCheck = new TreeSet<>(nutsCodesCsv);
+		nutsCodesCsvCheck.removeAll(nutsCodesRdf);
+
+		System.out.println(nutsCodesRdfCheck);
+		System.out.println(nutsCodesCsvCheck);
 	}
 
 	@SuppressWarnings("unused")
 	private void rdfNuts() {
-
-		NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
 
 		if (false) {
 			for (String uri : nutsRdfReader.getAllResourceUris()) {
@@ -65,20 +101,16 @@ public class Main {
 		}
 	}
 
+	private void csvNutsPrintIndex() {
+		for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
+			System.out.println("ID:       " + idToNutsCsv.getKey());
+			System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
+		}
+		System.out.println();
+	}
+
 	@SuppressWarnings("unused")
 	private void csvNuts() {
-
-		// Load
-		nutsCsvIndex = new NutsCsvIndex().get();
-
-		// Print index
-		if (true) {
-			for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
-				System.out.println("ID:       " + idToNutsCsv.getKey());
-				System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
-			}
-			System.out.println();
-		}
 
 		// Print important data
 		if (false) {
