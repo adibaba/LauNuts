@@ -12,7 +12,6 @@ import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.vocabulary.SKOS;
 import org.dice_research.launuts.Configuration;
 
 /**
@@ -38,7 +37,7 @@ public class NutsRdfReader {
 		SortedSet<String> uris = new TreeSet<>();
 		for (String uri : getResourceUrisInScheme(scheme)) {
 			Resource res = model.getResource(uri);
-			if (model.containsLiteral(res, model.getProperty("http://data.europa.eu/nuts/level"), level)) {
+			if (model.containsLiteral(res, VocEu.EU_level, level)) {
 				uris.add(res.getURI());
 			}
 		}
@@ -50,8 +49,8 @@ public class NutsRdfReader {
 	 */
 	public SortedSet<String> getResourceUrisInScheme(int scheme) {
 		SortedSet<String> uris = new TreeSet<>();
-		Resource resScheme = model.getResource("http://data.europa.eu/nuts/scheme/" + scheme);
-		ResIterator resIt = model.listResourcesWithProperty(SKOS.inScheme, resScheme);
+		Resource resScheme = model.getResource(VocEu.getNutsSchemeUri(scheme));
+		ResIterator resIt = model.listResourcesWithProperty(VocEu.SKOS_inScheme, resScheme);
 		while (resIt.hasNext()) {
 			uris.add(resIt.next().getURI());
 		}

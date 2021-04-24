@@ -37,10 +37,10 @@ public class Main {
 		main.nutsCsvIndex = new NutsCsvIndex().get();
 		main.nutsRdfReader = new NutsRdfReader().read();
 
-		if (true)
+		if (false)
 			main.dev();
 
-		if (false)
+		if (true)
 			main.rdfNuts();
 
 		if (false)
@@ -79,22 +79,34 @@ public class Main {
 	@SuppressWarnings("unused")
 	private void rdfNuts() {
 
-		if (false) {
-			for (String uri : nutsRdfReader.getAllResourceUris()) {
-				System.out.println(uri);
-			}
-			System.out.println();
-		}
+		int maxIndex = 3;
+		int i;
 
-		if (false) {
-			for (String uri : nutsRdfReader.getAllPredicateUris()) {
+		if (true) {
+			i = 0;
+			for (String uri : nutsRdfReader.getAllResourceUris()) {
+				if (i++ > maxIndex)
+					break;
 				System.out.println(uri);
 			}
 			System.out.println();
 		}
 
 		if (true) {
+			i = 0;
+			for (String uri : nutsRdfReader.getAllPredicateUris()) {
+				if (i++ > maxIndex)
+					break;
+				System.out.println(uri);
+			}
+			System.out.println();
+		}
+
+		if (true) {
+			i = 0;
 			for (String uri : nutsRdfReader.getResourceUrisInSchemeAndLevel(2016, 2)) {
+				if (i++ > maxIndex)
+					break;
 				System.out.println(uri);
 			}
 			System.out.println();
