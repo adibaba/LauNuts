@@ -7,7 +7,14 @@ package org.dice_research.launuts;
  */
 public abstract class Configuration {
 
-	public static final String DIRECTORY_CSV_NUTS = "/home/adi/DICE/Data/LauNuts/Sources-2021/data/nuts/";
-	public static final String FILE_RDF_NUTS = "/home/adi/DICE/Data/LauNuts/Sources-2021/download/nuts-rdf/nuts.rdf";
+	/**
+	 * NUTS CSV in resources directory
+	 */
+	public static final String DIRECTORY_CSV_NUTS = "src/main/resources/nuts-csv";
+
+	/**
+	 * Location of https://data.europa.eu/euodp/repository/ec/estat/nuts/nuts.rdf
+	 */
+	public static final String FILE_RDF_NUTS = "data/download/nuts-rdf/nuts.rdf";
 
 }

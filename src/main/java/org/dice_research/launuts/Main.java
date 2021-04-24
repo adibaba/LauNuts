@@ -11,10 +11,10 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * Development.
  * 
  * TODO following:
- *
- * Dynamic config for CLI / Webservices
  * 
  * Source files as resources
+ *
+ * Dynamic config for CLI / Webservices
  *
  * @author Adrian Wilke
  */
@@ -55,14 +55,14 @@ public class Main {
 	private void csvNuts() {
 
 		// Print important data
-		if (false) {
-			String id = "2021-EXTRA";
+		if (true) {
+			String id = "2021";
 			System.out.println(nutsCsvIndex.get(id).getDataString());
 		}
 
 		// Print data
-		if (true) {
-			String id = "2021-EXTRA";
+		if (false) {
+			String id = "2021";
 			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
 		}
 	}

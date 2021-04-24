@@ -4,7 +4,7 @@
 # DICE group, Adrian Wilke
 # https://github.com/projekt-opal/LauNuts
 
-DIR="download/"
+DIR="../data/download/"
 LOG="download.log"
 
 # https://www.gnu.org/software/wget/manual/wget.html#Download-Options
@@ -55,7 +55,7 @@ set_directory "nuts-rdf"
 $DL https://data.europa.eu/euodp/repository/ec/estat/nuts/nuts.rdf
 
 # Geo
-set_directory "geo"
+ #set_directory "geo"
 # https://ec.europa.eu/eurostat/web/nuts/linked-open-data
 # https://data.europa.eu/euodp/en/data/dataset/ESTAT-NUTS-classification
 # https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units

@@ -4,7 +4,7 @@
 # DICE group, Adrian Wilke
 # https://github.com/projekt-opal/LauNuts
 
-DIR="download/nuts/"
+DIR="../data/download/nuts/"
 
 pushd .
 cd $DIR

@@ -4,8 +4,8 @@
 # DICE group, Adrian Wilke
 # https://github.com/projekt-opal/LauNuts
 
-DLDIR="download/"
-CSVDIR="csv/"
+DLDIR="../data/download/"
+CSVDIR="../data/csv/"
 
 # Get all files
 # https://stackoverflow.com/a/32931403

@@ -7,9 +7,15 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.dice_research.launuts.csv.NutsCsv;
+import org.dice_research.launuts.rdf.NutsRdfReader;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Compares values of {@link NutsCsv} and {@link NutsRdfReader}.
+ *
+ * @author Adrian Wilke
+ */
 class NutsCsvRdfTest {
 
 	@Test

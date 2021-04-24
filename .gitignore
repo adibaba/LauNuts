@@ -1,11 +1,5 @@
-# Default cache dir
-cache/
-
-# Default download dir
-download/
-
-places-de-at.txt
-./LauNuts*
+# Default tmp download dir
+data/
 
 
 ### https://github.com/github/gitignore/blob/master/Java.gitignore
