@@ -24,7 +24,6 @@ class NutsCsvTest {
 	// Print if duplicate codes found
 	public static boolean verbose = false;
 
-	Map<String, NutsCsv> index;
 	Map<String, Integer> sizes;
 
 	@BeforeEach
@@ -33,30 +32,28 @@ class NutsCsvTest {
 			System.err.println("Default value not set: setUp " + getClass().getSimpleName());
 		}
 
-		// Load data
-		index = new NutsCsvIndex().get();
-
-		// Values from xlsx files
+		// Values from xlsx files (counted in spreadsheet)
 		sizes = new TreeMap<>();
-		sizes.put("NUTS-1995-1999", 1329);
-		sizes.put("NUTS-1999-2003", 1397);
-		sizes.put("NUTS-2003-2006", 1752);
-		sizes.put("NUTS-2006-2010", 1779);
-		sizes.put("NUTS-2010-2013", 1797);
-		sizes.put("NUTS-2013-2016", 1828); // Note: FR7 exists twice in source
-		sizes.put("NUTS-2021", 1844);
-		sizes.put("NUTS-2021-EXTRA", 277);
+		sizes.put("1995", 1329);
+		sizes.put("1999", 1397);
+		sizes.put("2003", 1752);
+		sizes.put("2006", 1779);
+		sizes.put("2010", 1797);
+		sizes.put("2013", 1828);
+		sizes.put("2016", 1845);
+		sizes.put("2021", 1844);
+		sizes.put("2021-EXTRA", 277);
 	}
 
 	@Test
-	private void testIndexSize() {
-		// Number of files + 1
-		Assertions.assertEquals(8, index.size());
+	void testIndexSize() {
+		// Number of files + 2
+		Assertions.assertEquals(7 + 2, TestData.nutsCsvIndex.size());
 	}
 
 	@Test
 	void testEmptyValues() {
-		for (NutsCsv nutsCsv : index.values()) {
+		for (NutsCsv nutsCsv : TestData.nutsCsvIndex.values()) {
 			Iterator<Integer> it = nutsCsv.iterator();
 			while (it.hasNext()) {
 				Integer row = it.next();
@@ -79,7 +76,7 @@ class NutsCsvTest {
 
 		List<String> codes;
 		List<String> codesLevels;
-		for (Entry<String, NutsCsv> entry : index.entrySet()) {
+		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.entrySet()) {
 			codes = new LinkedList<>();
 			codesLevels = new LinkedList<>();
 			NutsCsv nutsCsv = entry.getValue();
@@ -113,7 +110,7 @@ class NutsCsvTest {
 	@Test
 	void testSizes() {
 		Map<String, Integer> counter = new TreeMap<>();
-		for (Entry<String, NutsCsv> entry : index.entrySet()) {
+		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.entrySet()) {
 			NutsCsv nutsCsv = entry.getValue();
 			Iterator<Integer> it = nutsCsv.iterator();
 			int i = 0;
@@ -140,9 +137,9 @@ class NutsCsvTest {
 
 		// Check if expected value is configured
 		if (assertion) {
-			Assertions.assertTrue(sizes.containsKey(key), "NUTS CSV contained: " + key);
+			Assertions.assertTrue(sizes.containsKey(key), "Size known for NUTS CSV: " + key);
 		} else {
-			Assumptions.assumeTrue(sizes.containsKey(key), "NUTS CSV contained: " + key);
+			Assumptions.assumeTrue(sizes.containsKey(key), "Size known for NUTS CSV: " + key);
 		}
 
 		// Check size itself

@@ -29,9 +29,15 @@ public class NutsRdfReader {
 		return this;
 	}
 
+	public Model getModelCopy() {
+		Model modelCopy = ModelFactory.createDefaultModel();
+		modelCopy.add(this.model);
+		return modelCopy;
+	}
+
 	/**
 	 * @param scheme 2010 | 2013 | 2016
-	 * @param level  0 | 1 | 2
+	 * @param level  0 | 1 | 2 (level 3 not directly encoded)
 	 */
 	public SortedSet<String> getResourceUrisInSchemeAndLevel(int scheme, int level) {
 		SortedSet<String> uris = new TreeSet<>();

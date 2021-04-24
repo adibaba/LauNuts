@@ -1,10 +1,7 @@
 package org.dice_research.launuts;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
@@ -14,11 +11,6 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * Development.
  * 
  * TODO following:
- *
- * Check in xlsx ranges, which code (old/new) has to be used. FR7 in 2013-16.
- * Validation: By RDF.
- *
- * There are duplicate coes in nuts csv, see NutsCsvTest verbose
  *
  * Dynamic config for CLI / Webservices
  * 
@@ -37,43 +29,42 @@ public class Main {
 		main.nutsCsvIndex = new NutsCsvIndex().get();
 		main.nutsRdfReader = new NutsRdfReader().read();
 
-		if (false)
+		if (true)
 			main.dev();
 
 		if (true)
-			main.rdfNuts();
+			main.csvNuts();
 
 		if (false)
-			main.csvNuts();
+			main.rdfNuts();
 	}
 
 	private void dev() {
-		csvNutsPrintIndex();
+	}
 
-//		int rdfId = 2010;
-//		String csvId = "NUTS-2010-2013";
-		int rdfId = 2013;
-		String csvId = "NUTS-2013-2016";
+	@SuppressWarnings("unused")
+	private void csvNutsPrintIndex() {
+		for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
+			System.out.println("ID:       " + idToNutsCsv.getKey());
+			System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
+		}
+		System.out.println();
+	}
 
-		Set<String> nutsCodesRdf = new TreeSet<>();
-		for (String uri : nutsRdfReader.getResourceUrisInScheme(rdfId)) {
-			nutsCodesRdf.add(uri.substring(uri.lastIndexOf('/') + 1));
+	@SuppressWarnings("unused")
+	private void csvNuts() {
+
+		// Print important data
+		if (false) {
+			String id = "2021-EXTRA";
+			System.out.println(nutsCsvIndex.get(id).getDataString());
 		}
 
-		Set<String> nutsCodesCsv = new TreeSet<>();
-		NutsCsv nutsCsv = nutsCsvIndex.get(csvId);
-		Iterator<Integer> it = nutsCsv.iterator();
-		while (it.hasNext()) {
-			nutsCodesCsv.add(nutsCsv.getCode(it.next()));
+		// Print data
+		if (true) {
+			String id = "2021-EXTRA";
+			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
 		}
-
-		Set<String> nutsCodesRdfCheck = new TreeSet<>(nutsCodesRdf);
-		nutsCodesRdfCheck.removeAll(nutsCodesCsv);
-		Set<String> nutsCodesCsvCheck = new TreeSet<>(nutsCodesCsv);
-		nutsCodesCsvCheck.removeAll(nutsCodesRdf);
-
-		System.out.println(nutsCodesRdfCheck);
-		System.out.println(nutsCodesCsvCheck);
 	}
 
 	@SuppressWarnings("unused")
@@ -110,30 +101,6 @@ public class Main {
 				System.out.println(uri);
 			}
 			System.out.println();
-		}
-	}
-
-	private void csvNutsPrintIndex() {
-		for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
-			System.out.println("ID:       " + idToNutsCsv.getKey());
-			System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
-		}
-		System.out.println();
-	}
-
-	@SuppressWarnings("unused")
-	private void csvNuts() {
-
-		// Print important data
-		if (false) {
-			String id = "NUTS-2021-EXTRA";
-			System.out.println(nutsCsvIndex.get(id).getDataString());
-		}
-
-		// Print data
-		if (true) {
-			String id = "NUTS-2021-EXTRA";
-			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
 		}
 	}
 

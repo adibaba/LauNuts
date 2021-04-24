@@ -18,7 +18,7 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  * This class provides an Iterator to loop through the underlying data payload.
  * The iterator depends on {@link #rowIndexDataBegin} and
  * {@link #rowIndexDataEnd}. It omits rows with missing code, rows with missing
- * {@link #columnIndexValueCheck} and rows in {@link #skipRows}.
+ * {@link #columnIndexValueNotEmptyCheck} and rows in {@link #skipRows}.
  * 
  * Configuration: Use the constructor {@link #NutsCsv(CsvReader)} and read the
  * underlying data using {@link CsvReader#read()}. After optionally setting the
@@ -35,7 +35,6 @@ public class NutsCsv implements Iterable<Integer> {
 	private String id;
 
 	// Default table row/columns based on 2013-2016
-	public int columnIndexValueCheck = 10;
 	public int columnIndexCodeOld = 1;
 	public int columnIndexCodeNew = 2;
 	public int columnIndexNameCountry = 3;
@@ -43,9 +42,12 @@ public class NutsCsv implements Iterable<Integer> {
 	public int columnIndexNameNuts2 = 5;
 	public int columnIndexNameNuts3 = 6;
 	public int columnIndexLevel = 8;
-	public int columnIndexCountrySort = 9;
-	public int columnIndexCodeOldSort = 10;
-	public int columnIndexCodeNewSort = 11;
+	public int columnIndexCountryOrder = 9;
+	public int columnIndexCodeOldOrder = 10;
+	public int columnIndexCodeNewOrder = 11;
+	// Some rows do have a code for notes.
+	// The sorting-order column can be used for checks.
+	public int columnIndexValueNotEmptyCheck = 10;
 
 	// Row structure
 	private int rowIndexHeadings = 0;
@@ -140,7 +142,8 @@ public class NutsCsv implements Iterable<Integer> {
 					return -1;
 				} else if (skipRows.contains(rowToCheck)) {
 					return getNext(rowToCheck + 1);
-				} else if (hasCode(rowToCheck) && !csvReader.getValue(rowToCheck, columnIndexValueCheck).isEmpty()) {
+				} else if (hasCode(rowToCheck)
+						&& !csvReader.getValue(rowToCheck, columnIndexValueNotEmptyCheck).isEmpty()) {
 					return rowToCheck;
 				} else {
 					return getNext(rowToCheck + 1);
