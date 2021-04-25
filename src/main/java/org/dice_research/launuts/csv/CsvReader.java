@@ -2,6 +2,8 @@ package org.dice_research.launuts.csv;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -12,14 +14,15 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.dice_research.launuts.Io;
 import org.dice_research.launuts.exceptions.CsvRuntimeException;
+import org.dice_research.launuts.exceptions.IoRuntimeException;
+import org.dice_research.launuts.io.Io;
 
 /**
  * CSV Reader.
  * 
- * Usage: Use {@link #CsvReader(File)} or {@link #setFile(File)} to set the CSV
- * file to parse. Use setter methods to specify the parsing configuration. Call
+ * Usage: Use {@link #CsvReader(URL)} or {@link #setUrl(URL)} to set the CSV URL
+ * to parse. Use setter methods to specify the parsing configuration. Call
  * {@link #read()} to parse data and getter methods to access data.
  * 
  * @see https://commons.apache.org/proper/commons-csv/
@@ -28,13 +31,11 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  */
 public class CsvReader {
 
-	private File file;
+	private URL url;
 	private Charset charset = StandardCharsets.UTF_8;
 	private CSVFormat csvFormat = CSVFormat.DEFAULT;
 	private boolean trimValues = true;
 	private boolean trimMatrix = true;
-
-	private CSVParser csvParser;
 
 	private List<List<String>> data;
 	private int maxRowIndex;
@@ -43,13 +44,19 @@ public class CsvReader {
 	public CsvReader() {
 	}
 
-	public CsvReader(File file) {
-		setFile(file);
+	public CsvReader(URL url) {
+		setUrl(url);
 	}
 
-	public CsvReader setFile(File file) {
-		Io.checkReadable(file);
-		this.file = file;
+	public CsvReader setUrl(URL url) {
+		if (url.getProtocol().equals("file")) {
+			try {
+				Io.checkReadable(new File(url.toURI()));
+			} catch (URISyntaxException e) {
+				throw new IoRuntimeException(e);
+			}
+		}
+		this.url = url;
 		return this;
 	}
 
@@ -74,6 +81,10 @@ public class CsvReader {
 	}
 
 	public CsvReader read() {
+		if (url == null) {
+			throw new CsvRuntimeException("No CSV url set.");
+		}
+
 		this.data = new LinkedList<List<String>>();
 		this.maxRowIndex = -1;
 		this.maxColumnIndex = -1;
@@ -83,11 +94,19 @@ public class CsvReader {
 		int r, c, columnWithContent;
 		String value;
 
+		// Parse
+		CSVParser csvParser;
+		try {
+			csvParser = CSVParser.parse(url, charset, csvFormat);
+		} catch (IOException e) {
+			throw new CsvRuntimeException(e);
+		}
+
 		try {
 
 			// Rows
 			r = -1;
-			for (CSVRecord record : parse().csvParser.getRecords()) {
+			for (CSVRecord record : csvParser.getRecords()) {
 				r++;
 				iterator = record.iterator();
 				rowValues = new ArrayList<String>(record.size());
@@ -130,18 +149,6 @@ public class CsvReader {
 		return this;
 	}
 
-	private CsvReader parse() {
-		if (file == null) {
-			throw new CsvRuntimeException("No CSV file set.");
-		}
-		try {
-			this.csvParser = CSVParser.parse(file, charset, csvFormat);
-		} catch (IOException e) {
-			throw new CsvRuntimeException(e);
-		}
-		return this;
-	}
-
 	private void clean() {
 		for (int r = 0; r <= maxRowIndex; r++) {
 			data.set(r, data.get(r).subList(0, maxColumnIndex + 1));
@@ -151,8 +158,8 @@ public class CsvReader {
 		}
 	}
 
-	public File getFile() {
-		return file;
+	public URL getUrl() {
+		return url;
 	}
 
 	public List<List<String>> getData() {

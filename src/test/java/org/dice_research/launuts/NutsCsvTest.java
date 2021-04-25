@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
+import org.dice_research.launuts.io.Resources;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,13 +48,13 @@ class NutsCsvTest {
 
 	@Test
 	void testIndexSize() {
-		// Number of files + 2
-		Assertions.assertEquals(7 + 2, TestData.nutsCsvIndex.size());
+		// Number of files + 2021-EXTRA + Pair-Split
+		Assertions.assertEquals(Resources.getNutsCsvResources().size() + 2, TestData.nutsCsvIndex.getSize());
 	}
 
 	@Test
 	void testEmptyValues() {
-		for (NutsCsv nutsCsv : TestData.nutsCsvIndex.values()) {
+		for (NutsCsv nutsCsv : TestData.nutsCsvIndex.getValues()) {
 			Iterator<Integer> it = nutsCsv.iterator();
 			while (it.hasNext()) {
 				Integer row = it.next();
@@ -76,7 +77,7 @@ class NutsCsvTest {
 
 		List<String> codes;
 		List<String> codesLevels;
-		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.entrySet()) {
+		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.getEntries()) {
 			codes = new LinkedList<>();
 			codesLevels = new LinkedList<>();
 			NutsCsv nutsCsv = entry.getValue();
@@ -110,7 +111,7 @@ class NutsCsvTest {
 	@Test
 	void testSizes() {
 		Map<String, Integer> counter = new TreeMap<>();
-		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.entrySet()) {
+		for (Entry<String, NutsCsv> entry : TestData.nutsCsvIndex.getEntries()) {
 			NutsCsv nutsCsv = entry.getValue();
 			Iterator<Integer> it = nutsCsv.iterator();
 			int i = 0;

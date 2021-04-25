@@ -1,8 +1,5 @@
 package org.dice_research.launuts;
 
-import java.util.Map;
-
-import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
 
@@ -12,8 +9,6 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * @author Adrian Wilke
  */
 public class TestData {
-
-	public static Map<String, NutsCsv> nutsCsvIndex = new NutsCsvIndex().get();
-
+	public static NutsCsvIndex nutsCsvIndex = new NutsCsvIndex().create();
 	public static NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
 }

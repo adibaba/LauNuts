@@ -1,12 +1,15 @@
 package org.dice_research.launuts.csv;
 
-import java.io.File;
+import java.net.URI;
+import java.net.URL;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
-import org.dice_research.launuts.Configuration;
-import org.dice_research.launuts.Io;
+import org.dice_research.launuts.io.Io;
+import org.dice_research.launuts.io.Resources;
 
 /**
  * Index of NUTS CSV data. Configuration and parsing of CSV.
@@ -15,37 +18,28 @@ import org.dice_research.launuts.Io;
  */
 public class NutsCsvIndex {
 
-	Map<String, NutsCsv> csvNutsIndex;
+	private Map<String, NutsCsv> csvNutsIndex;
 
-	/**
-	 * Gets map: IDs to NutsCsv instances.
-	 */
-	public Map<String, NutsCsv> get() {
-		if (csvNutsIndex == null) {
-			create();
-		}
-		return csvNutsIndex;
-	}
-
-	private void create() {
+	public NutsCsvIndex create() {
 		csvNutsIndex = new TreeMap<>();
+
+		// resource-ID to resource-URL
+		Map<String, URL> resIndex = Resources.getNutsCsvResources();
+
+		// resource-ID to CsvReader
+		Map<String, CsvReader> csvReaderIndex = new TreeMap<>();
+		for (Entry<String, URL> entry : resIndex.entrySet()) {
+			csvReaderIndex.put(entry.getKey(), new CsvReader(entry.getValue()).read());
+		}
+
 		String id;
 		NutsCsv nutsCsv;
 
-		// Get files
-		Map<String, File> filenameToFile = Io.getFilesIndex(Configuration.DIRECTORY_CSV_NUTS);
-
-		// Create CsvReader for each file, read files
-		Map<String, CsvReader> filenameToCsvReader = new TreeMap<>();
-		for (Entry<String, File> entry : filenameToFile.entrySet()) {
-			filenameToCsvReader.put(entry.getKey(), new CsvReader(entry.getValue()).read());
-		}
-
-		// Create one entry <ID, CsvReader> for every file (Using column for old NUTS
-		// code)
-		for (Entry<String, CsvReader> entry : filenameToCsvReader.entrySet()) {
-			id = createId(entry.getKey());
-			nutsCsv = new NutsCsv(id, entry.getValue());
+		// Create one entry <ID, CsvReader> for every file
+		// (Using column for old NUTS code)
+		for (CsvReader csvReader : csvReaderIndex.values()) {
+			id = createId(Io.urlToUri(csvReader.getUrl()));
+			nutsCsv = new NutsCsv(id, csvReader);
 			nutsCsv.setRowIndexHeadings(1).setDefaultDataRange();
 			csvNutsIndex.put(id, nutsCsv);
 		}
@@ -56,14 +50,14 @@ public class NutsCsvIndex {
 		// csvNutsIndex.get("2013").addRowToSkip(909);
 		// Solution 2: use other file
 		id = "2013";
-		nutsCsv = new NutsCsv(id, filenameToCsvReader.get("nuts-2010-2013.csv"));
+		nutsCsv = new NutsCsv(id, csvReaderIndex.get("2010-2013"));
 		nutsCsv.setUseCodeOld(false).setRowIndexHeadings(1).setDefaultDataRange();
 		nutsCsv.columnIndexValueNotEmptyCheck = 11;
 		csvNutsIndex.put(id, nutsCsv);
 
 		// Add 2016
 		id = "2016";
-		nutsCsv = new NutsCsv(id, filenameToCsvReader.get("nuts-2013-2016.csv"));
+		nutsCsv = new NutsCsv(id, csvReaderIndex.get("2013-2016"));
 		nutsCsv.setUseCodeOld(false).setRowIndexHeadings(1).setDefaultDataRange();
 		nutsCsv.columnIndexValueNotEmptyCheck = 11;
 		csvNutsIndex.put(id, nutsCsv);
@@ -78,11 +72,14 @@ public class NutsCsvIndex {
 		nutsCsv.setRowIndexHeadings(0).setDefaultDataRange().setRowIndexDataBegin(1846);
 		setIndexes2021(nutsCsv);
 		csvNutsIndex.put(id, nutsCsv);
+
+		return this;
 	}
 
-	private String createId(String filename) {
-		int firstMinus = filename.indexOf('-');
-		return filename.substring(firstMinus + 1, firstMinus + 1 + 4);
+	private String createId(URI uri) {
+		String noPath = uri.toString().substring(uri.toString().lastIndexOf('/'));
+		int firstMinus = noPath.indexOf('-');
+		return noPath.substring(firstMinus + 1, firstMinus + 1 + 4);
 	}
 
 	private void setIndexes2021(NutsCsv nutsCsv) {
@@ -97,5 +94,37 @@ public class NutsCsvIndex {
 		nutsCsv.columnIndexCountryOrder = 6;
 		nutsCsv.columnIndexCodeOldOrder = 7;
 		nutsCsv.columnIndexCodeNewOrder = -1;
+	}
+
+	public NutsCsv get(String key) {
+		return csvNutsIndex.get(key);
+	}
+
+	public Collection<NutsCsv> getValues() {
+		return csvNutsIndex.values();
+	}
+
+	public Set<Entry<String, NutsCsv>> getEntries() {
+		return csvNutsIndex.entrySet();
+	}
+
+	public int getSize() {
+		return csvNutsIndex.size();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		if (csvNutsIndex == null) {
+			stringBuilder.append("Empty " + getClass().getSimpleName());
+		} else {
+			for (Entry<String, NutsCsv> entry : csvNutsIndex.entrySet()) {
+				stringBuilder.append(entry.getKey());
+				stringBuilder.append(" = ");
+				stringBuilder.append(entry.getValue());
+				stringBuilder.append(System.lineSeparator());
+			}
+		}
+		return stringBuilder.toString();
 	}
 }

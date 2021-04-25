@@ -154,7 +154,7 @@ public class NutsCsv implements Iterable<Integer> {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "|" + id + "|" + csvReader.getFile().getName();
+		return getClass().getSimpleName() + "|" + id + "|" + csvReader.getUrl();
 	}
 
 	public String getDataString() {
@@ -164,6 +164,9 @@ public class NutsCsv implements Iterable<Integer> {
 		while (it.hasNext()) {
 			row = it.next();
 			stringBuilder.append(getCode(row));
+			for (int i = getCode(row).length(); i < 5; i++) {
+				stringBuilder.append(" ");
+			}
 			stringBuilder.append(" | ");
 			stringBuilder.append(getLevel(row));
 			stringBuilder.append(" | ");

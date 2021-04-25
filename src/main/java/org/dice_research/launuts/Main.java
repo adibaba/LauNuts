@@ -1,6 +1,5 @@
 package org.dice_research.launuts;
 
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.dice_research.launuts.csv.NutsCsv;
@@ -12,43 +11,40 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * 
  * TODO following:
  * 
- * Source files as resources
- *
  * Dynamic config for CLI / Webservices
  *
  * @author Adrian Wilke
  */
 public class Main {
 
-	Map<String, NutsCsv> nutsCsvIndex;
-	NutsRdfReader nutsRdfReader;
+	// TODO
+	public static final boolean DEV = false;
 
-	@SuppressWarnings("unused")
+	private NutsCsvIndex nutsCsvIndex;
+
 	public static void main(String[] args) {
+
 		Main main = new Main();
-		main.nutsCsvIndex = new NutsCsvIndex().get();
-		main.nutsRdfReader = new NutsRdfReader().read();
+		main.nutsCsvIndex = new NutsCsvIndex().create();
 
-		if (true)
-			main.dev();
+		if (DEV) {
+			System.err.println("Development mode");
 
-		if (true)
-			main.csvNuts();
+			if (true)
+				main.dev();
 
-		if (false)
-			main.rdfNuts();
+			if (false)
+				main.csvNuts();
+
+			if (false)
+				main.rdfNuts();
+
+		} else {
+			main.defaultMain();
+		}
 	}
 
 	private void dev() {
-	}
-
-	@SuppressWarnings("unused")
-	private void csvNutsPrintIndex() {
-		for (Entry<String, NutsCsv> idToNutsCsv : nutsCsvIndex.entrySet()) {
-			System.out.println("ID:       " + idToNutsCsv.getKey());
-			System.out.println("NutsCsv:  " + idToNutsCsv.getValue());
-		}
-		System.out.println();
 	}
 
 	@SuppressWarnings("unused")
@@ -67,8 +63,8 @@ public class Main {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private void rdfNuts() {
+		NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
 
 		int maxIndex = 3;
 		int i;
@@ -102,6 +98,17 @@ public class Main {
 			}
 			System.out.println();
 		}
+	}
+
+	private void defaultMain() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Entry<String, NutsCsv> entry : nutsCsvIndex.getEntries()) {
+			stringBuilder.append(entry.getKey());
+			stringBuilder.append(System.lineSeparator());
+			stringBuilder.append(entry.getValue().getDataString());
+			stringBuilder.append(System.lineSeparator());
+		}
+		System.out.println(stringBuilder.toString());
 	}
 
 }
