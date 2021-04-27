@@ -40,6 +40,7 @@ $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28-LAU-2018-NUTS-20
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_LAU_2017_NUTS_2016.xlsx
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_LAU_2017_NUTS_2013.xlsx
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_LAU_2016
+mv "${DIR}lau/EU-28_LAU_2016" "${DIR}lau/EU-28_LAU_2016.xlsx"
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2015.xlsx
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2014.xlsx
 $DL https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2013.xlsx
