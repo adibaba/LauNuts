@@ -26,6 +26,7 @@ public class NutsCsvIndex {
 		// resource-ID to resource-URL
 		Map<String, URL> resIndex = Resources.getNutsCsvResources();
 
+		// Read data
 		// resource-ID to CsvReader
 		Map<String, CsvReader> csvReaderIndex = new TreeMap<>();
 		for (Entry<String, URL> entry : resIndex.entrySet()) {

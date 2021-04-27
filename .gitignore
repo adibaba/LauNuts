@@ -1,6 +1,6 @@
 # Default tmp download dir
 data/
-
+cache/
 
 ### https://github.com/github/gitignore/blob/master/Java.gitignore
 

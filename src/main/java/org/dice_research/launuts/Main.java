@@ -2,6 +2,7 @@ package org.dice_research.launuts;
 
 import java.util.Map.Entry;
 
+import org.dice_research.launuts.csv.LauCsvIndex;
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
@@ -10,6 +11,8 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * Development.
  * 
  * TODO following:
+ * 
+ * Check LAU CSV data
  * 
  * Dynamic config for CLI / Webservices
  *
@@ -22,6 +25,7 @@ public class Main {
 
 	private NutsCsvIndex nutsCsvIndex;
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		Main main = new Main();
@@ -45,6 +49,8 @@ public class Main {
 	}
 
 	private void dev() {
+		// TODO
+		new LauCsvIndex().create().tmpReadData();
 	}
 
 	@SuppressWarnings("unused")
