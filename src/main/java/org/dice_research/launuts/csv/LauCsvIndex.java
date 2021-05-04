@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import org.dice_research.launuts.Configuration;
 import org.dice_research.launuts.io.Io;
+import org.dice_research.launuts.io.Resources;
 
 /**
  * Index of LAU CSV data. Configuration and parsing of CSV.
@@ -60,7 +61,7 @@ public class LauCsvIndex {
 
 	private SortedMap<String, SortedMap<String, URI>> getFiles() {
 		SortedMap<String, SortedMap<String, URI>> map = new TreeMap<>();
-		SortedMap<String, String> ids = getIds();
+		SortedMap<String, String> ids = Resources.getLauCsvDirectories();
 		for (URI uri : Io.getFileUris(Configuration.DIRECTORY_CSV_LAU)) {
 			File dir = new File(uri);
 			if (dir.isDirectory()) {
@@ -77,23 +78,6 @@ public class LauCsvIndex {
 				}
 			}
 		}
-		return map;
-	}
-
-	private SortedMap<String, String> getIds() {
-		SortedMap<String, String> map = new TreeMap<>();
-		map.put("EU-27_2010.xlsx", "27-2010");
-		map.put("EU-27_2011.xlsx", "27-2011");
-		map.put("EU-27-LAU-2020-NUTS-2021-NUTS-2016.xlsx", "27-2020-2021-2016");
-		map.put("EU-28_2011_Census.xlsx", "28-2011");
-		map.put("EU-28_2012.xlsx", "28-2012");
-		map.put("EU-28_2013.xlsx", "28-2013");
-		map.put("EU-28_2014.xlsx", "28-2014");
-		map.put("EU-28_2015.xlsx", "28-2015");
-		map.put("EU-28_LAU_2017_NUTS_2013.xlsx", "28-2017-2013");
-		map.put("EU-28_LAU_2017_NUTS_2016.xlsx", "28-2017-2016");
-		map.put("EU-28-LAU-2018-NUTS-2016.xlsx", "28-2018-2016");
-		map.put("EU-28-LAU-2019-NUTS-2016.xlsx", "28-2019-2016");
 		return map;
 	}
 }

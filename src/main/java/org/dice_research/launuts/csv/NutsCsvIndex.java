@@ -1,15 +1,17 @@
 package org.dice_research.launuts.csv;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.dice_research.launuts.Configuration;
 import org.dice_research.launuts.io.Io;
-import org.dice_research.launuts.io.Resources;
 
 /**
  * Index of NUTS CSV data. Configuration and parsing of CSV.
@@ -24,11 +26,11 @@ public class NutsCsvIndex {
 		csvNutsIndex = new TreeMap<>();
 
 		// resource-ID to resource-URL
-		Map<String, URL> resIndex = Resources.getNutsCsvResources();
+		SortedMap<String, URL> resIndex = getFiles();
 
 		// Read data
 		// resource-ID to CsvReader
-		Map<String, CsvReader> csvReaderIndex = new TreeMap<>();
+		SortedMap<String, CsvReader> csvReaderIndex = new TreeMap<>();
 		for (Entry<String, URL> entry : resIndex.entrySet()) {
 			csvReaderIndex.put(entry.getKey(), new CsvReader(entry.getValue()).read());
 		}
@@ -95,6 +97,15 @@ public class NutsCsvIndex {
 		nutsCsv.columnIndexCountryOrder = 6;
 		nutsCsv.columnIndexCodeOldOrder = 7;
 		nutsCsv.columnIndexCodeNewOrder = -1;
+	}
+
+	private SortedMap<String, URL> getFiles() {
+		SortedMap<String, URL> map = new TreeMap<>();
+		for (URI uri : Io.getFileUris(Configuration.DIRECTORY_CSV_NUTS)) {
+			String filename = new File(uri).getName();
+			map.put(filename.substring("nuts-".length(), filename.lastIndexOf('.')), Io.uriToUrl(uri));
+		}
+		return map;
 	}
 
 	public NutsCsv get(String key) {

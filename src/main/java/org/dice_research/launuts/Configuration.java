@@ -10,12 +10,12 @@ public abstract class Configuration {
 	/**
 	 * NUTS CSV in resources directory
 	 */
-	public static final String DIRECTORY_CSV_NUTS = "src/main/resources/nuts-csv";
+	public static final String DIRECTORY_CSV_NUTS = "data/csv/nuts-csv";
 
 	/**
 	 * LAU CSV directory
 	 */
-	public static final String DIRECTORY_CSV_LAU = "../../Data/LauNuts/Sources-2021/csv/lau";
+	public static final String DIRECTORY_CSV_LAU = "data/csv/lau";
 
 	/**
 	 * Location of https://data.europa.eu/euodp/repository/ec/estat/nuts/nuts.rdf

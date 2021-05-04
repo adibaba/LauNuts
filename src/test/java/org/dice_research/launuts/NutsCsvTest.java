@@ -9,7 +9,6 @@ import java.util.TreeMap;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
-import org.dice_research.launuts.io.Resources;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +48,7 @@ class NutsCsvTest {
 	@Test
 	void testIndexSize() {
 		// Number of files + 2021-EXTRA + Pair-Split
-		Assertions.assertEquals(Resources.getNutsCsvResources().size() + 2, TestData.nutsCsvIndex.getSize());
+		Assertions.assertEquals(7 + 2, TestData.nutsCsvIndex.getSize());
 	}
 
 	@Test
