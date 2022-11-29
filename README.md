@@ -11,6 +11,11 @@ This code creates a knowledge graph for German regions and cities consisting of
 - [Nomenclature of Territorial Units for Statistics (NUTS)](https://ec.europa.eu/eurostat/web/nuts/background)
 
 
+## Java packages and files
+
+- [sources](./src/main/java/org/dice_research/launuts/sources) Source files metadata based on [sources.json](sources.json).
+
+
 ## Note
 
 This is not related to the musical instrument [launut](https://www.metmuseum.org/art/collection/search/501966).

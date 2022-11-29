@@ -65,6 +65,23 @@ public class Source {
 	}
 
 	/**
+	 * @return XSLX file. For downloaded XSL files, the converted version path is
+	 *         used.
+	 */
+	public File getXlsxFile() {
+		if (fileType.equals(Sources.FILETYPE_XLSX))
+			return getDownloadFile();
+		else if (fileType.equals(Sources.FILETYPE_XLS))
+			return new File(Config.get(Config.KEY_CONVERTED_DIRECTORY), id + ".xlsx");
+		else
+			return null;
+	}
+
+	public File getCsvDirectory() {
+		return new File(Config.get(Config.KEY_CSV_DIRECTORY), id);
+	}
+
+	/**
 	 * Downloads file if not already existing in local download directoy
 	 * 
 	 * @throws IOException

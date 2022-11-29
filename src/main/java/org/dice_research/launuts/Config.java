@@ -28,6 +28,9 @@ public enum Config {
 	public static final String CONFIGURATION_FILE = "configuration.json";
 
 	public static final String KEY_DOWNLOAD_DIRECTORY = "download-directory";
+	public static final String KEY_CONVERTED_DIRECTORY = "converted-directory";
+	public static final String KEY_CSV_DIRECTORY = "csv-directory";
+	public static final String KEY_SOURCES_FILE = "sources-file";
 
 	private Map<String, String> configuration_values;
 

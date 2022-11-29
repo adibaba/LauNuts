@@ -1,6 +1,8 @@
 package org.dice_research.launuts.io;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -83,5 +85,14 @@ public abstract class Io {
 		} catch (URISyntaxException e) {
 			throw new IoRuntimeException(e);
 		}
+	}
+
+	/**
+	 * Writes string to file.
+	 */
+	public static void writeStringToFile(String string, File file) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write(string);
+		writer.close();
 	}
 }

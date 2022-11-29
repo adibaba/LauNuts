@@ -15,12 +15,13 @@ import org.json.JSONArray;
  */
 public class Sources {
 
-	public static final String SOURCES_FILE = "sources.json";
-
 	public static final String KEY_ID = "id";
 	public static final String KEY_FILETYPE = "filetype";
 	public static final String KEY_SOURCES = "sources";
 	public static final String KEY_TYPE = "type";
+
+	public static final String FILETYPE_XLSX = "xlsx";
+	public static final String FILETYPE_XLS = "xls";
 
 	/**
 	 * Parses JSON file and returns list of {@link Source} objects.

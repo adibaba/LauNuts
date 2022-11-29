@@ -18,7 +18,7 @@ class SourcesTest {
 
 	@Test
 	void test() throws IOException {
-		List<Source> sources = new Sources().parseJsonFile(new File(Sources.SOURCES_FILE));
+		List<Source> sources = new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)));
 		Assertions.assertTrue(sources.size() >= 6);
 
 		// For humans

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
+import org.dice_research.launuts.io.Converter;
 import org.dice_research.launuts.rdf.NutsRdfReader;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.Sources;
@@ -29,7 +30,7 @@ public class Main {
 	private NutsCsvIndex nutsCsvIndex;
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Main main = new Main();
 //		main.nutsCsvIndex = new NutsCsvIndex().create();
@@ -51,22 +52,40 @@ public class Main {
 		}
 	}
 
-	private void dev() {
+	private void dev() throws IOException {
 		// TODO
 		// new LauCsvIndex().create().tmpReadData();
-		download();
+		// download();
+		convert();
 	}
 
 	/**
+	 * TODO new :)
+	 * 
 	 * Downloads all files listed in sources.json, if not already existing.
 	 */
 	private void download() {
 		try {
-			for (Source source : new Sources().parseJsonFile(new File(Sources.SOURCES_FILE))) {
+			for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
 				source.download();
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	private void convert() throws IOException {
+		Converter converter = new Converter();
+		if (!converter.isLibreofficeInstalled()) {
+			System.out.println("LibreOffice not installed or found. Skipping XLS TO XLSX converion.");
+		} else {
+			converter.convertXls();
+		}
+
+		if (!converter.isIn2csvInstalled()) {
+			System.out.println("xlsx2csv not installed or found. Skipping XLSX to CSV converion.");
+		} else {
+			converter.convertCsvIn2csv();
 		}
 	}
 

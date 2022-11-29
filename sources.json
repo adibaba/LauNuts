@@ -18,7 +18,7 @@
 	{
 		"id":"nuts-2010-2013",
 		"type":"nuts",
-		"filetype":"xlsx",
+		"filetype":"xls",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/629341/NUTS+2010+-+NUTS+2013.xls"
 		]
