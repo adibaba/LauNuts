@@ -1,11 +1,14 @@
 package org.dice_research.launuts;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map.Entry;
 
-import org.dice_research.launuts.csv.LauCsvIndex;
 import org.dice_research.launuts.csv.NutsCsv;
 import org.dice_research.launuts.csv.NutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
+import org.dice_research.launuts.sources.Source;
+import org.dice_research.launuts.sources.Sources;
 
 /**
  * Development.
@@ -21,7 +24,7 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
 public class Main {
 
 	// TODO
-	public static final boolean DEV = false;
+	public static final boolean DEV = true;
 
 	private NutsCsvIndex nutsCsvIndex;
 
@@ -29,7 +32,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		Main main = new Main();
-		main.nutsCsvIndex = new NutsCsvIndex().create();
+//		main.nutsCsvIndex = new NutsCsvIndex().create();
 
 		if (DEV) {
 			System.err.println("Development mode");
@@ -50,7 +53,21 @@ public class Main {
 
 	private void dev() {
 		// TODO
-		new LauCsvIndex().create().tmpReadData();
+		// new LauCsvIndex().create().tmpReadData();
+		download();
+	}
+
+	/**
+	 * Downloads all files listed in sources.json, if not already existing.
+	 */
+	private void download() {
+		try {
+			for (Source source : new Sources().parseJsonFile(new File(Sources.SOURCES_FILE))) {
+				source.download();
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@SuppressWarnings("unused")

@@ -2,6 +2,8 @@ package org.dice_research.launuts;
 
 /**
  * Configuration.
+ * 
+ * TODO replace by JSON based {@link Config}.
  *
  * @author Adrian Wilke
  */
