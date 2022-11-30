@@ -25,6 +25,15 @@ import org.dice_research.launuts.sources.Sources;
  * Command: "libreoffice --convert-to xlsx file.xls --outdir directory/"
  * 
  * 
+ * in2csv
+ * 
+ * https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html
+ * 
+ * Installation: "pip install csvkit"
+ * 
+ * Command: "in2csv --write-sheets - file"
+ * 
+ * 
  * xlsx2csv
  * 
  * https://github.com/dilshod/xlsx2csv

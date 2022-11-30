@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dice_research.launuts.Config;
 import org.json.JSONArray;
 
 /**
@@ -38,6 +39,21 @@ public class Sources {
 			sources.add(new Source(jsonArray.getJSONObject(i)));
 		}
 		return sources;
+	}
+
+	/**
+	 * Parses JSON file and returns list of {@link Source} IDs.
+	 */
+	public List<String> getSourceIds() {
+		List<String> ids = new LinkedList<>();
+		try {
+			for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
+				ids.add(source.id);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return ids;
 	}
 
 }
