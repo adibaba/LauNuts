@@ -1,6 +1,5 @@
 package org.dice_research.launuts;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,7 +17,7 @@ class SourcesTest {
 
 	@Test
 	void test() throws IOException {
-		List<Source> sources = new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)));
+		List<Source> sources = new Sources().getSources();
 		Assertions.assertTrue(sources.size() >= 6);
 
 		// For humans

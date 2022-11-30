@@ -22,19 +22,21 @@ import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.Sources;
 
 /**
- * Command Line Interface.
- * 
- * TODO: Test with compiled version
+ * LauNuts - Command Line Interface.
  *
  * @author Adrian Wilke
  */
 public class Main {
 
+	// TODO: Dont' dev, let it be true ;)
 	// Development mode to set arguments inside code
 	private static final boolean DEV = false;
-	private static final String[] DEV_ARGS = new String[] { "-ids", "nuts-2016-2021 nuts-2013-2016", "list" };
+	// { "-ids", "nuts-2016-2021 nuts-2013-2016 nuts-2010-2013", "csv" };
+	private static final String[] DEV_ARGS = new String[] { "csv" };
 
-	public static final String MODE_LIST = "list";
+	public static final String MODE_LIST = "ls";
+	public static final String MODE_DOWNLOAD = "dl";
+	public static final String MODE_CSV = "csv";
 	public static final String MODE_HELP = "help";
 
 	public static StringBuilder helpTextBuilder;
@@ -46,19 +48,33 @@ public class Main {
 		if (DEV)
 			args = DEV_ARGS;
 
+		// File check
+		File configurationFile = new File(Config.CONFIGURATION_FILE);
+		if (!configurationFile.canRead()) {
+			System.err.println("Error: Can not read file " + configurationFile.getAbsolutePath());
+			return;
+		}
+		File sourcesFile = new File(Config.get(Config.KEY_SOURCES_FILE));
+		if (!sourcesFile.canRead()) {
+			System.err.println("Error: Can not read file " + sourcesFile.getAbsolutePath());
+			return;
+		}
+
 		// Defaults
 		String mode = MODE_HELP;
 		List<String> ids = new Sources().getSourceIds();
 
 		// List of all available modes
 		modes = new LinkedHashMap<>();
-		modes.put(MODE_LIST, "Lists available dataset IDs");
+		modes.put(MODE_LIST, "  Lists available dataset IDs");
+		modes.put(MODE_DOWNLOAD, "  Downloads dataset sources");
+		modes.put(MODE_CSV, " Converts Excel datasets to CSV");
 		modes.put(MODE_HELP, "Print this help");
 
 		// Build help text
 		helpTextBuilder = new StringBuilder().append("\n" + "Modes:" + "\n");
 		for (Entry<String, String> entry : modes.entrySet()) {
-			helpTextBuilder.append(" -" + entry.getKey() + ": " + entry.getValue() + "\n");
+			helpTextBuilder.append("  " + entry.getKey() + ": " + entry.getValue() + "\n");
 		}
 		helpTextBuilder.append("Options:\n");
 
@@ -96,22 +112,26 @@ public class Main {
 			mode = MODE_HELP;
 		}
 
+		// Print configuration
 		if (DEV) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("DEV").append("\n");
 			sb.append("Mode: " + mode).append("\n");
 			sb.append("IDs:  " + ids).append("\n");
-			System.err.println(sb.toString());
+			System.err.print(sb.toString());
 		}
 
 		// Run: Print help
 		if (mode.equals(MODE_HELP)) {
 			HelpFormatter helpFormatter = new HelpFormatter();
-			helpFormatter.setSyntaxPrefix("Usage: COMMAND [OPTIONS] MODE");
+			StringBuilder sb = new StringBuilder();
+			sb.append("Usage:   COMMAND [OPTIONS] MODE\n");
+			sb.append("Example: java -jar launuts.jar -ids \"nuts-2016-2021 lau2021-nuts2021\" dl");
+			helpFormatter.setSyntaxPrefix(sb.toString());
 			helpFormatter.printHelp(helpTextBuilder.toString(), options);
 		}
 
-		// Run: Set IDs
+		// Run: Print IDs
 		else if (mode.equals(MODE_LIST)) {
 			System.out.println("Available dataset IDs:");
 			for (String sourceId : new Sources().getSourceIds()) {
@@ -119,68 +139,46 @@ public class Main {
 			}
 		}
 
-//		Main main = new Main();
-//		main.nutsCsvIndex = new NutsCsvIndex().create();
-//
-//		if (DEV) {
-//			System.err.println("Development mode");
-//
-//			if (true)
-//				main.dev();
-//
-//			if (false)
-//				main.csvNuts();
-//
-//			if (false)
-//				main.rdfNuts();
-//
-//		} else {
-//			main.defaultMain();
-//		}
+		// Run: Download datasets
+		else if (mode.equals(MODE_DOWNLOAD)) {
+			for (Source source : new Sources().getSources()) {
+				if (ids.contains(source.id))
+					source.download();
+			}
+		}
+
+		// Run: Convert to CSV
+		else if (mode.equals(MODE_CSV)) {
+			Converter converter = new Converter();
+			boolean libreoffice = converter.isLibreofficeInstalled();
+			boolean xlsx2csv = converter.isIn2csvInstalled();
+			for (Source source : new Sources().getSources()) {
+				if (ids.contains(source.id)) {
+					// Convert XLS -> XLSX
+					if (source.fileType.equals(Sources.FILETYPE_XLS)) {
+						if (!libreoffice) {
+							System.out.println("Skipping XLS convertion as LibreOffice not found: " + source.id);
+						} else {
+							converter.convertXls(source);
+						}
+					}
+					// Convert XLSX -> CSV
+					if (!xlsx2csv) {
+						System.out.println("Skipping XLS convertion as csvIn2csv not found: " + source.id);
+					} else {
+						converter.convertCsvIn2csv(source);
+					}
+				}
+			}
+		}
 	}
+
+	// --------------------- old code to refactor/integrate -------------
 
 	private void dev() throws IOException {
 		// TODO
 		// new LauCsvIndex().create().tmpReadData();
-		// download();
-		convert();
 	}
-
-	/**
-	 * TODO new :)
-	 * 
-	 * Downloads all files listed in sources.json, if not already existing.
-	 */
-	private void download() {
-		try {
-			for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
-				source.download();
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * TODO new :)
-	 */
-	private void convert() throws IOException {
-		Converter converter = new Converter();
-		if (!converter.isLibreofficeInstalled()) {
-			System.out.println("LibreOffice not installed or found. Skipping XLS TO XLSX converion.");
-		} else {
-			converter.convertXls();
-		}
-
-		if (!converter.isIn2csvInstalled()) {
-			System.out.println("xlsx2csv not installed or found. Skipping XLSX to CSV converion.");
-		} else {
-			converter.convertCsvIn2csv();
-		}
-	}
-
-	// ---------------------------- old code to refactor/integrate
-	// ------------------------------
 
 	@SuppressWarnings("unused")
 	private void csvNuts() {

@@ -107,6 +107,8 @@ public class Source {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
 			fileOutputStream.close();
+		} else if (file.exists()) {
+			System.out.println("Skipping download of existing file: " + file.getAbsolutePath());
 		}
 	}
 

@@ -27,11 +27,21 @@ public class Sources {
 	/**
 	 * Parses JSON file and returns list of {@link Source} objects.
 	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public List<Source> getSources() throws IOException {
+		return this.parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)));
+	}
+
+	/**
+	 * Parses JSON file and returns list of {@link Source} objects.
+	 * 
 	 * @param file JSON file
 	 * @return List of Source objects
 	 * @throws IOException
 	 */
-	public List<Source> parseJsonFile(File file) throws IOException {
+	private List<Source> parseJsonFile(File file) throws IOException {
 		List<Source> sources = new LinkedList<>();
 		String json = Files.readString(file.toPath());
 		JSONArray jsonArray = new JSONArray(json);

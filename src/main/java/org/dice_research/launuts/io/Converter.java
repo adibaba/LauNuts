@@ -130,18 +130,18 @@ public class Converter {
 	/**
 	 * Converts XLS files to XLSX files.
 	 */
-	public void convertXls() throws IOException {
-		for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
-			if (source.fileType.equals(Sources.FILETYPE_XLS)) {
-				String file = source.getDownloadFile().getAbsolutePath();
-				if (new File(Config.get(Config.KEY_CONVERTED_DIRECTORY), source.getDownloadFileName() + "x").exists())
-					continue;
-				File dir = new File(Config.get(Config.KEY_CONVERTED_DIRECTORY));
-				if (!dir.exists())
-					dir.mkdirs();
-				String cmd = "libreoffice --convert-to xlsx " + file + " --outdir " + dir.getAbsolutePath();
-				System.out.println(executeCommand(cmd));
+	public void convertXls(Source source) throws IOException {
+		if (source.fileType.equals(Sources.FILETYPE_XLS)) {
+			String file = source.getDownloadFile().getAbsolutePath();
+			if (new File(Config.get(Config.KEY_CONVERTED_DIRECTORY), source.getDownloadFileName() + "x").exists()) {
+				System.out.println("Skipping as XSLX exists: " + source.getXlsxFile().getAbsolutePath());
+				return;
 			}
+			File dir = new File(Config.get(Config.KEY_CONVERTED_DIRECTORY));
+			if (!dir.exists())
+				dir.mkdirs();
+			String cmd = "libreoffice --convert-to xlsx " + file + " --outdir " + dir.getAbsolutePath();
+			System.out.println(executeCommand(cmd));
 		}
 	}
 
@@ -149,7 +149,7 @@ public class Converter {
 	 * Converts XLSX files to CSV files using xlsx2csv.
 	 */
 	public void convertCsvXlsx2csv() throws IOException {
-		for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
+		for (Source source : new Sources().getSources()) {
 			if (!source.fileType.equals(Sources.FILETYPE_XLSX) && !source.fileType.equals(Sources.FILETYPE_XLS))
 				continue;
 			String file = source.getXlsxFile().getAbsolutePath();
@@ -165,33 +165,36 @@ public class Converter {
 	/**
 	 * Converts XLSX files to CSV files using in2csv.
 	 */
-	public void convertCsvIn2csv() throws IOException {
-		for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
-			if (!source.fileType.equals(Sources.FILETYPE_XLSX) && !source.fileType.equals(Sources.FILETYPE_XLS))
-				continue;
+	public void convertCsvIn2csv(Source source) throws IOException {
+		if (!source.fileType.equals(Sources.FILETYPE_XLSX) && !source.fileType.equals(Sources.FILETYPE_XLS)) {
+			System.out.println("Skipping as not XLSX or XLS: " + source.id);
+			return;
+		}
 
-			File targetDirectory = source.getCsvDirectory();
-			if (targetDirectory.exists())
-				continue;
+		File targetDirectory = source.getCsvDirectory();
+		if (targetDirectory.exists()) {
+			System.out.println("Skipping as CSV exists: " + source.getCsvDirectory());
+			return;
+		}
 
-			// Get sheet names
-			File xslxFile = source.getXlsxFile();
-			String filepath = xslxFile.getAbsolutePath();
-			String cmd = "in2csv --write-sheets - -n " + filepath;
-			List<String> sheetnames = Arrays.asList(executeCommand(cmd).split("\n"));
+		// Get sheet names
+		File xslxFile = source.getXlsxFile();
+		String filepath = xslxFile.getAbsolutePath();
+		String cmd = "in2csv --write-sheets - -n " + filepath;
+		List<String> sheetnames = Arrays.asList(executeCommand(cmd).split("\n"));
 
-			// Convert to CSV files
-			cmd = "in2csv --write-sheets - " + xslxFile;
-			executeCommand(cmd);
+		// Convert to CSV files
+		cmd = "in2csv --write-sheets - " + xslxFile;
+		System.out.println("Converting: " + xslxFile);
+		executeCommand(cmd);
 
-			// Move generated files
-			source.getCsvDirectory().mkdirs();
-			for (int i = 0; i < sheetnames.size(); i++) {
-				File sourceFile = new File(source.getXlsxFile().getParent(), source.id + "_" + i + ".csv");
-				File targetFile = new File(targetDirectory, sheetnames.get(i) + ".csv");
-				System.out.println(sourceFile + " -> " + targetFile);
-				Files.move(sourceFile.toPath(), targetFile.toPath());
-			}
+		// Move generated files
+		source.getCsvDirectory().mkdirs();
+		for (int i = 0; i < sheetnames.size(); i++) {
+			File sourceFile = new File(source.getXlsxFile().getParent(), source.id + "_" + i + ".csv");
+			File targetFile = new File(targetDirectory, sheetnames.get(i) + ".csv");
+			System.out.println("Moving: " + sourceFile + " -> " + targetFile);
+			Files.move(sourceFile.toPath(), targetFile.toPath());
 		}
 	}
 }
