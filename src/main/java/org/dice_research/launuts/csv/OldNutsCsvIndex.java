@@ -18,11 +18,11 @@ import org.dice_research.launuts.io.Io;
  *
  * @author Adrian Wilke
  */
-public class NutsCsvIndex {
+public class OldNutsCsvIndex {
 
-	private Map<String, NutsCsv> csvNutsIndex;
+	private Map<String, OldNutsCsv> csvNutsIndex;
 
-	public NutsCsvIndex create() {
+	public OldNutsCsvIndex create() {
 		csvNutsIndex = new TreeMap<>();
 
 		// resource-ID to resource-URL
@@ -30,19 +30,19 @@ public class NutsCsvIndex {
 
 		// Read data
 		// resource-ID to CsvReader
-		SortedMap<String, CsvReader> csvReaderIndex = new TreeMap<>();
+		SortedMap<String, OldCsvReader> csvReaderIndex = new TreeMap<>();
 		for (Entry<String, URL> entry : resIndex.entrySet()) {
-			csvReaderIndex.put(entry.getKey(), new CsvReader(entry.getValue()).read());
+			csvReaderIndex.put(entry.getKey(), new OldCsvReader(entry.getValue()).read());
 		}
 
 		String id;
-		NutsCsv nutsCsv;
+		OldNutsCsv nutsCsv;
 
 		// Create one entry <ID, CsvReader> for every file
 		// (Using column for old NUTS code)
-		for (CsvReader csvReader : csvReaderIndex.values()) {
+		for (OldCsvReader csvReader : csvReaderIndex.values()) {
 			id = createId(Io.urlToUri(csvReader.getUrl()));
-			nutsCsv = new NutsCsv(id, csvReader);
+			nutsCsv = new OldNutsCsv(id, csvReader);
 			nutsCsv.setRowIndexHeadings(1).setDefaultDataRange();
 			csvNutsIndex.put(id, nutsCsv);
 		}
@@ -53,14 +53,14 @@ public class NutsCsvIndex {
 		// csvNutsIndex.get("2013").addRowToSkip(909);
 		// Solution 2: use other file
 		id = "2013";
-		nutsCsv = new NutsCsv(id, csvReaderIndex.get("2010-2013"));
+		nutsCsv = new OldNutsCsv(id, csvReaderIndex.get("2010-2013"));
 		nutsCsv.setUseCodeOld(false).setRowIndexHeadings(1).setDefaultDataRange();
 		nutsCsv.columnIndexValueNotEmptyCheck = 11;
 		csvNutsIndex.put(id, nutsCsv);
 
 		// Add 2016
 		id = "2016";
-		nutsCsv = new NutsCsv(id, csvReaderIndex.get("2013-2016"));
+		nutsCsv = new OldNutsCsv(id, csvReaderIndex.get("2013-2016"));
 		nutsCsv.setUseCodeOld(false).setRowIndexHeadings(1).setDefaultDataRange();
 		nutsCsv.columnIndexValueNotEmptyCheck = 11;
 		csvNutsIndex.put(id, nutsCsv);
@@ -71,7 +71,7 @@ public class NutsCsvIndex {
 
 		// NUTS CSV 2021 has additional data
 		id = "2021-EXTRA";
-		nutsCsv = new NutsCsv(id, csvNutsIndex.get("2021").getCsvReader());
+		nutsCsv = new OldNutsCsv(id, csvNutsIndex.get("2021").getCsvReader());
 		nutsCsv.setRowIndexHeadings(0).setDefaultDataRange().setRowIndexDataBegin(1846);
 		setIndexes2021(nutsCsv);
 		csvNutsIndex.put(id, nutsCsv);
@@ -85,7 +85,7 @@ public class NutsCsvIndex {
 		return noPath.substring(firstMinus + 1, firstMinus + 1 + 4);
 	}
 
-	private void setIndexes2021(NutsCsv nutsCsv) {
+	private void setIndexes2021(OldNutsCsv nutsCsv) {
 		nutsCsv.columnIndexValueNotEmptyCheck = 5;
 		nutsCsv.columnIndexCodeNew = -1;
 		nutsCsv.columnIndexCodeOld = 0;
@@ -108,15 +108,15 @@ public class NutsCsvIndex {
 		return map;
 	}
 
-	public NutsCsv get(String key) {
+	public OldNutsCsv get(String key) {
 		return csvNutsIndex.get(key);
 	}
 
-	public Collection<NutsCsv> getValues() {
+	public Collection<OldNutsCsv> getValues() {
 		return csvNutsIndex.values();
 	}
 
-	public Set<Entry<String, NutsCsv>> getEntries() {
+	public Set<Entry<String, OldNutsCsv>> getEntries() {
 		return csvNutsIndex.entrySet();
 	}
 
@@ -130,7 +130,7 @@ public class NutsCsvIndex {
 		if (csvNutsIndex == null) {
 			stringBuilder.append("Empty " + getClass().getSimpleName());
 		} else {
-			for (Entry<String, NutsCsv> entry : csvNutsIndex.entrySet()) {
+			for (Entry<String, OldNutsCsv> entry : csvNutsIndex.entrySet()) {
 				stringBuilder.append(entry.getKey());
 				stringBuilder.append(" = ");
 				stringBuilder.append(entry.getValue());

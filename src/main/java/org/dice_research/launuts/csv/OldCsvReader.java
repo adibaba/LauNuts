@@ -29,9 +29,9 @@ import org.dice_research.launuts.io.Io;
  *
  * @author Adrian Wilke
  */
-public class CsvReader extends CsvData {
+public class OldCsvReader extends OldCsvData {
 
-	private static final long serialVersionUID = CsvData.serialVersionUID;
+	private static final long serialVersionUID = OldCsvData.serialVersionUID;
 
 	private URL url;
 	private Charset charset = StandardCharsets.UTF_8;
@@ -42,14 +42,14 @@ public class CsvReader extends CsvData {
 	private int maxRowIndex;
 	private int maxColumnIndex;
 
-	public CsvReader() {
+	public OldCsvReader() {
 	}
 
-	public CsvReader(URL url) {
+	public OldCsvReader(URL url) {
 		setUrl(url);
 	}
 
-	public CsvReader setUrl(URL url) {
+	public OldCsvReader setUrl(URL url) {
 		if (url.getProtocol().equals("file")) {
 			try {
 				Io.checkReadable(new File(url.toURI()));
@@ -61,27 +61,27 @@ public class CsvReader extends CsvData {
 		return this;
 	}
 
-	public CsvReader setCharset(Charset charset) {
+	public OldCsvReader setCharset(Charset charset) {
 		this.charset = charset;
 		return this;
 	}
 
-	public CsvReader setCsvFormat(CSVFormat csvFormat) {
+	public OldCsvReader setCsvFormat(CSVFormat csvFormat) {
 		this.csvFormat = csvFormat;
 		return this;
 	}
 
-	public CsvReader setTrimValues(boolean trimValues) {
+	public OldCsvReader setTrimValues(boolean trimValues) {
 		this.trimValues = trimValues;
 		return this;
 	}
 
-	public CsvReader setTrimMatrix(boolean trimMatrix) {
+	public OldCsvReader setTrimMatrix(boolean trimMatrix) {
 		this.trimMatrix = trimMatrix;
 		return this;
 	}
 
-	public CsvReader read() {
+	public OldCsvReader read() {
 		if (url == null) {
 			throw new CsvRuntimeException("No CSV url set.");
 		}

@@ -16,18 +16,18 @@ import org.dice_research.launuts.io.Resources;
  *
  * @author Adrian Wilke
  */
-public class LauCsvIndex {
+public class OldLauCsvIndex {
 
-	private SortedMap<String, SortedMap<String, LauCsv>> csvLauIndex;
+	private SortedMap<String, SortedMap<String, OldLauCsv>> csvLauIndex;
 
-	public LauCsvIndex create() {
+	public OldLauCsvIndex create() {
 		csvLauIndex = new TreeMap<>();
 
 		SortedMap<String, SortedMap<String, URI>> files = getFiles();
 		for (Entry<String, SortedMap<String, URI>> dirEntry : files.entrySet()) {
-			SortedMap<String, LauCsv> map = new TreeMap<>();
+			SortedMap<String, OldLauCsv> map = new TreeMap<>();
 			for (Entry<String, URI> fileEntry : dirEntry.getValue().entrySet()) {
-				map.put(fileEntry.getKey(), new LauCsv(fileEntry.getKey(), fileEntry.getValue()));
+				map.put(fileEntry.getKey(), new OldLauCsv(fileEntry.getKey(), fileEntry.getValue()));
 			}
 			csvLauIndex.put(dirEntry.getKey(), map);
 		}
@@ -45,8 +45,8 @@ public class LauCsvIndex {
 		// System.out.println(csvLauIndex.get("27-2010").get("DE").tmp());
 
 		long time = System.currentTimeMillis();
-		for (Entry<String, SortedMap<String, LauCsv>> mapEntry : csvLauIndex.entrySet()) {
-			for (Entry<String, LauCsv> lauCsvEntry : mapEntry.getValue().entrySet()) {
+		for (Entry<String, SortedMap<String, OldLauCsv>> mapEntry : csvLauIndex.entrySet()) {
+			for (Entry<String, OldLauCsv> lauCsvEntry : mapEntry.getValue().entrySet()) {
 				List<String> row = lauCsvEntry.getValue().tmpReadAndReturnFirstRow();
 				if (row.isEmpty()) {
 					System.err.println(mapEntry.getKey() + " " + lauCsvEntry.getKey());

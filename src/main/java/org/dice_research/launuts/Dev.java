@@ -1,22 +1,62 @@
 package org.dice_research.launuts;
 
+import java.io.File;
+import java.util.List;
+
+import org.dice_research.launuts.csv.NutsCsvParser;
+import org.dice_research.launuts.sources.Source;
+import org.dice_research.launuts.sources.SourceSheets;
+import org.dice_research.launuts.sources.SourceType;
+import org.dice_research.launuts.sources.Sources;
+
 /**
  * LauNuts - Development options.
+ * 
+ * {@link Dev#DEV} enables development mode.
+ * 
+ * {@link Dev#DEV_ARGS} are used as arguments in {@link Main}.
+ * 
+ * {@link Dev#dev(List)} is called, if mode is set to "dev" in arguments.
  *
  * @author Adrian Wilke
  */
 public abstract class Dev {
 
-	// Default: false.
+	// Default: false. Enables Development mode.
 	public static final boolean DEV = false;
 
-	// Development mode to set arguments inside code.
-	public static final String[] DEV_ARGS_SINGLE = new String[] { "-ids", "lau2018-nuts2016", "csv" };
+	// Mode constant for {@link Main} CLI
+	public static final String MODE = "dev";
+
+	// Main (pre-defined) arguments to use
 	public static final String[] DEV_ARGS_ALL_DL = new String[] { "dl" };
 	public static final String[] DEV_ARGS_ALL_CSV = new String[] { "csv" };
-	public static final String[] DEV_ARGS = DEV_ARGS_ALL_CSV;
+	public static final String[] DEV_ARGS_ALL_HELP = new String[] { "help" };
+	public static final String[] DEV_ARGS_ALL_DEV = new String[] { "dev" };
+	public static final String[] DEV_ARGS_SINGLE = new String[] { "-ids", "lau2018-nuts2016", "csv" };
+	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
 
-	// Default: false. Set true to only move already created CSV files.
-	public static final boolean DEV_SKIP_SHEET_CREATION = false;
+	/**
+	 * Called if {@link Main} mode is "dev".
+	 * 
+	 * @param ids Source IDs configured in {@link Main}.
+	 */
+	public static void dev(List<String> ids) {
+		System.err.println("Development execution");
+		try {
+			for (Source source : new Sources().getSources()) {
+				if (ids.contains(source.id)) {
 
+					// TODO: Extract values
+					if (source.sourceType.equals(SourceType.NUTS)) {
+						File file = new SourceSheets(source).getNutsMainSheetFile();
+						new NutsCsvParser(file).searchHeadings(true);
+					}
+
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

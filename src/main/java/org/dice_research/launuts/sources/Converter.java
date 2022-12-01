@@ -1,4 +1,4 @@
-package org.dice_research.launuts.io;
+package org.dice_research.launuts.sources;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,8 +11,6 @@ import java.util.List;
 
 import org.dice_research.launuts.Config;
 import org.dice_research.launuts.exceptions.CommandRuntimeException;
-import org.dice_research.launuts.sources.Source;
-import org.dice_research.launuts.sources.Sources;
 
 /**
  * Converts XLS to XLSX to CSV

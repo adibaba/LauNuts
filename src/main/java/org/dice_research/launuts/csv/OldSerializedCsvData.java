@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dice_research.launuts.Configuration;
-import org.dice_research.launuts.Serialization;
 import org.dice_research.launuts.exceptions.IoRuntimeException;
+import org.dice_research.launuts.io.Serialization;
 
 /**
- * Serialization of {@link CsvData}.
+ * Serialization of {@link OldCsvData}.
  *
  * @author Adrian Wilke
  */
-public class SerializedCsvData extends CsvData {
+public class OldSerializedCsvData extends OldCsvData {
 
-	public static final long serialVersionUID = CsvData.serialVersionUID;
+	public static final long serialVersionUID = OldCsvData.serialVersionUID;
 
 	private String filename;
 
-	public SerializedCsvData(String filename) {
+	public OldSerializedCsvData(String filename) {
 		this.filename = filename;
 	}
 
@@ -32,7 +32,7 @@ public class SerializedCsvData extends CsvData {
 		return getFile().exists();
 	}
 
-	public void serialize(CsvData csvData) {
+	public void serialize(OldCsvData csvData) {
 		try {
 			// For serialization, a list which implements java.io.Serializable
 			ArrayList<ArrayList<String>> arrayList = new ArrayList<>(csvData.getData().size());
@@ -46,7 +46,7 @@ public class SerializedCsvData extends CsvData {
 	}
 
 	@SuppressWarnings("unchecked")
-	public SerializedCsvData deserialize() {
+	public OldSerializedCsvData deserialize() {
 		try {
 			data = (List<List<String>>) Serialization.read(getFile());
 		} catch (ClassNotFoundException | IOException e) {

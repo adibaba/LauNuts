@@ -25,10 +25,22 @@ public class Sources {
 	public static final String FILETYPE_XLS = "xls";
 
 	/**
+	 * Parses JSON file and returns list of {@link Source} IDs.
+	 */
+	public List<String> getSourceIds() {
+		List<String> ids = new LinkedList<>();
+		try {
+			for (Source source : getSources()) {
+				ids.add(source.id);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return ids;
+	}
+
+	/**
 	 * Parses JSON file and returns list of {@link Source} objects.
-	 * 
-	 * @return
-	 * @throws IOException
 	 */
 	public List<Source> getSources() throws IOException {
 		return this.parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)));
@@ -50,20 +62,4 @@ public class Sources {
 		}
 		return sources;
 	}
-
-	/**
-	 * Parses JSON file and returns list of {@link Source} IDs.
-	 */
-	public List<String> getSourceIds() {
-		List<String> ids = new LinkedList<>();
-		try {
-			for (Source source : new Sources().parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)))) {
-				ids.add(source.id);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		return ids;
-	}
-
 }

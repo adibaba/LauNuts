@@ -14,10 +14,10 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.dice_research.launuts.csv.NutsCsv;
-import org.dice_research.launuts.csv.NutsCsvIndex;
-import org.dice_research.launuts.io.Converter;
+import org.dice_research.launuts.csv.OldNutsCsv;
+import org.dice_research.launuts.csv.OldNutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
+import org.dice_research.launuts.sources.Converter;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.Sources;
 
@@ -36,11 +36,9 @@ public class Main {
 	public static StringBuilder helpTextBuilder;
 	public static Map<String, String> modes;
 
-	private NutsCsvIndex nutsCsvIndex;
+	private OldNutsCsvIndex nutsCsvIndex;
 
 	public static void main(String[] args) throws IOException {
-		if (Dev.DEV)
-			args = Dev.DEV_ARGS;
 
 		// File check
 		File configurationFile = new File(Config.CONFIGURATION_FILE);
@@ -64,6 +62,8 @@ public class Main {
 		modes.put(MODE_DOWNLOAD, "  Downloads dataset sources");
 		modes.put(MODE_CSV, " Converts Excel datasets to CSV");
 		modes.put(MODE_HELP, "Print this help");
+		if (Dev.DEV)
+			modes.put(Dev.MODE, " Development mode");
 
 		// Build help text
 		helpTextBuilder = new StringBuilder().append("\n" + "Modes:" + "\n");
@@ -79,6 +79,11 @@ public class Main {
 
 		// Parse arguments and options
 		try {
+
+			// Use developments arguments
+			if (Dev.DEV)
+				args = Dev.DEV_ARGS;
+
 			CommandLine commandLine = parser.parse(options, args);
 
 			// Set mode
@@ -168,14 +173,14 @@ public class Main {
 				}
 			}
 		}
+
+		// Run: Development
+		else if (mode.equals(Dev.MODE)) {
+			Dev.dev(ids);
+		}
 	}
 
 	// --------------------- old code to refactor/integrate -------------
-
-	private void dev() throws IOException {
-		// TODO
-		// new LauCsvIndex().create().tmpReadData();
-	}
 
 	@SuppressWarnings("unused")
 	private void csvNuts() {
@@ -232,7 +237,7 @@ public class Main {
 
 	private void defaultMain() {
 		StringBuilder stringBuilder = new StringBuilder();
-		for (Entry<String, NutsCsv> entry : nutsCsvIndex.getEntries()) {
+		for (Entry<String, OldNutsCsv> entry : nutsCsvIndex.getEntries()) {
 			stringBuilder.append(entry.getKey());
 			stringBuilder.append(System.lineSeparator());
 			stringBuilder.append(entry.getValue().getDataString());

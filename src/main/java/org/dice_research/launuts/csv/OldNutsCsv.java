@@ -7,7 +7,7 @@ import java.util.List;
 import org.dice_research.launuts.exceptions.CsvRuntimeException;
 
 /**
- * NUTS CSV uses a {@link CsvReader} to read data and provides methods for data
+ * NUTS CSV uses a {@link OldCsvReader} to read data and provides methods for data
  * access. The data to read depends on indexes of rows and columns defined in
  * this class. Row indexes can be set by setter methods, column indexes can be
  * set directly.
@@ -20,8 +20,8 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  * {@link #rowIndexDataEnd}. It omits rows with missing code, rows with missing
  * {@link #columnIndexValueNotEmptyCheck} and rows in {@link #skipRows}.
  * 
- * Configuration: Use the constructor {@link #NutsCsv(CsvReader)} and read the
- * underlying data using {@link CsvReader#read()}. After optionally setting the
+ * Configuration: Use the constructor {@link #NutsCsv(OldCsvReader)} and read the
+ * underlying data using {@link OldCsvReader#read()}. After optionally setting the
  * index of headings with {@link #setRowIndexHeadings(int)}, use
  * {@link #setDefaultDataRange()} or the methods for begin and end indexes. If
  * required, configure the column indexes and set
@@ -30,7 +30,7 @@ import org.dice_research.launuts.exceptions.CsvRuntimeException;
  *
  * @author Adrian Wilke
  */
-public class NutsCsv implements Iterable<Integer> {
+public class OldNutsCsv implements Iterable<Integer> {
 
 	private String id;
 
@@ -61,40 +61,40 @@ public class NutsCsv implements Iterable<Integer> {
 	private List<Integer> skipRows = new LinkedList<>();
 
 	// Underlying data
-	private final CsvReader csvReader;
+	private final OldCsvReader csvReader;
 
-	public NutsCsv(String id, CsvReader csvReader) {
+	public OldNutsCsv(String id, OldCsvReader csvReader) {
 		this.id = id;
 		this.csvReader = csvReader;
 	}
 
-	public NutsCsv setRowIndexHeadings(int rowIndexHeadings) {
+	public OldNutsCsv setRowIndexHeadings(int rowIndexHeadings) {
 		this.rowIndexHeadings = rowIndexHeadings;
 		return this;
 	}
 
-	public NutsCsv setRowIndexDataBegin(int rowIndexDataBegin) {
+	public OldNutsCsv setRowIndexDataBegin(int rowIndexDataBegin) {
 		this.rowIndexDataBegin = rowIndexDataBegin;
 		return this;
 	}
 
-	public NutsCsv setRowIndexDataEnd(int rowIndexDataEnd) {
+	public OldNutsCsv setRowIndexDataEnd(int rowIndexDataEnd) {
 		this.rowIndexDataEnd = rowIndexDataEnd;
 		return this;
 	}
 
-	public NutsCsv setDefaultDataRange() {
+	public OldNutsCsv setDefaultDataRange() {
 		setRowIndexDataBegin(rowIndexHeadings + 1);
 		setRowIndexDataEnd(csvReader.getRowSize() - 1);
 		return this;
 	}
 
-	public NutsCsv setUseCodeOld(boolean useCodeOld) {
+	public OldNutsCsv setUseCodeOld(boolean useCodeOld) {
 		this.useCodeOld = useCodeOld;
 		return this;
 	}
 
-	public NutsCsv addRowToSkip(int row) {
+	public OldNutsCsv addRowToSkip(int row) {
 		skipRows.add(row);
 		return this;
 
@@ -104,7 +104,7 @@ public class NutsCsv implements Iterable<Integer> {
 		return csvReader.getRow(rowIndexHeadings);
 	}
 
-	public CsvReader getCsvReader() {
+	public OldCsvReader getCsvReader() {
 		return csvReader;
 	}
 

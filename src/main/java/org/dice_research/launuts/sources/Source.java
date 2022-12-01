@@ -20,9 +20,25 @@ import org.json.JSONObject;
  */
 public class Source {
 
+	/**
+	 * Identifier of source
+	 */
 	public String id;
+
+	/**
+	 * Filetype. Required as not every download URL provides file extension (e.g.
+	 * LAU 2016).
+	 */
 	public String fileType;
+
+	/**
+	 * Source type. Required to distinguish types of sources for further parsing.
+	 */
 	public SourceType sourceType;
+
+	/**
+	 * URL to download sources. Is list to provide mirrors (copies of files).
+	 */
 	public List<String> sources = new LinkedList<>();
 
 	/**
@@ -77,8 +93,18 @@ public class Source {
 			return null;
 	}
 
+	/**
+	 * @return Directory containing CSV files
+	 */
 	public File getCsvDirectory() {
 		return new File(Config.get(Config.KEY_CSV_DIRECTORY), id);
+	}
+
+	/**
+	 * @return {@link SourceSheets} object
+	 */
+	public SourceSheets getSheets() {
+		return new SourceSheets(this);
 	}
 
 	/**

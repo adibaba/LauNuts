@@ -8,34 +8,34 @@ import java.util.List;
 import org.dice_research.launuts.exceptions.IoRuntimeException;
 
 /**
- * LAU CSV uses a {@link CsvReader} or a serialized version to read data.
+ * LAU CSV uses a {@link OldCsvReader} or a serialized version to read data.
  * Provides methods for data access.
  *
  * @author Adrian Wilke
  */
-public class LauCsv {
+public class OldLauCsv {
 
 	// Underlying data
-	private CsvData csvData;
+	private OldCsvData csvData;
 
 	private String id;
 	private URI fileUri;
 
-	public LauCsv(String id, URI fileUri) {
+	public OldLauCsv(String id, URI fileUri) {
 		this.id = id;
 		this.fileUri = fileUri;
 	}
 
-	public LauCsv readCsv(boolean useCache) {
+	public OldLauCsv readCsv(boolean useCache) {
 
-		SerializedCsvData serializedCsvData = new SerializedCsvData(Integer.toString(fileUri.hashCode()));
+		OldSerializedCsvData serializedCsvData = new OldSerializedCsvData(Integer.toString(fileUri.hashCode()));
 
 		if (serializedCsvData.serializationExists()) {
 			csvData = serializedCsvData.deserialize();
 
 		} else {
 			try {
-				csvData = new CsvReader(fileUri.toURL()).read();
+				csvData = new OldCsvReader(fileUri.toURL()).read();
 				serializedCsvData.serialize(csvData);
 			} catch (MalformedURLException e) {
 				throw new IoRuntimeException(e);

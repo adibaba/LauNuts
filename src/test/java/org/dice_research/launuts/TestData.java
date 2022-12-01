@@ -1,6 +1,6 @@
 package org.dice_research.launuts;
 
-import org.dice_research.launuts.csv.NutsCsvIndex;
+import org.dice_research.launuts.csv.OldNutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
 
 /**
@@ -9,6 +9,6 @@ import org.dice_research.launuts.rdf.NutsRdfReader;
  * @author Adrian Wilke
  */
 public class TestData {
-	public static NutsCsvIndex nutsCsvIndex = new NutsCsvIndex().create();
+	public static OldNutsCsvIndex nutsCsvIndex = new OldNutsCsvIndex().create();
 	public static NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
 }

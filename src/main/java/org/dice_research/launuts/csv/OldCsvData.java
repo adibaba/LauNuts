@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Adrian Wilke
  */
-public abstract class CsvData implements Serializable {
+public abstract class OldCsvData implements Serializable {
 
 	static final long serialVersionUID = 1L;
 
