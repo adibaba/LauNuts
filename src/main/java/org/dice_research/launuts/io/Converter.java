@@ -164,8 +164,14 @@ public class Converter {
 
 	/**
 	 * Converts XLSX files to CSV files using in2csv.
+	 * 
+	 * @param source            The source to convert
+	 * @param skipSheetCreation If the creation of single CSV sheets was already
+	 *                          done, e.g. directly in terminal. This will only
+	 *                          move/rename the created files.
+	 * @throws IOException If files can not be moved
 	 */
-	public void convertCsvIn2csv(Source source) throws IOException {
+	public void convertCsvIn2csv(Source source, boolean skipSheetCreation) throws IOException {
 		if (!source.fileType.equals(Sources.FILETYPE_XLSX) && !source.fileType.equals(Sources.FILETYPE_XLS)) {
 			System.out.println("Skipping as not XLSX or XLS: " + source.id);
 			return;
@@ -184,9 +190,11 @@ public class Converter {
 		List<String> sheetnames = Arrays.asList(executeCommand(cmd).split("\n"));
 
 		// Convert to CSV files
-		cmd = "in2csv --write-sheets - " + xslxFile;
-		System.out.println("Converting: " + xslxFile);
-		executeCommand(cmd);
+		if (!skipSheetCreation) {
+			cmd = "in2csv --write-sheets - " + xslxFile;
+			System.out.println("Converting: " + xslxFile);
+			executeCommand(cmd);
+		}
 
 		// Move generated files
 		source.getCsvDirectory().mkdirs();

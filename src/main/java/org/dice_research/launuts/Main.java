@@ -28,12 +28,6 @@ import org.dice_research.launuts.sources.Sources;
  */
 public class Main {
 
-	// TODO: Dont' dev, let it be true ;)
-	// Development mode to set arguments inside code
-	private static final boolean DEV = false;
-	// { "-ids", "nuts-2016-2021 nuts-2013-2016 nuts-2010-2013", "csv" };
-	private static final String[] DEV_ARGS = new String[] { "csv" };
-
 	public static final String MODE_LIST = "ls";
 	public static final String MODE_DOWNLOAD = "dl";
 	public static final String MODE_CSV = "csv";
@@ -45,8 +39,8 @@ public class Main {
 	private NutsCsvIndex nutsCsvIndex;
 
 	public static void main(String[] args) throws IOException {
-		if (DEV)
-			args = DEV_ARGS;
+		if (Dev.DEV)
+			args = Dev.DEV_ARGS;
 
 		// File check
 		File configurationFile = new File(Config.CONFIGURATION_FILE);
@@ -113,7 +107,7 @@ public class Main {
 		}
 
 		// Print configuration
-		if (DEV) {
+		if (Dev.DEV) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("DEV").append("\n");
 			sb.append("Mode: " + mode).append("\n");
@@ -166,7 +160,7 @@ public class Main {
 					if (!xlsx2csv) {
 						System.out.println("Skipping XLS convertion as csvIn2csv not found: " + source.id);
 					} else {
-						converter.convertCsvIn2csv(source);
+						converter.convertCsvIn2csv(source, Dev.DEV_SKIP_SHEET_CREATION);
 					}
 				}
 			}
