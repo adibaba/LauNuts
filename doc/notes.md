@@ -3,10 +3,6 @@
 - Local Administrative Units (LAU)[Eurostat website], (https://ec.europa.eu/eurostat/web/nuts/local-administrative-units)
 - Nomenclature of Territorial Units for Statistics (NUTS), [Eurostat website](https://ec.europa.eu/eurostat/web/nuts/background)
 
-## Data
-
-- Some data is available at the [Hobbit FTP server](https://hobbitdata.informatik.uni-leipzig.de/OPAL/LauNuts/).
-
 ## Additional code
 
 - The [Java Excel parser](https://github.com/adibaba/LauNuts/tree/e9e6d1c60060c084042df6971379747094d47c02/src/main/java/org/dice_research/launuts/excel) and [test](https://github.com/adibaba/LauNuts/tree/e9e6d1c60060c084042df6971379747094d47c02/src/test/java/org/dice_research/launuts) were removed as the JVM run out of memory. Instead, CSV is used now.

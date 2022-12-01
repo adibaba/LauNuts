@@ -146,6 +146,7 @@ public class Main {
 			Converter converter = new Converter();
 			boolean libreoffice = converter.isLibreofficeInstalled();
 			boolean xlsx2csv = converter.isIn2csvInstalled();
+			boolean ssconvert = converter.isSsconvertInstalled();
 			for (Source source : new Sources().getSources()) {
 				if (ids.contains(source.id)) {
 					// Convert XLS -> XLSX
@@ -158,9 +159,11 @@ public class Main {
 					}
 					// Convert XLSX -> CSV
 					if (!xlsx2csv) {
-						System.out.println("Skipping XLS convertion as csvIn2csv not found: " + source.id);
+						System.out.println("Skipping CSV convertion as csvIn2csv not found: " + source.id);
+					} else if (!ssconvert) {
+						System.out.println("Skipping CSV convertion as ssconvert not found: " + source.id);
 					} else {
-						converter.convertCsvIn2csv(source, Dev.DEV_SKIP_SHEET_CREATION);
+						converter.convertSsconvert(source);
 					}
 				}
 			}

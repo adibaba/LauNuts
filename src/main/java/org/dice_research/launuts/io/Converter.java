@@ -25,13 +25,23 @@ import org.dice_research.launuts.sources.Sources;
  * Command: "libreoffice --convert-to xlsx file.xls --outdir directory/"
  * 
  * 
+ * ssconvert / Gnumeric
+ * 
+ * https://manpages.debian.org/stable/gnumeric/ssconvert.1.en.html
+ * 
+ * Installation: sudo apt-get install gnumeric
+ * 
+ * Command: ssconvert -S file.xlsx file.csv ("-S" means export one file per
+ * sheet)
+ * 
+ * 
  * in2csv
  * 
  * https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html
  * 
  * Installation: "pip install csvkit"
  * 
- * Command: "in2csv --write-sheets - file"
+ * Command: "in2csv --write-sheets - file.xlsx"
  * 
  * 
  * xlsx2csv
@@ -42,7 +52,7 @@ import org.dice_research.launuts.sources.Sources;
  * 
  * Command: "xlsx2csv -s 0 file.xlsx directory/" ("-s 0" means all sheets)
  * 
- * Note: xlsx2csv execution worked when Eclipse was started from command line.
+ * Note: xlsx2csv execution worked partly when Eclipse was started from command line.
  * 
  * 
  * @author Adrian Wilke
@@ -128,6 +138,22 @@ public class Converter {
 	}
 
 	/**
+	 * @return false, if the in2csv command does not return 0
+	 */
+	public boolean isSsconvertInstalled() {
+		try {
+			executeCommand("ssconvert --version");
+		} catch (CommandRuntimeException e) {
+			if (e.exitValue != null) {
+				System.out.println(e.exitValue);
+				return false;
+			} else
+				throw e;
+		}
+		return true;
+	}
+
+	/**
 	 * Converts XLS files to XLSX files.
 	 */
 	public void convertXls(Source source) throws IOException {
@@ -200,6 +226,46 @@ public class Converter {
 		source.getCsvDirectory().mkdirs();
 		for (int i = 0; i < sheetnames.size(); i++) {
 			File sourceFile = new File(source.getXlsxFile().getParent(), source.id + "_" + i + ".csv");
+			File targetFile = new File(targetDirectory, sheetnames.get(i) + ".csv");
+			System.out.println("Moving: " + sourceFile + " -> " + targetFile);
+			Files.move(sourceFile.toPath(), targetFile.toPath());
+		}
+	}
+
+	/**
+	 * Converts XLSX files to CSV files using ssconvert (and in2csv).
+	 * 
+	 * @param source The source to convert
+	 * @throws IOException If files can not be moved
+	 */
+	public void convertSsconvert(Source source) throws IOException {
+		if (!source.fileType.equals(Sources.FILETYPE_XLSX) && !source.fileType.equals(Sources.FILETYPE_XLS)) {
+			System.out.println("Skipping as not XLSX or XLS: " + source.id);
+			return;
+		}
+
+		File targetDirectory = source.getCsvDirectory();
+		if (targetDirectory.exists()) {
+			System.out.println("Skipping as CSV exists: " + source.getCsvDirectory());
+			return;
+		}
+
+		// Get sheet names
+		File xslxFile = source.getXlsxFile();
+		File csvFile = new File(xslxFile.getParentFile(), source.id + ".csv");
+		String filepath = xslxFile.getAbsolutePath();
+		String cmd = "in2csv --write-sheets - -n " + filepath;
+		List<String> sheetnames = Arrays.asList(executeCommand(cmd).split("\n"));
+
+		// Convert to CSV files
+		cmd = "ssconvert -S " + xslxFile.getAbsolutePath() + " " + csvFile.getAbsolutePath();
+		System.out.println("Converting: " + xslxFile);
+		executeCommand(cmd);
+
+		// Move generated files
+		source.getCsvDirectory().mkdirs();
+		for (int i = 0; i < sheetnames.size(); i++) {
+			File sourceFile = new File(source.getXlsxFile().getParent(), source.id + ".csv." + i);
 			File targetFile = new File(targetDirectory, sheetnames.get(i) + ".csv");
 			System.out.println("Moving: " + sourceFile + " -> " + targetFile);
 			Files.move(sourceFile.toPath(), targetFile.toPath());
