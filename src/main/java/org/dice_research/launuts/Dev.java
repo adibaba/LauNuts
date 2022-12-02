@@ -32,6 +32,7 @@ public abstract class Dev {
 	// Main (pre-defined) arguments to use
 	public static final String[] DEV_ARGS_ALL_DL = new String[] { "dl" };
 	public static final String[] DEV_ARGS_ALL_CSV = new String[] { "csv" };
+	public static final String[] DEV_ARGS_ALL_STAT = new String[] { "stat" };
 	public static final String[] DEV_ARGS_ALL_HELP = new String[] { "help" };
 	public static final String[] DEV_ARGS_ALL_DEV = new String[] { "dev" };
 	public static final String[] DEV_ARGS_SINGLE = new String[] { "-ids", "lau2018-nuts2016", "csv" };

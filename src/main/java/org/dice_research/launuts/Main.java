@@ -31,6 +31,7 @@ public class Main {
 	public static final String MODE_LIST = "ls";
 	public static final String MODE_DOWNLOAD = "dl";
 	public static final String MODE_CSV = "csv";
+	public static final String MODE_STAT = "stat";
 	public static final String MODE_HELP = "help";
 
 	public static StringBuilder helpTextBuilder;
@@ -61,6 +62,7 @@ public class Main {
 		modes.put(MODE_LIST, "  Lists available dataset IDs");
 		modes.put(MODE_DOWNLOAD, "  Downloads dataset sources");
 		modes.put(MODE_CSV, " Converts Excel datasets to CSV");
+		modes.put(MODE_STAT, "Prints stats of Eurostat KG");
 		modes.put(MODE_HELP, "Print this help");
 		if (Dev.DEV)
 			modes.put(Dev.MODE, " Development mode");
@@ -120,18 +122,8 @@ public class Main {
 			System.err.print(sb.toString());
 		}
 
-		// Run: Print help
-		if (mode.equals(MODE_HELP)) {
-			HelpFormatter helpFormatter = new HelpFormatter();
-			StringBuilder sb = new StringBuilder();
-			sb.append("Usage:   COMMAND [OPTIONS] MODE\n");
-			sb.append("Example: java -jar launuts.jar -ids \"nuts-2016-2021 lau2021-nuts2021\" dl");
-			helpFormatter.setSyntaxPrefix(sb.toString());
-			helpFormatter.printHelp(helpTextBuilder.toString(), options);
-		}
-
 		// Run: Print IDs
-		else if (mode.equals(MODE_LIST)) {
+		if (mode.equals(MODE_LIST)) {
 			System.out.println("Available dataset IDs:");
 			for (String sourceId : new Sources().getSourceIds()) {
 				System.out.println(sourceId);
@@ -174,6 +166,21 @@ public class Main {
 			}
 		}
 
+		// Run: Print stats of Eurostat KG
+		else if (mode.equals(MODE_STAT)) {
+			new NutsRdfReader().printStats();
+		}
+
+		// Run: Print help
+		else if (mode.equals(MODE_HELP)) {
+			HelpFormatter helpFormatter = new HelpFormatter();
+			StringBuilder sb = new StringBuilder();
+			sb.append("Usage:   COMMAND [OPTIONS] MODE\n");
+			sb.append("Example: java -jar launuts.jar -ids \"nuts-2016-2021 lau2021-nuts2021\" dl");
+			helpFormatter.setSyntaxPrefix(sb.toString());
+			helpFormatter.printHelp(helpTextBuilder.toString(), options);
+		}
+
 		// Run: Development
 		else if (mode.equals(Dev.MODE)) {
 			Dev.dev(ids);
@@ -195,43 +202,6 @@ public class Main {
 		if (false) {
 			String id = "2021";
 			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
-		}
-	}
-
-	private void rdfNuts() {
-		NutsRdfReader nutsRdfReader = new NutsRdfReader().read();
-
-		int maxIndex = 3;
-		int i;
-
-		if (true) {
-			i = 0;
-			for (String uri : nutsRdfReader.getAllResourceUris()) {
-				if (i++ > maxIndex)
-					break;
-				System.out.println(uri);
-			}
-			System.out.println();
-		}
-
-		if (true) {
-			i = 0;
-			for (String uri : nutsRdfReader.getAllPredicateUris()) {
-				if (i++ > maxIndex)
-					break;
-				System.out.println(uri);
-			}
-			System.out.println();
-		}
-
-		if (true) {
-			i = 0;
-			for (String uri : nutsRdfReader.getResourceUrisInSchemeAndLevel(2016, 2)) {
-				if (i++ > maxIndex)
-					break;
-				System.out.println(uri);
-			}
-			System.out.println();
 		}
 	}
 
