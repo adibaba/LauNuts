@@ -3,6 +3,7 @@ package org.dice_research.launuts;
 import java.io.File;
 import java.util.List;
 
+import org.dice_research.launuts.csv.NutsCsvCollection;
 import org.dice_research.launuts.csv.NutsCsvParser;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceSheets;
@@ -50,7 +51,10 @@ public abstract class Dev {
 					// TODO: Extract values
 					if (source.sourceType.equals(SourceType.NUTS)) {
 						File file = new SourceSheets(source).getNutsMainSheetFile();
-						new NutsCsvParser(file).searchHeadings(true);
+
+						NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source.id).parse();
+						System.out.println(nutsCsvCollection);
+						System.out.println(nutsCsvCollection.getValues(true));
 					}
 
 				}

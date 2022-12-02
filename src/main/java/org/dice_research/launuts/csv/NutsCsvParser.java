@@ -11,18 +11,72 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * NUTS CSV parser
+ * 
+ * @author Adrian Wilke
+ */
 public class NutsCsvParser {
 
 	private File file;
-	private int headingsRowNumber = -1;
+	private String sourceId;
+	private int headingsRowIndex = -1;
 	private int headingColumnNumberCode = -1;
 	private int headingColumnNumberCountry = -1;
 	private int headingColumnNumberNuts1 = -1;
 	private int headingColumnNumberNuts2 = -1;
 	private int headingColumnNumberNuts3 = -1;
 
-	public NutsCsvParser(File file) {
+	public NutsCsvParser(File file, String sourceId) {
 		this.file = file;
+		this.sourceId = sourceId;
+	}
+
+	/**
+	 * Searches columns of headings and parses values.
+	 * 
+	 * @throws IOException on parsing errors
+	 */
+	public NutsCsvCollection parse() throws IOException {
+
+		// Get column numbers
+		searchHeadings(false);
+
+		// Parse rows
+		NutsCsvCollection nutsCsvCollection = new NutsCsvCollection(sourceId);
+		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
+		int rowIndex = -1;
+		Iterator<CSVRecord> recordIt = csvParser.iterator();
+		String nutsCode, value;
+		while (recordIt.hasNext()) {
+			rowIndex++;
+			CSVRecord csvRecord = recordIt.next();
+			if (rowIndex <= headingsRowIndex) {
+				continue;
+			}
+
+			// Parse row values
+			nutsCode = null;
+			value = null;
+			nutsCode = csvRecord.get(headingColumnNumberCode).trim();
+			if (nutsCode.isEmpty() || nutsCode.length() > 5) {
+				continue;
+			}
+			if (nutsCode.length() == 2) {
+				value = csvRecord.get(headingColumnNumberCountry).replace(" ", " ").trim();
+			} else if (nutsCode.length() == 3) {
+				value = csvRecord.get(headingColumnNumberNuts1).trim();
+			} else if (nutsCode.length() == 4) {
+				value = csvRecord.get(headingColumnNumberNuts2).trim();
+			} else if (nutsCode.length() == 5) {
+				value = csvRecord.get(headingColumnNumberNuts3).trim();
+			}
+			if (nutsCode == null || nutsCode.isEmpty() || value == null || value.isEmpty()) {
+				continue;
+			}
+			nutsCsvCollection.add(new NutsCsvItem(nutsCode, value));
+		}
+		return nutsCsvCollection;
 	}
 
 	/**
@@ -103,22 +157,22 @@ public class NutsCsvParser {
 	private List<String> searchHeadingsRow() throws IOException {
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
 		Iterator<CSVRecord> recordIt = csvParser.iterator();
-		int rowNumber = -1;
+		int rowIndex = -1;
 		List<String> values = new LinkedList<>();
 		while (recordIt.hasNext()) {
 			// Found in previous iteration
-			if (this.headingsRowNumber != -1) {
+			if (this.headingsRowIndex != -1) {
 				return values;
 			}
 
 			// Search for heading value(s)
-			rowNumber++;
+			rowIndex++;
 			values.clear();
 			Iterator<String> valueIt = recordIt.next().iterator();
 			while (valueIt.hasNext()) {
 				String value = valueIt.next();
 				if (value.equals("NUTS level 3")) {
-					this.headingsRowNumber = rowNumber;
+					this.headingsRowIndex = rowIndex;
 				}
 				values.add(value);
 			}
