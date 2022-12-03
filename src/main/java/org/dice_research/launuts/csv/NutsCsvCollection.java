@@ -39,7 +39,7 @@ public class NutsCsvCollection {
 			nuts3.add(nutsCsvItem);
 			break;
 		default:
-			break;
+			throw new RuntimeException("Unusual NUTS code: " + nutsCsvItem.nutsCode);
 		}
 	}
 

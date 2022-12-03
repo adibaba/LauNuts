@@ -37,6 +37,13 @@ public class LauCsvParser {
 	}
 
 	/**
+	 * Extracts country code from file name.
+	 */
+	public String getCountryCode() {
+		return file.getName().substring(0, file.getName().lastIndexOf("."));
+	}
+
+	/**
 	 * Searches columns of headings and parses values.
 	 * 
 	 * @throws IOException on parsing errors
@@ -48,10 +55,8 @@ public class LauCsvParser {
 		searchHeadingColumns(headings);
 
 		// Parse rows
-		LauCsvCollection lauCsvCollection = new LauCsvCollection(sourceId);
+		LauCsvCollection lauCsvCollection = new LauCsvCollection(sourceId, file);
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
-		int rowIndex = -1;
-		Iterator<CSVRecord> recordIt = csvParser.iterator();
 
 		List<String> noNumbers = Arrays.asList(new String[] { "n.a.", "n.a", "#N/A", "#VALUE!", "–" });
 
@@ -64,6 +69,8 @@ public class LauCsvParser {
 		double area;
 		String tmp;
 
+		int rowIndex = -1;
+		Iterator<CSVRecord> recordIt = csvParser.iterator();
 		while (recordIt.hasNext()) {
 			rowIndex++;
 			CSVRecord csvRecord = recordIt.next();
@@ -72,29 +79,57 @@ public class LauCsvParser {
 			}
 
 			// Reset values
+			relatedNutsCode = null;
 			lauCode = null;
 			lauCodeSecond = null;
-			relatedNutsCode = null;
 			nameLatin = null;
 			nameNational = null;
 			population = -1;
 			area = -1;
 			tmp = null;
 
-			// Parse row values
+			// NUTS code
+			relatedNutsCode = csvRecord.get(headingColumnIndexNutsCode).trim();
+			if (relatedNutsCode.isEmpty())
+				relatedNutsCode = null;
+
+			// LAU code
 			lauCode = csvRecord.get(headingColumnIndexLauCode).trim();
+			if (lauCode.isEmpty())
+				lauCode = null;
+
+			// Skip: Comment line
+			if (relatedNutsCode != null && relatedNutsCode.length() > 5)
+				continue;
+
+			// Skip: Empty rows
+			if ((lauCode == null || lauCode.isEmpty()) && (relatedNutsCode == null || relatedNutsCode.isEmpty()))
+				continue;
+
+			// LAU code 2
 			if (headingColumnIndexLauCodeSecond != -1)
 				lauCodeSecond = csvRecord.get(headingColumnIndexLauCodeSecond).trim();
-			relatedNutsCode = csvRecord.get(headingColumnIndexNutsCode).trim();
-			nameLatin = csvRecord.get(headingColumnIndexNameLatin).trim();
-			nameNational = csvRecord.get(headingColumnIndexNameNational).trim();
+			if (lauCodeSecond != null && lauCodeSecond.isEmpty())
+				lauCodeSecond = null;
 
+			// Latin name
+			nameLatin = csvRecord.get(headingColumnIndexNameLatin).trim();
+			if (nameLatin.isEmpty())
+				nameLatin = null;
+
+			// Native name
+			nameNational = csvRecord.get(headingColumnIndexNameNational).trim();
+			if (nameNational.isEmpty())
+				nameNational = null;
+
+			// Population
 			tmp = csvRecord.get(headingColumnIndexPopulation).trim();
 			if (tmp.isEmpty() || noNumbers.contains(tmp))
 				population = -1;
 			else
 				population = Integer.parseInt(tmp.replace(" ", ""));
 
+			// Area
 			if (headingColumnIndexArea != -1) {
 				tmp = csvRecord.get(headingColumnIndexArea).trim();
 				if (tmp.isEmpty() || noNumbers.contains(tmp))

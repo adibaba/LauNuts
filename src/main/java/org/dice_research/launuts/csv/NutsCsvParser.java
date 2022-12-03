@@ -3,13 +3,16 @@ package org.dice_research.launuts.csv;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.dice_research.launuts.Dev;
 
 /**
  * NUTS CSV parser
@@ -44,6 +47,7 @@ public class NutsCsvParser {
 
 		// Parse rows
 		NutsCsvCollection nutsCsvCollection = new NutsCsvCollection(sourceId);
+		Set<String> nutsCodesCheckSet = new HashSet<>();
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
 		int rowIndex = -1;
 		Iterator<CSVRecord> recordIt = csvParser.iterator();
@@ -73,8 +77,18 @@ public class NutsCsvParser {
 				value = csvRecord.get(headingColumnIndexNuts3).trim();
 			}
 			if (nutsCode == null || nutsCode.isEmpty() || value == null || value.isEmpty()) {
+				if (Dev.DEV && Dev.NUTS_PRINT_EMPTY) {
+					System.err
+							.println("Empty: " + nutsCode + " " + value + " " + sourceId + " " + getClass().getName());
+				}
 				continue;
 			}
+
+			if (nutsCodesCheckSet.contains(nutsCode)) {
+				throw new RuntimeException("Duplicate code: " + nutsCode);
+			}
+			nutsCodesCheckSet.add(nutsCode);
+
 			nutsCsvCollection.add(new NutsCsvItem(nutsCode, value));
 		}
 		return nutsCsvCollection;
