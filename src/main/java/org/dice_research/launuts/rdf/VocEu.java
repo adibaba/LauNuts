@@ -12,7 +12,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.SKOS;
 
 /**
- * Vocabulary used by europa.eu.
+ * Vocabulary used by Eurostat.
  * 
  * @see https://ec.europa.eu/eurostat/web/nuts/linked-open-data
  *

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.dice_research.launuts.Config;
+import org.dice_research.launuts.Configuration;
 import org.dice_research.launuts.exceptions.CommandRuntimeException;
 
 /**
@@ -157,11 +157,11 @@ public class Converter {
 	public void convertXls(Source source) throws IOException {
 		if (source.fileType.equals(Sources.FILETYPE_XLS)) {
 			String file = source.getDownloadFile().getAbsolutePath();
-			if (new File(Config.get(Config.KEY_CONVERTED_DIRECTORY), source.getDownloadFileName() + "x").exists()) {
+			if (new File(Configuration.get(Configuration.KEY_CONVERTED_DIRECTORY), source.getDownloadFileName() + "x").exists()) {
 				System.out.println("Skipping as XSLX exists: " + source.getXlsxFile().getAbsolutePath());
 				return;
 			}
-			File dir = new File(Config.get(Config.KEY_CONVERTED_DIRECTORY));
+			File dir = new File(Configuration.get(Configuration.KEY_CONVERTED_DIRECTORY));
 			if (!dir.exists())
 				dir.mkdirs();
 			String cmd = "libreoffice --convert-to xlsx " + file + " --outdir " + dir.getAbsolutePath();

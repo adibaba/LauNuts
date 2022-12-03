@@ -12,6 +12,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * LAU CSV parser.
+ * 
+ * @author Adrian Wilke
+ */
 public class LauCsvParser {
 
 	private File file;

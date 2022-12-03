@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * NUTS collection of CSV items
+ * Collection of {@link NutsCsvItem}.
+ * 
+ * Created by {@link NutsCsvParser}.
  * 
  * @author Adrian Wilke
  */

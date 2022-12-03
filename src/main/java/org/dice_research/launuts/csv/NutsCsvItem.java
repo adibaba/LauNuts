@@ -1,9 +1,11 @@
 package org.dice_research.launuts.csv;
 
 /**
- * NUTS CSV item
+ * Container for parsed NUTS CSV data.
  * 
  * Data cleaning is done in {@link NutsCsvParser}.
+ * 
+ * Single items are maintained in {@link NutsCsvCollection}.
  * 
  * @author Adrian Wilke
  */

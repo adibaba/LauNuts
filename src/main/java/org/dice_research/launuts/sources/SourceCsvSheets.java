@@ -8,15 +8,15 @@ import java.util.List;
 import org.dice_research.launuts.io.Io;
 
 /**
- * Methods to access single sheets already available as CSV data.
+ * Methods to access single sheets available as CSV data.
  * 
  * @author Adrian Wilke
  */
-public class SourceSheets {
+public class SourceCsvSheets {
 
 	private Source source;
 
-	public SourceSheets(Source source) {
+	public SourceCsvSheets(Source source) {
 		this.source = source;
 	}
 

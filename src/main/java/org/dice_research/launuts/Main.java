@@ -38,12 +38,12 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 
 		// File check
-		File configurationFile = new File(Config.CONFIGURATION_FILE);
+		File configurationFile = new File(Configuration.CONFIGURATION_FILE);
 		if (!configurationFile.canRead()) {
 			System.err.println("Error: Can not read file " + configurationFile.getAbsolutePath());
 			return;
 		}
-		File sourcesFile = new File(Config.get(Config.KEY_SOURCES_FILE));
+		File sourcesFile = new File(Configuration.get(Configuration.KEY_SOURCES_FILE));
 		if (!sourcesFile.canRead()) {
 			System.err.println("Error: Can not read file " + sourcesFile.getAbsolutePath());
 			return;

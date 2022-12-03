@@ -7,7 +7,9 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * LAU collection of CSV items
+ * Collection of {@link LauCsvItem}.
+ * 
+ * Created by {@link LauCsvParser}.
  * 
  * @author Adrian Wilke
  */
@@ -21,7 +23,7 @@ public class LauCsvCollection {
 	}
 
 	public void add(LauCsvItem lauCsvItem) {
-		String country = lauCsvItem.getCountry();
+		String country = lauCsvItem.getCountryCode();
 		List<LauCsvItem> lauCsvList;
 		if (!lauCsvItems.containsKey(country)) {
 			lauCsvList = lauCsvItems.put(country, new LinkedList<>());

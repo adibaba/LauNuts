@@ -10,7 +10,7 @@ import org.dice_research.launuts.csv.LauCsvParser;
 import org.dice_research.launuts.csv.NutsCsvCollection;
 import org.dice_research.launuts.csv.NutsCsvParser;
 import org.dice_research.launuts.sources.Source;
-import org.dice_research.launuts.sources.SourceSheets;
+import org.dice_research.launuts.sources.SourceCsvSheets;
 import org.dice_research.launuts.sources.SourceType;
 import org.dice_research.launuts.sources.Sources;
 
@@ -54,36 +54,38 @@ public abstract class Dev {
 				if (ids.contains(source.id)) {
 
 					// TODO: Check values
-					if (false && source.sourceType.equals(SourceType.NUTS)) {
-						File file = new SourceSheets(source).getNutsMainSheetFile();
+					if (source.sourceType.equals(SourceType.NUTS)) {
+						File file = new SourceCsvSheets(source).getNutsMainSheetFile();
 
 						NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source.id).parse();
 						System.out.println(nutsCsvCollection);
 						System.out.println(nutsCsvCollection.getValues(true));
 					}
 
-					if (source.sourceType.equals(SourceType.LAU)) {
-						for (File file : new SourceSheets(source).getLauSheetFiles()) {
-							LauCsvParser parser = new LauCsvParser(file, source.id);
+					if (Boolean.FALSE)
+						if (source.sourceType.equals(SourceType.LAU)) {
+							for (File file : new SourceCsvSheets(source).getLauSheetFiles()) {
+								LauCsvParser parser = new LauCsvParser(file, source.id);
 //							List<String> h = p.searchHeadingsRow();
 
 //							System.out.println(source.id + " " + h);
 
 //							p.searchHeadingColumns(h);
 
-							// TODO: Check parsed values
-							LauCsvCollection lauCsvCollection = parser.parse();
-							Set<String> keys = lauCsvCollection.getKeys();
-							System.out.println(keys);
-							List<LauCsvItem> lauCsvItems = lauCsvCollection.getLauCsvItemList(keys.iterator().next());
-							for (LauCsvItem lauCsvItem : lauCsvItems) {
-								System.out.println(lauCsvItem);
+								// TODO: Check parsed values
+								LauCsvCollection lauCsvCollection = parser.parse();
+								Set<String> keys = lauCsvCollection.getKeys();
+								System.out.println(keys);
+								List<LauCsvItem> lauCsvItems = lauCsvCollection
+										.getLauCsvItemList(keys.iterator().next());
+								for (LauCsvItem lauCsvItem : lauCsvItems) {
+									System.out.println(lauCsvItem);
+								}
 							}
 						}
-					}
 
 					// There was a LAU2 Code
-					
+
 					// area sometimes given in m2 and sometime km2? e.g. lau2020
 
 					// nuts-2013-2016.csv: Duplicate 2013 code 'FR7'. Checked:

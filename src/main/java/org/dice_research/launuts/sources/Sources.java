@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dice_research.launuts.Config;
+import org.dice_research.launuts.Configuration;
 import org.json.JSONArray;
 
 /**
@@ -43,7 +43,7 @@ public class Sources {
 	 * Parses JSON file and returns list of {@link Source} objects.
 	 */
 	public List<Source> getSources() throws IOException {
-		return this.parseJsonFile(new File(Config.get(Config.KEY_SOURCES_FILE)));
+		return this.parseJsonFile(new File(Configuration.get(Configuration.KEY_SOURCES_FILE)));
 	}
 
 	/**

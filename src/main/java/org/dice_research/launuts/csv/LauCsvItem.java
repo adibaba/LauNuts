@@ -1,9 +1,11 @@
 package org.dice_research.launuts.csv;
 
 /**
- * Lau CSV item
+ * Container for parsed LAU CSV data.
  * 
  * Data cleaning is done in {@link LauCsvParser}.
+ * 
+ * Single items are maintained in {@link LauCsvCollection}.
  * 
  * @author Adrian Wilke
  */
@@ -28,7 +30,7 @@ public class LauCsvItem {
 		this.area = area;
 	}
 
-	public String getCountry() {
+	public String getCountryCode() {
 		if (relatedNutsCode != null && relatedNutsCode.length() >= 2)
 			return relatedNutsCode.substring(0, 2);
 		else
@@ -37,7 +39,8 @@ public class LauCsvItem {
 
 	@Override
 	public String toString() {
-		return lauCode + " (" + getCountry() + ", " + nameLatin + ")";
+		return lauCode + (lauCodeSecond == null ? "" : " " + lauCodeSecond) + " (" + getCountryCode() + ", " + nameLatin
+				+ ")";
 	}
 
 }
