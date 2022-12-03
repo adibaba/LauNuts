@@ -21,11 +21,11 @@ public class NutsCsvParser {
 	private File file;
 	private String sourceId;
 	private int headingsRowIndex = -1;
-	private int headingColumnNumberCode = -1;
-	private int headingColumnNumberCountry = -1;
-	private int headingColumnNumberNuts1 = -1;
-	private int headingColumnNumberNuts2 = -1;
-	private int headingColumnNumberNuts3 = -1;
+	private int headingColumnIndexCode = -1;
+	private int headingColumnIndexCountry = -1;
+	private int headingColumnIndexNuts1 = -1;
+	private int headingColumnIndexNuts2 = -1;
+	private int headingColumnIndexNuts3 = -1;
 
 	public NutsCsvParser(File file, String sourceId) {
 		this.file = file;
@@ -58,18 +58,18 @@ public class NutsCsvParser {
 			// Parse row values
 			nutsCode = null;
 			value = null;
-			nutsCode = csvRecord.get(headingColumnNumberCode).trim();
+			nutsCode = csvRecord.get(headingColumnIndexCode).trim();
 			if (nutsCode.isEmpty() || nutsCode.length() > 5) {
 				continue;
 			}
 			if (nutsCode.length() == 2) {
-				value = csvRecord.get(headingColumnNumberCountry).replace(" ", " ").trim();
+				value = csvRecord.get(headingColumnIndexCountry).replace(" ", " ").trim();
 			} else if (nutsCode.length() == 3) {
-				value = csvRecord.get(headingColumnNumberNuts1).trim();
+				value = csvRecord.get(headingColumnIndexNuts1).trim();
 			} else if (nutsCode.length() == 4) {
-				value = csvRecord.get(headingColumnNumberNuts2).trim();
+				value = csvRecord.get(headingColumnIndexNuts2).trim();
 			} else if (nutsCode.length() == 5) {
-				value = csvRecord.get(headingColumnNumberNuts3).trim();
+				value = csvRecord.get(headingColumnIndexNuts3).trim();
 			}
 			if (nutsCode == null || nutsCode.isEmpty() || value == null || value.isEmpty()) {
 				continue;
@@ -98,15 +98,15 @@ public class NutsCsvParser {
 			StringBuilder sb = new StringBuilder();
 			sb.append(headings);
 			sb.append("\n");
-			sb.append(headings.get(headingColumnNumberCode));
+			sb.append(headings.get(headingColumnIndexCode));
 			sb.append(" | ");
-			sb.append(headings.get(headingColumnNumberCountry));
+			sb.append(headings.get(headingColumnIndexCountry));
 			sb.append(" | ");
-			sb.append(headings.get(headingColumnNumberNuts1));
+			sb.append(headings.get(headingColumnIndexNuts1));
 			sb.append(" | ");
-			sb.append(headings.get(headingColumnNumberNuts2));
+			sb.append(headings.get(headingColumnIndexNuts2));
 			sb.append(" | ");
-			sb.append(headings.get(headingColumnNumberNuts3));
+			sb.append(headings.get(headingColumnIndexNuts3));
 			sb.append("\n");
 			System.out.println(sb.toString());
 		}
@@ -119,25 +119,25 @@ public class NutsCsvParser {
 	 * 
 	 * @throws RuntimeException if headings not found
 	 */
-	private void searchHeadingColumns(List<String> headings) {
-		int columnNumber = -1;
+	public void searchHeadingColumns(List<String> headings) {
+		int columnIndex = -1;
 		for (String columnHeading : headings) {
-			columnNumber++;
+			columnIndex++;
 			if (columnHeading.startsWith("Code ")) {
-				this.headingColumnNumberCode = columnNumber;
+				this.headingColumnIndexCode = columnIndex;
 			} else if (columnHeading.equals("Country")) {
-				this.headingColumnNumberCountry = columnNumber;
+				this.headingColumnIndexCountry = columnIndex;
 			} else if (columnHeading.equals("NUTS level 1")) {
-				this.headingColumnNumberNuts1 = columnNumber;
+				this.headingColumnIndexNuts1 = columnIndex;
 			} else if (columnHeading.equals("NUTS level 2")) {
-				this.headingColumnNumberNuts2 = columnNumber;
+				this.headingColumnIndexNuts2 = columnIndex;
 			} else if (columnHeading.equals("NUTS level 3")) {
-				this.headingColumnNumberNuts3 = columnNumber;
+				this.headingColumnIndexNuts3 = columnIndex;
 			}
 		}
 
-		if (headingColumnNumberCode == -1 || headingColumnNumberCountry == -1 || headingColumnNumberNuts1 == -1
-				|| headingColumnNumberNuts2 == -1 || headingColumnNumberNuts3 == -1) {
+		if (headingColumnIndexCode == -1 || headingColumnIndexCountry == -1 || headingColumnIndexNuts1 == -1
+				|| headingColumnIndexNuts2 == -1 || headingColumnIndexNuts3 == -1) {
 			throw new RuntimeException("NUTS headings cols not found in " + headings);
 		}
 	}
@@ -154,7 +154,7 @@ public class NutsCsvParser {
 	 * @throws IOException      on parsing errors
 	 * @throws RuntimeException if headings not found
 	 */
-	private List<String> searchHeadingsRow() throws IOException {
+	public List<String> searchHeadingsRow() throws IOException {
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
 		Iterator<CSVRecord> recordIt = csvParser.iterator();
 		int rowIndex = -1;

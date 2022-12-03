@@ -3,6 +3,8 @@ package org.dice_research.launuts.csv;
 /**
  * NUTS CSV item
  * 
+ * Data cleaning is done in {@link NutsCsvParser}.
+ * 
  * @author Adrian Wilke
  */
 public class NutsCsvItem {

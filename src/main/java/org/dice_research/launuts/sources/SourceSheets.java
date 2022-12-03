@@ -44,4 +44,25 @@ public class SourceSheets {
 		} else
 			throw new RuntimeException("Not a NUTS source: " + source.id);
 	}
+
+	/**
+	 * Searches in CSV directory for LAU files and returns them.
+	 * 
+	 * A typical filename is "DE.csv". Some files without main content consist of
+	 * 434 Byte (e.g. in lau2020-nuts2016) or less.
+	 */
+	public List<File> getLauSheetFiles() {
+		if (source.sourceType.equals(SourceType.LAU)) {
+			List<File> lauFiles = new LinkedList<>();
+			for (URI fileUri : Io.listDirectory(source.getCsvDirectory().getAbsolutePath())) {
+				File file = new File(fileUri);
+				if (file.getName().length() == 6 && file.length() > 450) {
+					lauFiles.add(file);
+				}
+			}
+			return lauFiles;
+		} else
+			throw new RuntimeException("Not a LAU source: " + source.id);
+	}
+
 }
