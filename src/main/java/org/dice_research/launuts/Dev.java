@@ -83,8 +83,11 @@ public abstract class Dev {
 					}
 
 					// There was a LAU2 Code
+					
 					// area sometimes given in m2 and sometime km2? e.g. lau2020
 
+					// nuts-2013-2016.csv: Duplicate 2013 code 'FR7'. Checked:
+					// 'AUVERGNE-RHÔNE-ALPES' should probably not be 'FR7'.
 				}
 			}
 		} catch (Exception e) {

@@ -1,5 +1,9 @@
 # LauNuts resources
 
+- **LauNuts**  
+  https://github.com/adibaba/LauNuts/  
+  RDF knowledge graph generator
+
 ## NUTS
 
 - **History of NUTS**  
@@ -8,6 +12,12 @@
 - **Wikipedia: Nomenclature of Territorial Units for Statistics**  
   https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics  
   [WP:NUTS]
+
+## LAU
+
+- **Local Administrative Units (LAU) **  
+  https://ec.europa.eu/eurostat/web/nuts/local-administrative-units  
+  lists Excel files
 
 ## Geo
 

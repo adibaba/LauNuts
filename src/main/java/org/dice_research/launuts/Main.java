@@ -14,8 +14,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.dice_research.launuts.csv.OldNutsCsv;
-import org.dice_research.launuts.csv.OldNutsCsvIndex;
 import org.dice_research.launuts.rdf.NutsRdfReader;
 import org.dice_research.launuts.sources.Converter;
 import org.dice_research.launuts.sources.Source;
@@ -36,8 +34,6 @@ public class Main {
 
 	public static StringBuilder helpTextBuilder;
 	public static Map<String, String> modes;
-
-	private OldNutsCsvIndex nutsCsvIndex;
 
 	public static void main(String[] args) throws IOException {
 
@@ -185,35 +181,6 @@ public class Main {
 		else if (mode.equals(Dev.MODE)) {
 			Dev.dev(ids);
 		}
-	}
-
-	// --------------------- old code to refactor/integrate -------------
-
-	@SuppressWarnings("unused")
-	private void csvNuts() {
-
-		// Print important data
-		if (true) {
-			String id = "2021";
-			System.out.println(nutsCsvIndex.get(id).getDataString());
-		}
-
-		// Print data
-		if (false) {
-			String id = "2021";
-			System.out.println(nutsCsvIndex.get(id).getDataSourceString(" | "));
-		}
-	}
-
-	private void defaultMain() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (Entry<String, OldNutsCsv> entry : nutsCsvIndex.getEntries()) {
-			stringBuilder.append(entry.getKey());
-			stringBuilder.append(System.lineSeparator());
-			stringBuilder.append(entry.getValue().getDataString());
-			stringBuilder.append(System.lineSeparator());
-		}
-		System.out.println(stringBuilder.toString());
 	}
 
 }
