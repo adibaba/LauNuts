@@ -63,6 +63,7 @@ public class NutsCsvParser {
 				continue;
 			}
 			if (nutsCode.length() == 2) {
+				// whitespace replacement: special whitespace in nuts-2016-2021 BE
 				value = csvRecord.get(headingColumnIndexCountry).replace(" ", " ").trim();
 			} else if (nutsCode.length() == 3) {
 				value = csvRecord.get(headingColumnIndexNuts1).trim();

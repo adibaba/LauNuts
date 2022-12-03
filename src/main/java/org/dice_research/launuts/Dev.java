@@ -9,6 +9,7 @@ import org.dice_research.launuts.csv.LauCsvItem;
 import org.dice_research.launuts.csv.LauCsvParser;
 import org.dice_research.launuts.csv.NutsCsvCollection;
 import org.dice_research.launuts.csv.NutsCsvParser;
+import org.dice_research.launuts.rdf.NutsRdfReader;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceCsvSheets;
 import org.dice_research.launuts.sources.SourceType;
@@ -50,16 +51,27 @@ public abstract class Dev {
 	public static void dev(List<String> ids) {
 		System.err.println("Development execution");
 		try {
+			// Print stats of Eurostat KG
+			if (Boolean.TRUE) {
+				new NutsRdfReader().printStats();
+			}
+
 			for (Source source : new Sources().getSources()) {
 				if (ids.contains(source.id)) {
 
-					// TODO: Check values
 					if (source.sourceType.equals(SourceType.NUTS)) {
 						File file = new SourceCsvSheets(source).getNutsMainSheetFile();
 
 						NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source.id).parse();
-						System.out.println(nutsCsvCollection);
-						System.out.println(nutsCsvCollection.getValues(true));
+
+						if (Boolean.TRUE)
+							System.out.println(nutsCsvCollection);
+
+						if (Boolean.FALSE)
+							System.out.println(nutsCsvCollection.getValues(true));
+
+						if (Boolean.FALSE)
+							System.out.println(nutsCsvCollection.getMarkdownTable());
 					}
 
 					if (Boolean.FALSE)

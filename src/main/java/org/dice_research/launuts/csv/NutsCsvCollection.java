@@ -3,6 +3,8 @@ package org.dice_research.launuts.csv;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dice_research.launuts.io.TableExporter;
+
 /**
  * Collection of {@link NutsCsvItem}.
  * 
@@ -62,6 +64,23 @@ public class NutsCsvCollection {
 			sb.append(breakLines ? "\n" : " ");
 		}
 		return sb.toString();
+	}
+
+	public String getMarkdownTable() {
+		TableExporter tab = new TableExporter().setHeadings(new String[] { "Code", "Name" });
+		for (NutsCsvItem nutsCsvItem : country) {
+			tab.addRow(new String[] { nutsCsvItem.nutsCode, nutsCsvItem.name });
+		}
+		for (NutsCsvItem nutsCsvItem : nuts1) {
+			tab.addRow(new String[] { nutsCsvItem.nutsCode, nutsCsvItem.name });
+		}
+		for (NutsCsvItem nutsCsvItem : nuts2) {
+			tab.addRow(new String[] { nutsCsvItem.nutsCode, nutsCsvItem.name });
+		}
+		for (NutsCsvItem nutsCsvItem : nuts3) {
+			tab.addRow(new String[] { nutsCsvItem.nutsCode, nutsCsvItem.name });
+		}
+		return tab.getMarkdown();
 	}
 
 	@Override

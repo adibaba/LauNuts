@@ -14,7 +14,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.dice_research.launuts.rdf.NutsRdfReader;
 import org.dice_research.launuts.sources.Converter;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.Sources;
@@ -29,7 +28,6 @@ public class Main {
 	public static final String MODE_LIST = "ls";
 	public static final String MODE_DOWNLOAD = "dl";
 	public static final String MODE_CSV = "csv";
-	public static final String MODE_STAT = "stat";
 	public static final String MODE_HELP = "help";
 
 	public static StringBuilder helpTextBuilder;
@@ -58,7 +56,6 @@ public class Main {
 		modes.put(MODE_LIST, "  Lists available dataset IDs");
 		modes.put(MODE_DOWNLOAD, "  Downloads dataset sources");
 		modes.put(MODE_CSV, " Converts Excel datasets to CSV");
-		modes.put(MODE_STAT, "Prints stats of Eurostat KG");
 		modes.put(MODE_HELP, "Print this help");
 		if (Dev.DEV)
 			modes.put(Dev.MODE, " Development mode");
@@ -160,11 +157,6 @@ public class Main {
 					}
 				}
 			}
-		}
-
-		// Run: Print stats of Eurostat KG
-		else if (mode.equals(MODE_STAT)) {
-			new NutsRdfReader().printStats();
 		}
 
 		// Run: Print help
