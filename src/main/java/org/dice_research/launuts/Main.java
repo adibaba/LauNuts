@@ -1,12 +1,16 @@
 package org.dice_research.launuts;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -14,8 +18,15 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.dice_research.launuts.csv.LauCsvParser;
+import org.dice_research.launuts.csv.NutsCsvParser;
 import org.dice_research.launuts.sources.Converter;
 import org.dice_research.launuts.sources.Source;
+import org.dice_research.launuts.sources.SourceCsvSheets;
+import org.dice_research.launuts.sources.SourceType;
 import org.dice_research.launuts.sources.Sources;
 
 /**
@@ -28,7 +39,12 @@ public class Main {
 	public static final String MODE_LIST = "ls";
 	public static final String MODE_DOWNLOAD = "dl";
 	public static final String MODE_CSV = "csv";
+	public static final String MODE_COUNTRIES = "ct";
+	public static final String MODE_GRAPH = "kg";
 	public static final String MODE_HELP = "help";
+
+	public static final String OPTION_IDS = "ids";
+	public static final String OPTION_COUNTRIES = "countries";
 
 	public static StringBuilder helpTextBuilder;
 	public static Map<String, String> modes;
@@ -36,12 +52,12 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 
 		// File check
-		File configurationFile = new File(Configuration.CONFIGURATION_FILE);
+		File configurationFile = new File(Config.CONFIGURATION_FILE);
 		if (!configurationFile.canRead()) {
 			System.err.println("Error: Can not read file " + configurationFile.getAbsolutePath());
 			return;
 		}
-		File sourcesFile = new File(Configuration.get(Configuration.KEY_SOURCES_FILE));
+		File sourcesFile = new File(Config.get(Config.KEY_SOURCES_FILE));
 		if (!sourcesFile.canRead()) {
 			System.err.println("Error: Can not read file " + sourcesFile.getAbsolutePath());
 			return;
@@ -49,14 +65,17 @@ public class Main {
 
 		// Defaults
 		String mode = MODE_HELP;
-		List<String> ids = new Sources().getSourceIds();
+		List<String> sourceIds = new Sources().getSourceIds();
+		List<String> countyCodes = new LinkedList<>();
 
 		// List of all available modes
 		modes = new LinkedHashMap<>();
 		modes.put(MODE_LIST, "  Lists available dataset IDs");
-		modes.put(MODE_DOWNLOAD, "  Downloads dataset sources");
-		modes.put(MODE_CSV, " Converts Excel datasets to CSV");
-		modes.put(MODE_HELP, "Print this help");
+		modes.put(MODE_DOWNLOAD, "  Downloads Excel files");
+		modes.put(MODE_CSV, " Converts Excel files to CSV");
+		modes.put(MODE_COUNTRIES, "  Lists available LAU countries");
+		modes.put(MODE_GRAPH, "  Create knowledge graph");
+		modes.put(MODE_HELP, "Prints this help");
 		if (Dev.DEV)
 			modes.put(Dev.MODE, " Development mode");
 
@@ -69,7 +88,8 @@ public class Main {
 
 		// Parser with options
 		Options options = new Options()
-				.addOption(Option.builder("ids").hasArg(true).argName("\"ID-1 ID-2 ...\"").build());
+				.addOption(Option.builder(OPTION_IDS).hasArg(true).argName("\"ID1 ID2 ...\"").build())
+				.addOption(Option.builder(OPTION_COUNTRIES).hasArg(true).argName("\"C1 C2 ...\"").build());
 		DefaultParser parser = new DefaultParser();
 
 		// Parse arguments and options
@@ -92,14 +112,21 @@ public class Main {
 			}
 
 			// Set IDs
-			if (commandLine.hasOption("ids")) {
-				List<String> newIds = Arrays.asList(commandLine.getOptionValue("ids").split(" "));
+			if (commandLine.hasOption(OPTION_IDS)) {
+				List<String> newIds = Arrays.asList(commandLine.getOptionValue(OPTION_IDS).split(" "));
 				for (String newId : newIds) {
-					if (!ids.contains(newId)) {
+					if (!sourceIds.contains(newId)) {
 						throw new ParseException("Error: Unknown ID: " + newId);
 					}
 				}
-				ids = newIds;
+				sourceIds = newIds;
+			}
+
+			// Set countries
+			if (commandLine.hasOption(OPTION_COUNTRIES)) {
+				for (String countryCode : commandLine.getOptionValue(OPTION_COUNTRIES).split(" ")) {
+					countyCodes.add(countryCode);
+				}
 			}
 		} catch (ParseException e) {
 			System.err.println(e.getMessage());
@@ -111,7 +138,7 @@ public class Main {
 			StringBuilder sb = new StringBuilder();
 			sb.append("DEV").append("\n");
 			sb.append("Mode: " + mode).append("\n");
-			sb.append("IDs:  " + ids).append("\n");
+			sb.append("IDs:  " + sourceIds).append("\n");
 			System.err.print(sb.toString());
 		}
 
@@ -126,7 +153,7 @@ public class Main {
 		// Run: Download datasets
 		else if (mode.equals(MODE_DOWNLOAD)) {
 			for (Source source : new Sources().getSources()) {
-				if (ids.contains(source.id))
+				if (sourceIds.contains(source.id))
 					source.download();
 			}
 		}
@@ -138,7 +165,7 @@ public class Main {
 			boolean xlsx2csv = converter.isIn2csvInstalled();
 			boolean ssconvert = converter.isSsconvertInstalled();
 			for (Source source : new Sources().getSources()) {
-				if (ids.contains(source.id)) {
+				if (sourceIds.contains(source.id)) {
 					// Convert XLS -> XLSX
 					if (source.fileType.equals(Sources.FILETYPE_XLS)) {
 						if (!libreoffice) {
@@ -159,6 +186,51 @@ public class Main {
 			}
 		}
 
+		// Run: List LAU countries
+		else if (mode.equals(MODE_COUNTRIES)) {
+			SortedSet<String> countryCodes = new TreeSet<>();
+			for (Source source : new Sources().getSources()) {
+				if (source.sourceType.equals(SourceType.LAU)) {
+					if (sourceIds.contains(source.id)) {
+						SourceCsvSheets sourceCsvSheets = new SourceCsvSheets(source);
+						for (File file : sourceCsvSheets.getLauSheetFiles()) {
+							countryCodes.add(SourceCsvSheets.getLauCountryCode(file));
+						}
+					}
+				}
+			}
+			System.out.println(countryCodes);
+		}
+
+		// Run: Create graph
+		else if (mode.equals(MODE_GRAPH)) {
+			ModelBuilder modelBuilder = new ModelBuilder();
+			for (Source source : new Sources().getSources()) {
+				if (sourceIds.contains(source.id)) {
+					if (source.sourceType.equals(SourceType.LAU)) {
+						SourceCsvSheets sourceCsvSheets = new SourceCsvSheets(source);
+						for (File file : sourceCsvSheets.getLauSheetFiles()) {
+							if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
+								modelBuilder.lauCsvCollections.add(new LauCsvParser(file, source.id).parse());
+						}
+					}
+					if (source.sourceType.equals(SourceType.NUTS)) {
+						SourceCsvSheets sourceCsvSheets = new SourceCsvSheets(source);
+						modelBuilder.nutsCsvCollections
+								.add(new NutsCsvParser(sourceCsvSheets.getNutsMainSheetFile(), source.id).parse());
+					}
+				}
+			}
+			Model model = modelBuilder.build();
+			System.out.println("Created graph with " + model.size() + " triples");
+			File file = new File(Config.get(Config.KEY_GENERATED_DIRECTORY), "model.nt");
+			file.getParentFile().mkdirs();
+			FileOutputStream fos = new FileOutputStream(file);
+			RDFDataMgr.write(fos, model, Lang.NTRIPLES);
+			fos.close();
+			System.out.println("Wrote " + file);
+		}
+
 		// Run: Print help
 		else if (mode.equals(MODE_HELP)) {
 			HelpFormatter helpFormatter = new HelpFormatter();
@@ -171,8 +243,7 @@ public class Main {
 
 		// Run: Development
 		else if (mode.equals(Dev.MODE)) {
-			Dev.dev(ids);
+			Dev.dev(sourceIds, countyCodes);
 		}
 	}
-
 }

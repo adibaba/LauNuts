@@ -14,6 +14,15 @@ import org.dice_research.launuts.io.Io;
  */
 public class SourceCsvSheets {
 
+	public static final int MINIMAL_CSV_FILE_SIZE = 450;
+
+	/**
+	 * Extracts country code from file name.
+	 */
+	public static String getLauCountryCode(File file) {
+		return file.getName().substring(0, file.getName().lastIndexOf("."));
+	}
+
 	private Source source;
 
 	public SourceCsvSheets(Source source) {
@@ -56,7 +65,7 @@ public class SourceCsvSheets {
 			List<File> lauFiles = new LinkedList<>();
 			for (URI fileUri : Io.listDirectory(source.getCsvDirectory().getAbsolutePath())) {
 				File file = new File(fileUri);
-				if (file.getName().length() == 6 && file.length() > 450) {
+				if (file.getName().length() == 6 && file.length() > MINIMAL_CSV_FILE_SIZE) {
 					lauFiles.add(file);
 				}
 			}

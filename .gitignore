@@ -1,9 +1,6 @@
 # Default directory for (downloaded/temporary) data
 data/
 
-# Default directory for cached/serialized data
-cache/
-
 
 
 ### https://github.com/github/gitignore/blob/master/Java.gitignore

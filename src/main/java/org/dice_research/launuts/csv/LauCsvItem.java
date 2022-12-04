@@ -43,4 +43,63 @@ public class LauCsvItem {
 				+ ")";
 	}
 
+	// Check values
+
+	public boolean hasLauCode() {
+		return lauCode != null;
+	}
+
+	public boolean hasLauCodeSecond() {
+		return lauCodeSecond != null;
+	}
+
+	public boolean hasNutsCode() {
+		return relatedNutsCode != null;
+	}
+
+	public boolean hasNameLatin() {
+		return nameLatin != null;
+	}
+
+	public boolean hasNameNational() {
+		return nameNational != null;
+	}
+
+	public boolean hasPopulation() {
+		return population != -1;
+	}
+
+	public boolean hasArea() {
+		return area != -1;
+	}
+
+	// Get values
+
+	public String lauCodeToString() {
+		return hasLauCode() ? lauCode : "";
+	}
+
+	public String lauCodeSecondToString() {
+		return hasLauCodeSecond() ? lauCodeSecond : "";
+	}
+
+	public String nutsCodeToString() {
+		return hasNutsCode() ? relatedNutsCode : "";
+	}
+
+	public String nameLatinToString() {
+		return hasNameLatin() ? nameLatin : "";
+	}
+
+	public String nameNationalToString() {
+		return hasNameNational() ? nameNational : "";
+	}
+
+	public String populationToString() {
+		return hasPopulation() ? Integer.toString(population) : "";
+	}
+
+	public String areaToString() {
+		return hasArea() ? Double.toString(area) : "";
+	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.dice_research.launuts.sources.SourceCsvSheets;
 
 /**
  * LAU CSV parser.
@@ -40,7 +41,7 @@ public class LauCsvParser {
 	 * Extracts country code from file name.
 	 */
 	public String getCountryCode() {
-		return file.getName().substring(0, file.getName().lastIndexOf("."));
+		return SourceCsvSheets.getLauCountryCode(file);
 	}
 
 	/**

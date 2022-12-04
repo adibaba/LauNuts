@@ -9,7 +9,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dice_research.launuts.Configuration;
+import org.dice_research.launuts.Config;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -77,7 +77,7 @@ public class Source {
 	 * @return File in local download directory
 	 */
 	public File getDownloadFile() {
-		return new File(Configuration.get(Configuration.KEY_DOWNLOAD_DIRECTORY), getDownloadFileName());
+		return new File(Config.get(Config.KEY_DOWNLOAD_DIRECTORY), getDownloadFileName());
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class Source {
 		if (fileType.equals(Sources.FILETYPE_XLSX))
 			return getDownloadFile();
 		else if (fileType.equals(Sources.FILETYPE_XLS))
-			return new File(Configuration.get(Configuration.KEY_CONVERTED_DIRECTORY), id + ".xlsx");
+			return new File(Config.get(Config.KEY_CONVERTED_DIRECTORY), id + ".xlsx");
 		else
 			return null;
 	}
@@ -97,7 +97,7 @@ public class Source {
 	 * @return Directory containing CSV files
 	 */
 	public File getCsvDirectory() {
-		return new File(Configuration.get(Configuration.KEY_CSV_DIRECTORY), id);
+		return new File(Config.get(Config.KEY_CSV_DIRECTORY), id);
 	}
 
 	/**

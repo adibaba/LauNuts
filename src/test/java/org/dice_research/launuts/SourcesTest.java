@@ -17,13 +17,24 @@ class SourcesTest {
 
 	@Test
 	void test() throws IOException {
+
+		// Parse without exceptions
 		List<Source> sources = new Sources().getSources();
-		Assertions.assertTrue(sources.size() >= 6);
+		Assertions.assertTrue(sources.size() >= 7 + 14 + 1);
 
 		// For humans
 		if (Boolean.FALSE) {
 			for (Source source : sources) {
 				System.out.println(source);
+			}
+		}
+		if (Boolean.FALSE) {
+			for (Source source : sources) {
+				System.out.println(source.id);
+				System.out.println(source.fileType);
+				System.out.println(source.sourceType);
+				System.out.println(source.sources);
+				System.out.println();
 			}
 		}
 	}

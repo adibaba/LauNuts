@@ -31,34 +31,46 @@ public abstract class Dev {
 	// Mode constant for {@link Main} CLI
 	public static final String MODE = "dev";
 
-	// Debugging
+	// Debugging inside other classes
 	public static final boolean NUTS_PRINT_EMPTY = Boolean.FALSE;
 
+	// Execute single methods in this class
+	public static final boolean HANDLE_NUTS = Boolean.FALSE;
+	public static final boolean HANDLE_LAU = Boolean.FALSE;
+	public static final boolean HANDLE_NUTSRDF = Boolean.FALSE;
+
 	// Main (pre-defined) arguments to use
-	public static final String[] DEV_ARGS_ALL_DL = new String[] { "dl" };
-	public static final String[] DEV_ARGS_ALL_CSV = new String[] { "csv" };
-	public static final String[] DEV_ARGS_ALL_STAT = new String[] { "stat" };
-	public static final String[] DEV_ARGS_ALL_HELP = new String[] { "help" };
-	public static final String[] DEV_ARGS_ALL_DEV = new String[] { "dev" };
-	public static final String[] DEV_ARGS_CUSTOM = new String[] { "-ids", "nuts-2016-2021 lau2021-nuts2021", "dev" };
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM;
+	public static final String[] DEV_ARGS_ALL_LS = new String[] { Main.MODE_LIST };
+	public static final String[] DEV_ARGS_ALL_DL = new String[] { Main.MODE_DOWNLOAD };
+	public static final String[] DEV_ARGS_ALL_CSV = new String[] { Main.MODE_CSV };
+	public static final String[] DEV_ARGS_ALL_CT = new String[] { Main.MODE_COUNTRIES };
+	public static final String[] DEV_ARGS_ALL_HELP = new String[] { Main.MODE_HELP };
+	public static final String[] DEV_ARGS_ALL_DEV = new String[] { Dev.MODE };
+	public static final String[] DEV_ARGS_CUSTOM = new String[] //
+	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "dev" };
+	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
+	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
+	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
 	 * 
 	 * @param ids Source IDs configured in {@link Main}.
 	 */
-	public static void dev(List<String> ids) {
+	public static void dev(List<String> ids, List<String> countyCodes) {
 		System.err.println("Development execution");
 		try {
 			for (Source source : new Sources().getSources()) {
 				if (ids.contains(source.id)) {
 					if (source.sourceType.equals(SourceType.NUTS)) {
-						handleNuts(source);
+						if (HANDLE_NUTS)
+							handleNuts(source);
 					} else if (source.sourceType.equals(SourceType.LAU)) {
-						handleLau(source);
+						if (HANDLE_LAU)
+							handleLau(source, countyCodes);
 					} else if (source.sourceType.equals(SourceType.NUTSRDF)) {
-						handleNutsRdf(source);
+						if (HANDLE_NUTSRDF)
+							handleNutsRdf(source);
 					}
 				}
 			}
@@ -68,14 +80,11 @@ public abstract class Dev {
 	}
 
 	private static void handleNuts(Source source) throws Exception {
-		if (Boolean.TRUE)
-			return;
-
 		File file = new SourceCsvSheets(source).getNutsMainSheetFile();
 		NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source.id).parse();
 
 		// Print sizes
-		if (Boolean.TRUE)
+		if (Boolean.FALSE)
 			System.out.println(nutsCsvCollection);
 
 		// Print values
@@ -87,10 +96,7 @@ public abstract class Dev {
 			System.out.println(nutsCsvCollection.getMarkdownTable());
 	}
 
-	private static void handleLau(Source source) throws Exception {
-		if (Boolean.FALSE)
-			return;
-
+	private static void handleLau(Source source, List<String> countyCodes) throws Exception {
 		for (File file : new SourceCsvSheets(source).getLauSheetFiles()) {
 			LauCsvParser parser = new LauCsvParser(file, source.id);
 
@@ -99,26 +105,37 @@ public abstract class Dev {
 				System.out.println(source.id + " " + parser.searchHeadingsRow());
 
 			// Print item sizes
-			if (Boolean.TRUE) {
-				System.out.println(parser.getCountryCode() + " " + parser.parse().lauCsvItems.size());
+			if (Boolean.FALSE) {
+				if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
+					System.out.println(parser.getCountryCode() + " " + parser.parse().lauCsvItems.size());
 			}
+
+			// Print values
+			if (Boolean.FALSE)
+				if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
+					System.out.println(parser.parse().getValues(true));
+
+			// Print values as table
+			if (Boolean.FALSE)
+				if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
+					System.out.println(parser.parse().getMarkdownTable());
 		}
 	}
 
 	private static void handleNutsRdf(Source source) throws Exception {
-		if (Boolean.TRUE)
-			return;
-
 		// Print stats of Eurostat KG
-		new NutsRdfReader().printStats();
+		if (Boolean.FALSE)
+			new NutsRdfReader().printStats();
 	}
 
 	// Notes
 
-	// There was a LAU2 Code
+	// TODO Area is sometimes 1.004E7
 
-	// area sometimes given in m2 and sometime km2? e.g. lau2020
+	// TODO There was a LAU2 Code
 
-	// nuts-2013-2016.csv: Duplicate 2013 code 'FR7'. Checked:
+	// TODO area sometimes given in m2 and sometime km2? e.g. lau2020
+
+	// TODO nuts-2013-2016.csv: Duplicate 2013 code 'FR7'. Checked:
 	// 'AUVERGNE-RHÔNE-ALPES' should probably not be 'FR7'.
 }

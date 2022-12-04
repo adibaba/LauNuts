@@ -17,31 +17,32 @@ import org.json.JSONObject;
  *
  * @author Adrian Wilke
  */
-public enum Configuration {
+public enum Config {
 
 	INSTANCE();
 
 	public static String get(String key) {
-		return Configuration.INSTANCE.getInstance().configuration_values.get(key);
+		return Config.INSTANCE.getInstance().configuration_values.get(key);
 	}
 
 	public static final String CONFIGURATION_FILE = "configuration.json";
 
+	public static final String KEY_SOURCES_FILE = "sources-file";
 	public static final String KEY_DOWNLOAD_DIRECTORY = "download-directory";
 	public static final String KEY_CONVERTED_DIRECTORY = "converted-directory";
 	public static final String KEY_CSV_DIRECTORY = "csv-directory";
-	public static final String KEY_SOURCES_FILE = "sources-file";
+	public static final String KEY_GENERATED_DIRECTORY = "generated-directory";
 
 	private Map<String, String> configuration_values;
 
-	public Configuration getInstance() {
+	public Config getInstance() {
 		return getInstance(CONFIGURATION_FILE);
 	}
 
 	/**
 	 * Reads configuration from JSON file and returns instance.
 	 */
-	public Configuration getInstance(String file) {
+	public Config getInstance(String file) {
 		if (configuration_values == null) {
 			configuration_values = new HashMap<>();
 			String json = "{}";

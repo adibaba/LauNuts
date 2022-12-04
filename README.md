@@ -1,6 +1,6 @@
 # LauNuts
 
-LauNuts handles data consisting of:
+LauNuts is a RDF Knowledge Graph consisting of:
 
 - Local Administrative Units (LAU) and
 - Nomenclature of Territorial Units for Statistics (NUTS)

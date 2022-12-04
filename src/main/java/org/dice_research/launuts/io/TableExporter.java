@@ -40,7 +40,10 @@ public class TableExporter {
 		int[] maxLengths = computeMaxLengths();
 		String[] formats = new String[maxLengths.length];
 		for (int i = 0; i < formats.length; i++) {
-			formats[i] = "%-" + maxLengths[i] + "s";
+			if (maxLengths[i] == 0)
+				formats[i] = "%s";
+			else
+				formats[i] = "%-" + maxLengths[i] + "s";
 		}
 		StringBuilder sb = new StringBuilder();
 
