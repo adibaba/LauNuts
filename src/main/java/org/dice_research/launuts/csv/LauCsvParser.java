@@ -44,6 +44,13 @@ public class LauCsvParser {
 		return SourceCsvSheets.getLauCountryCode(file);
 	}
 
+	private void setIndividualConfig() {
+		// Column "NAME_2_LAT" are empty values or "(Le)", "(L')", "(La)"
+		if (sourceId.equals("lau2015") && file.getName().equals("FR.csv")) {
+			headingColumnIndexNameLatin = -1;
+		}
+	}
+
 	/**
 	 * Searches columns of headings and parses values.
 	 * 
@@ -54,6 +61,8 @@ public class LauCsvParser {
 		// Get column numbers
 		List<String> headings = searchHeadingsRow();
 		searchHeadingColumns(headings);
+
+		setIndividualConfig();
 
 		// Parse rows
 		LauCsvCollection lauCsvCollection = new LauCsvCollection(sourceId, file);
@@ -67,7 +76,7 @@ public class LauCsvParser {
 		String nameLatin;
 		String nameNational;
 		int population;
-		double area;
+		int area;
 		String tmp;
 
 		int rowIndex = -1;
@@ -114,9 +123,11 @@ public class LauCsvParser {
 				lauCodeSecond = null;
 
 			// Latin name
-			nameLatin = csvRecord.get(headingColumnIndexNameLatin).trim();
-			if (nameLatin.isEmpty())
-				nameLatin = null;
+			if (headingColumnIndexNameLatin != -1) {
+				nameLatin = csvRecord.get(headingColumnIndexNameLatin).trim();
+				if (nameLatin.isEmpty())
+					nameLatin = null;
+			}
 
 			// Native name
 			nameNational = csvRecord.get(headingColumnIndexNameNational).trim();
@@ -136,7 +147,11 @@ public class LauCsvParser {
 				if (tmp.isEmpty() || noNumbers.contains(tmp))
 					area = -1;
 				else
-					area = Double.parseDouble(tmp.replace(',', '.'));
+					try {
+						area = Integer.parseInt(tmp);
+					} catch (NumberFormatException e) {
+						area = (int) Math.round(Double.parseDouble(tmp.replace(',', '.')));
+					}
 			}
 
 			lauCsvCollection.add(

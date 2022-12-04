@@ -17,10 +17,10 @@ public class LauCsvItem {
 	public String nameLatin;
 	public String nameNational;
 	public int population = -1;
-	public double area = -1;
+	public int area = -1;
 
 	public LauCsvItem(String lauCode, String lauCodeSecond, String relatedNutsCode, String nameLatin,
-			String nameNational, int population, double area) {
+			String nameNational, int population, int area) {
 		this.lauCode = lauCode;
 		this.lauCodeSecond = lauCodeSecond;
 		this.relatedNutsCode = relatedNutsCode;
@@ -100,6 +100,6 @@ public class LauCsvItem {
 	}
 
 	public String areaToString() {
-		return hasArea() ? Double.toString(area) : "";
+		return hasArea() ? Integer.toString(area) : "";
 	}
 }

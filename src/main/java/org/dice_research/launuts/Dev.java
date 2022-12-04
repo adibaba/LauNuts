@@ -46,11 +46,18 @@ public abstract class Dev {
 	public static final String[] DEV_ARGS_ALL_CT = new String[] { Main.MODE_COUNTRIES };
 	public static final String[] DEV_ARGS_ALL_HELP = new String[] { Main.MODE_HELP };
 	public static final String[] DEV_ARGS_ALL_DEV = new String[] { Dev.MODE };
+	// Source IDs:
+	// nuts-2016-2021, nuts-2013-2016, nuts-2010-2013, nuts-2006-2010,
+	// nuts-2003-2006, nuts-1999-2003, nuts-1995-1999,
+	// lau2021-nuts2021, lau2020-nuts2016, lau2019-nuts2016, lau2018-nuts2016,
+	// lau2017-nuts2016, lau2017-nuts2013, lau2016, lau2015, lau2014, lau2013,
+	// lau2012, lau2011-census, lau2011, lau2010, nuts
 	public static final String[] DEV_ARGS_CUSTOM = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "dev" };
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
-	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
+	// Set final development arguments
+	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
@@ -102,7 +109,7 @@ public abstract class Dev {
 
 			// Print headings
 			if (Boolean.FALSE)
-				System.out.println(source.id + " " + parser.searchHeadingsRow());
+				System.out.println(source.id + " " + file.getName() + " " + parser.searchHeadingsRow());
 
 			// Print item sizes
 			if (Boolean.FALSE) {
@@ -129,10 +136,6 @@ public abstract class Dev {
 	}
 
 	// Notes
-
-	// TODO Area is sometimes 1.004E7
-
-	// TODO There was a LAU2 Code
 
 	// TODO area sometimes given in m2 and sometime km2? e.g. lau2020
 

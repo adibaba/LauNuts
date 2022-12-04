@@ -78,8 +78,8 @@ public class NutsCsvParser {
 			}
 			if (nutsCode == null || nutsCode.isEmpty() || value == null || value.isEmpty()) {
 				if (Dev.DEV && Dev.NUTS_PRINT_EMPTY) {
-					System.err
-							.println("Empty: " + nutsCode + " " + value + " " + sourceId + " " + getClass().getName());
+					System.err.println("Info - Empty: " + nutsCode + " " + rowIndex + " " + sourceId + " "
+							+ getClass().getSimpleName());
 				}
 				continue;
 			}
