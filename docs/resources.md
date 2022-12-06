@@ -39,6 +39,9 @@
 - **TERCET Flat Files**  
   https://gisco-services.ec.europa.eu/tercet/flat-files  
   files with post codes, source: [POST]
+- **Wikipedia category Nomenclature of Territorial Units for Statistics**  
+  https://en.wikipedia.org/wiki/Category:Nomenclature_of_Territorial_Units_for_Statistics  
+  mappings to wikipedia pages
 
 ## Visualizations
 
@@ -57,6 +60,9 @@
 
 ## RDF
 
+- **NUTS - Nomenclature of territorial units for statistics classification**  
+  https://data.europa.eu/data/datasets/estat-nuts-classification  
+  RDF download
 - **Linked Open Vocabularies (LOV)**  
   https://lov.linkeddata.es/  
   RDF vocabulary search

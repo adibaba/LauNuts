@@ -2,17 +2,28 @@ package org.dice_research.launuts.rdf;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.NodeIterator;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.vocabulary.RDF;
+import org.dice_research.launuts.Utils;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceType;
 import org.dice_research.launuts.sources.Sources;
@@ -23,6 +34,13 @@ import org.dice_research.launuts.sources.Sources;
  * @author Adrian Wilke
  */
 public class NutsRdfReader {
+
+	class PropertyComparator implements Comparator<Property> {
+		@Override
+		public int compare(Property o1, Property o2) {
+			return o1.getURI().compareTo(o2.getURI());
+		}
+	}
 
 	private Model model;
 
@@ -87,6 +105,35 @@ public class NutsRdfReader {
 		return predicateUris;
 	}
 
+	public void printPredicateUrisOfTypes(String uri) {
+		ResIterator it = model.listSubjectsWithProperty(RDF.type, ResourceFactory.createResource(uri));
+		Set<RDFNode> resourcesOfType = new HashSet<>();
+		while (it.hasNext()) {
+			resourcesOfType.add(it.next());
+		}
+		SortedSet<Property> asSub = new TreeSet<Property>(new PropertyComparator());
+		SortedSet<Property> asObj = new TreeSet<Property>(new PropertyComparator());
+		StmtIterator stmtIt = model.listStatements();
+		while (stmtIt.hasNext()) {
+			Statement stmt = stmtIt.next();
+			if (resourcesOfType.contains(stmt.getSubject())) {
+				asSub.add(stmt.getPredicate());
+			}
+			if (resourcesOfType.contains(stmt.getObject())) {
+				asObj.add(stmt.getPredicate());
+			}
+		}
+		System.out.println("Predicates where subject is of type " + uri);
+		for (Property property : asSub) {
+			System.out.println(property);
+		}
+		System.out.println();
+		System.out.println("Predicates where object is of type " + uri);
+		for (Property property : asObj) {
+			System.out.println(property);
+		}
+	}
+
 	public SortedSet<String> getAllResourceUris() {
 		SortedSet<String> resourceUris = new TreeSet<>();
 
@@ -103,6 +150,53 @@ public class NutsRdfReader {
 		}
 
 		return resourceUris;
+	}
+
+	public Map<String, Integer> getMostUsedUriResources() {
+		Map<String, Integer> counts = new HashMap<>();
+		StmtIterator it = model.listStatements();
+		RDFNode res;
+		String uri;
+		while (it.hasNext()) {
+			Statement statement = it.next();
+			res = statement.getSubject();
+			if (res.isURIResource()) {
+				uri = res.asResource().getURI();
+				if (counts.containsKey(uri)) {
+					counts.put(uri, counts.get(uri) + 1);
+				} else {
+					counts.put(uri, 1);
+				}
+			}
+			res = statement.getObject();
+			if (res.isURIResource()) {
+				uri = res.asResource().getURI();
+				if (counts.containsKey(uri)) {
+					counts.put(uri, counts.get(uri) + 1);
+				} else {
+					counts.put(uri, 1);
+				}
+			}
+		}
+		return Utils.sortByValue(counts, true);
+	}
+
+	public SortedSet<String> getAllObjects(String predicateUri) {
+		SortedSet<String> objects = new TreeSet<>();
+		NodeIterator it = model.listObjectsOfProperty(ResourceFactory.createProperty(predicateUri));
+		while (it.hasNext()) {
+			objects.add(it.next().toString());
+		}
+		return objects;
+	}
+
+	public SortedSet<String> getAllSubjects(String predicateUri) {
+		SortedSet<String> objects = new TreeSet<>();
+		ResIterator it = model.listSubjectsWithProperty(ResourceFactory.createProperty(predicateUri));
+		while (it.hasNext()) {
+			objects.add(it.next().toString());
+		}
+		return objects;
 	}
 
 	public void printStats() {
@@ -126,6 +220,34 @@ public class NutsRdfReader {
 
 		System.out.println("Resource URIs");
 		System.out.println(reader.getAllResourceUris().size());
+
+		System.out.println();
+		System.out.println("Most used resource URIs");
+		int i = 10;
+		for (Entry<String, Integer> entry : reader.getMostUsedUriResources().entrySet()) {
+			i--;
+			System.out.println(entry);
+			if (i == 0)
+				break;
+		}
+
+		System.out.println();
+		System.out.println("Subjects of http://purl.org/dc/terms/issued                "
+				+ getAllSubjects("http://purl.org/dc/terms/issued"));
+		System.out.println("Objects of http://www.w3.org/2004/02/skos/core#inScheme    "
+				+ getAllObjects("http://www.w3.org/2004/02/skos/core#inScheme"));
+		System.out.println("Objects of http://data.europa.eu/nuts/level                "
+				+ getAllObjects("http://data.europa.eu/nuts/level"));
+		System.out.println("Objects of http://www.w3.org/1999/02/22-rdf-syntax-ns#type "
+				+ getAllObjects("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		System.out.println("Objects of http://www.w3.org/ns/adms#status                "
+				+ getAllObjects("http://www.w3.org/ns/adms#status"));
+
+		System.out.println();
+		printPredicateUrisOfTypes("http://www.w3.org/2004/02/skos/core#Concept");
+
+		System.out.println();
+		printPredicateUrisOfTypes("http://www.w3.org/2004/02/skos/core#ConceptScheme");
 	}
 
 }

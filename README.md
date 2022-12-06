@@ -9,6 +9,10 @@ LauNuts is a RDF Knowledge Graph consisting of:
 
 Find the the documentation in the [docs](docs/) directory.
 
+## Issues
+
+Enhancement ideas and bugs can be added via [GitHub Issues](https://github.com/adibaba/LauNuts/issues).
+
 ## Credits
 
 [Data Science Group (DICE)](https://dice-research.org/) at [Paderborn University](https://www.uni-paderborn.de/), Adrian Wilke

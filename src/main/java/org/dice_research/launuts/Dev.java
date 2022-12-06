@@ -99,7 +99,7 @@ public abstract class Dev {
 			System.out.println(nutsCsvCollection.getValues(true));
 
 		// Print values as table
-		if (Boolean.FALSE)
+		if (Boolean.TRUE)
 			System.out.println(nutsCsvCollection.getMarkdownTable());
 	}
 
@@ -123,7 +123,7 @@ public abstract class Dev {
 					System.out.println(parser.parse().getValues(true));
 
 			// Print values as table
-			if (Boolean.FALSE)
+			if (Boolean.TRUE)
 				if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
 					System.out.println(parser.parse().getMarkdownTable());
 		}
@@ -131,11 +131,12 @@ public abstract class Dev {
 
 	private static void handleNutsRdf(Source source) throws Exception {
 		// Print stats of Eurostat KG
-		if (Boolean.FALSE)
-			new NutsRdfReader().printStats();
+		new NutsRdfReader().printStats();
 	}
 
 	// Notes
+
+	// TODO include Extra-Regio?
 
 	// TODO area sometimes given in m2 and sometime km2? e.g. lau2020
 
