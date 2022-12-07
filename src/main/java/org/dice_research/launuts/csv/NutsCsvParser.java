@@ -14,8 +14,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.dice_research.launuts.Dev;
 import org.dice_research.launuts.sources.Source;
-import org.dice_research.launuts.sources.SourceType;
-import org.dice_research.launuts.sources.Sources;
 
 /**
  * NUTS CSV parser
@@ -92,7 +90,7 @@ public class NutsCsvParser {
 			}
 			nutsCodesCheckSet.add(nutsCode);
 
-			nutsCsvCollection.add(new NutsCsvItem(Sources.getNutsScheme(SourceType.NUTS, source.id), nutsCode, value));
+			nutsCsvCollection.add(new NutsCsvItem(source.nutsScheme, nutsCode, value));
 		}
 		return nutsCsvCollection;
 	}

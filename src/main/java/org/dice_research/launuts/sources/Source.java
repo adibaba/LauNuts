@@ -44,7 +44,7 @@ public class Source {
 	/**
 	 * Used NUTS scheme.
 	 */
-	public String nutsScheme;
+	public int nutsScheme;
 
 	/**
 	 * Constructor builds object variables based on JSON object.
@@ -71,7 +71,7 @@ public class Source {
 		}
 
 		if (jsonObject.has(Sources.KEY_NUTS_SCHEME))
-			this.nutsScheme = jsonObject.getString(Sources.KEY_NUTS_SCHEME);
+			this.nutsScheme = jsonObject.getInt(Sources.KEY_NUTS_SCHEME);
 	}
 
 	/**

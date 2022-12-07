@@ -82,7 +82,6 @@ public class LauCsvParser {
 		int area;
 		String tmp;
 		int lauScheme;
-		int nutsScheme;
 
 		int rowIndex = -1;
 		Iterator<CSVRecord> recordIt = csvParser.iterator();
@@ -103,7 +102,6 @@ public class LauCsvParser {
 			area = -1;
 			tmp = null;
 			lauScheme = -1;
-			nutsScheme = -1;
 
 			// NUTS code
 			relatedNutsCode = csvRecord.get(headingColumnIndexNutsCode).trim();
@@ -162,13 +160,7 @@ public class LauCsvParser {
 			}
 
 			lauScheme = Sources.getLauScheme(SourceType.LAU, source.id);
-			if (source.nutsScheme == null) {
-				nutsScheme = Sources.getNutsScheme(SourceType.LAU, source.id);
-			} else {
-				nutsScheme = Integer.parseInt(source.nutsScheme);
-			}
-
-			lauCsvCollection.add(new LauCsvItem(lauScheme, nutsScheme, lauCode, lauCodeSecond, relatedNutsCode,
+			lauCsvCollection.add(new LauCsvItem(lauScheme, source.nutsScheme, lauCode, lauCodeSecond, relatedNutsCode,
 					nameLatin, nameNational, population, area));
 		}
 		return lauCsvCollection;
