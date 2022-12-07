@@ -57,6 +57,8 @@
 - **NutsDorlingCartogramn**  
   https://github.com/eurostat/NutsDorlingCartogram  
   source: [NUTS2JSON]
+- **Statistical Atlas**  
+  https://ec.europa.eu/statistical-atlas/viewer/
 
 ## RDF
 

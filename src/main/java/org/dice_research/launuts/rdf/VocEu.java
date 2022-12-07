@@ -14,6 +14,10 @@ import org.apache.jena.vocabulary.SKOS;
 /**
  * Vocabulary used by Eurostat.
  * 
+ * Example URI: http://data.europa.eu/nuts/code/DEA47
+ * 
+ * Example URI: http://data.europa.eu/nuts/scheme/2016
+ * 
  * @see https://ec.europa.eu/eurostat/web/nuts/linked-open-data
  *
  * @author Adrian Wilke

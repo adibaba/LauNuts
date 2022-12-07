@@ -23,6 +23,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.dice_research.launuts.csv.LauCsvParser;
 import org.dice_research.launuts.csv.NutsCsvParser;
+import org.dice_research.launuts.rdf.ModelBuilder;
 import org.dice_research.launuts.sources.Converter;
 import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceCsvSheets;

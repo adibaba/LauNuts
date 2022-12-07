@@ -11,6 +11,8 @@ package org.dice_research.launuts.csv;
  */
 public class LauCsvItem {
 
+	public int lauSchema = -1;
+	public int nutsSchema = -1;
 	public String lauCode;
 	public String lauCodeSecond; // only used until 2016
 	public String relatedNutsCode;
@@ -19,8 +21,10 @@ public class LauCsvItem {
 	public int population = -1;
 	public int area = -1;
 
-	public LauCsvItem(String lauCode, String lauCodeSecond, String relatedNutsCode, String nameLatin,
-			String nameNational, int population, int area) {
+	public LauCsvItem(int lauSchema, int nutsSchema, String lauCode, String lauCodeSecond, String relatedNutsCode,
+			String nameLatin, String nameNational, int population, int area) {
+		this.lauSchema = lauSchema;
+		this.nutsSchema = nutsSchema;
 		this.lauCode = lauCode;
 		this.lauCodeSecond = lauCodeSecond;
 		this.relatedNutsCode = relatedNutsCode;
@@ -40,10 +44,18 @@ public class LauCsvItem {
 	@Override
 	public String toString() {
 		return lauCode + (lauCodeSecond == null ? "" : " " + lauCodeSecond) + " (" + getCountryCode() + ", " + nameLatin
-				+ ")";
+				+ ", " + relatedNutsCode + ")";
 	}
 
 	// Check values
+
+	public boolean hasLauSchema() {
+		return lauSchema != -1;
+	}
+
+	public boolean hasNutsSchema() {
+		return nutsSchema != -1;
+	}
 
 	public boolean hasLauCode() {
 		return lauCode != null;

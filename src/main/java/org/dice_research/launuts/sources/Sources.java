@@ -25,6 +25,37 @@ public class Sources {
 	public static final String FILETYPE_XLS = "xls";
 
 	/**
+	 * Extracts LAU scheme from ID.
+	 */
+	public static int getLauScheme(SourceType sourceType, String sourceId) {
+		if (sourceType.equals(SourceType.LAU)) {
+			// e.g. lau2021-nuts2021 or lau2016
+			return Integer.parseInt(sourceId.substring(3, 7));
+		} else {
+			throw new RuntimeException("Not a " + SourceType.LAU + " type");
+		}
+	}
+
+	/**
+	 * Extracts NUTS scheme from ID.
+	 */
+	public static int getNutsScheme(SourceType sourceType, String sourceId) {
+		if (sourceType.equals(SourceType.LAU)) {
+			// e.g. lau2021-nuts2021 or lau2016
+			if (sourceId.length() == 16)
+				return Integer.parseInt(sourceId.substring(12, 16));
+			else
+				// TODO
+				return 1900;
+		} else if (sourceType.equals(SourceType.NUTS)) {
+			// e.g. nuts-2016-2021
+			return Integer.parseInt(sourceId.substring(10, 14));
+		} else {
+			throw new RuntimeException("Not a " + SourceType.LAU + " type");
+		}
+	}
+
+	/**
 	 * Parses JSON file and returns list of {@link Source} IDs.
 	 */
 	public List<String> getSourceIds() {

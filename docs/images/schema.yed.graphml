@@ -54,7 +54,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="386.2932982615696" x="273.85033732108786" y="710.4375000000001"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#F7C886" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="128.3359375" x="128.9786803807848" xml:space="preserve" y="5.0">NUTS extension<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -65,7 +65,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="129.986328125" x="609.1068359375001" y="299.0"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="114.8203125" x="7.5830078125" xml:space="preserve" y="5.0">NUTS scheme<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -76,7 +76,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="194.498046875" x="325.50097656250006" y="224.5625"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="111.421875" x="41.5380859375" xml:space="preserve" y="5.0">skos:Concept<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -87,7 +87,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="141.998046875" x="325.50097656250006" y="299.0"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="118.55078125" x="11.7236328125" xml:space="preserve" y="5.0">NUTS resource<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -98,7 +98,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="185.630859375" x="414.2990234375" y="441.3125"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="134.537109375" x="25.546875" xml:space="preserve" y="5.0">status:CURRENT<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -109,7 +109,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="33.873046875" x="456.3048828125" y="368.87500000000006"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="13.873046875" x="10.0" xml:space="preserve" y="5.0">0<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -120,7 +120,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="194.498046875" x="544.5951171875001" y="224.5625"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="174.498046875" x="10.0" xml:space="preserve" y="5.0">skos:ConceptScheme<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -131,7 +131,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="185.630859375" x="414.2990234375" y="478.75"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="165.630859375" x="10.0" xml:space="preserve" y="5.0">status:DEPRECATED<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -142,7 +142,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="33.873046875" x="490.1779296875" y="368.87500000000006"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="13.873046875" x="10.0" xml:space="preserve" y="5.0">1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -153,7 +153,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="33.873046875" x="524.0509765625" y="368.87500000000006"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="13.873046875" x="10.0" xml:space="preserve" y="5.0">2<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -164,7 +164,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="117.84121093750008" x="282.67988281249995" y="478.75"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="89.048828125" x="14.396191406250068" xml:space="preserve" y="5.0">NUTS code<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -175,7 +175,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="101.619140625" x="282.6798828125" y="403.875"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.865234375" x="30.376953125" xml:space="preserve" y="5.0">label<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -186,7 +186,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="101.619140625" x="623.2904296875001" y="403.875"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="37.759765625" x="31.9296875" xml:space="preserve" y="5.0">date<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -226,7 +226,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="129.986328125" x="556.123719671398" y="625.0625000000002"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="114.8203125" x="7.5830078125" xml:space="preserve" y="5.0">NUTS scheme<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -237,7 +237,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="141.998046875" x="408.98116912124294" y="625.0625000000002"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#A9D4E8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="118.55078125" x="11.7236328125" xml:space="preserve" y="5.0">NUTS resource<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -248,7 +248,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="129.986328125" x="690.1268413704677" y="710.4375000000001"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="41.83203125" x="44.0771484375" xml:space="preserve" y="5.0">label<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -259,7 +259,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="602.6054592306778" x="217.75561783874036" y="795.8125"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#F7C886" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="108.931640625" x="246.83690930283888" xml:space="preserve" y="5.0">LAU resource<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
@@ -556,7 +556,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="147.4865259930382" width="642.96875" x="101.265625" y="20.716796874999943"/>
-          <y:Fill color="#FAE082" transparent="false"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="121.1875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="580.54296875" x="31.212890625" xml:space="preserve" y="13.149512996519093">nuts: http://data.europa.eu/nuts/
 nutscode: http://data.europa.eu/nuts/code/
@@ -582,7 +582,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="132.7109375" x="266.09818587935354" y="881.1874999999999"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="85.376953125" x="23.6669921875" xml:space="preserve" y="5.0">name latin<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -593,7 +593,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="132.7109375" x="408.1013665941079" y="881.1874999999999"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="113.716796875" x="9.4970703125" xml:space="preserve" y="5.0">name national<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -604,7 +604,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="130.48214327290077" x="689.8789337965173" y="881.1874999999999"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="86.5" x="21.99107163645033" xml:space="preserve" y="5.0">population<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -615,7 +615,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="130.48214327290077" x="550.1045473088623" y="881.1874999999999"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="38.013671875" x="46.23423569895044" xml:space="preserve" y="5.0">area<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -626,7 +626,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="132.7109375" x="124.09500516459923" y="881.1874999999999"/>
-          <y:Fill color="#E0E0E0" transparent="false"/>
+          <y:Fill color="#FDEEDA" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="78.0234375" x="27.34375" xml:space="preserve" y="5.0">LAU code<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -885,7 +885,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="37.4375" width="117.84121093750008" x="131.5298684458492" y="625.0625000000002"/>
-          <y:Fill color="#F4F4F4" transparent="false"/>
+          <y:Fill color="#E5F2F8" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto Condensed" fontSize="20" fontStyle="italic" hasBackgroundColor="false" hasLineColor="false" height="27.4375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="89.048828125" x="14.39619140625004" xml:space="preserve" y="5.0">NUTS code<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -927,7 +927,7 @@ dbo: https://dbpedia.org/ontology<y:LabelModel><y:SmartNodeLabelModel distance="
           <y:Geometry height="37.4375" width="39.05032482585881" x="501.76197926824915" y="881.1874999999999"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="false" width="4.0" x="17.525162412929376" y="16.71875">
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="false" width="4.0" x="17.525162412929433" y="16.71875">
             <y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>

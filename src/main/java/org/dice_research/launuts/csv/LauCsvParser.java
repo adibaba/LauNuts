@@ -12,6 +12,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.dice_research.launuts.sources.SourceCsvSheets;
+import org.dice_research.launuts.sources.SourceType;
+import org.dice_research.launuts.sources.Sources;
 
 /**
  * LAU CSV parser.
@@ -78,6 +80,8 @@ public class LauCsvParser {
 		int population;
 		int area;
 		String tmp;
+		int lauScheme;
+		int nutsScheme;
 
 		int rowIndex = -1;
 		Iterator<CSVRecord> recordIt = csvParser.iterator();
@@ -97,6 +101,8 @@ public class LauCsvParser {
 			population = -1;
 			area = -1;
 			tmp = null;
+			lauScheme = -1;
+			nutsScheme = -1;
 
 			// NUTS code
 			relatedNutsCode = csvRecord.get(headingColumnIndexNutsCode).trim();
@@ -154,8 +160,10 @@ public class LauCsvParser {
 					}
 			}
 
-			lauCsvCollection.add(
-					new LauCsvItem(lauCode, lauCodeSecond, relatedNutsCode, nameLatin, nameNational, population, area));
+			lauScheme = Sources.getLauScheme(SourceType.LAU, sourceId);
+			nutsScheme = Sources.getNutsScheme(SourceType.LAU, sourceId);
+			lauCsvCollection.add(new LauCsvItem(lauScheme, nutsScheme, lauCode, lauCodeSecond, relatedNutsCode,
+					nameLatin, nameNational, population, area));
 		}
 		return lauCsvCollection;
 	}

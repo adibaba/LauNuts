@@ -57,7 +57,7 @@ public abstract class Dev {
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM;
+	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM_2;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
@@ -135,6 +135,8 @@ public abstract class Dev {
 	}
 
 	// Notes
+
+	// Solve NUTS scheme not included in filename (Sources.java)
 
 	// TODO include Extra-Regio?
 

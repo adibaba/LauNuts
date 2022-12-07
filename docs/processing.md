@@ -1,4 +1,4 @@
-# LauNuts data preprocessing
+# LauNuts data processing
 
 ## Resource files
 
