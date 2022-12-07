@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.dice_research.launuts.Dev;
+import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceType;
 import org.dice_research.launuts.sources.Sources;
 
@@ -24,7 +25,7 @@ import org.dice_research.launuts.sources.Sources;
 public class NutsCsvParser {
 
 	private File file;
-	private String sourceId;
+	private Source source;
 	private int headingsRowIndex = -1;
 	private int headingColumnIndexCode = -1;
 	private int headingColumnIndexCountry = -1;
@@ -32,9 +33,9 @@ public class NutsCsvParser {
 	private int headingColumnIndexNuts2 = -1;
 	private int headingColumnIndexNuts3 = -1;
 
-	public NutsCsvParser(File file, String sourceId) {
+	public NutsCsvParser(File file, Source source) {
 		this.file = file;
-		this.sourceId = sourceId;
+		this.source = source;
 	}
 
 	/**
@@ -48,7 +49,7 @@ public class NutsCsvParser {
 		searchHeadings(false);
 
 		// Parse rows
-		NutsCsvCollection nutsCsvCollection = new NutsCsvCollection(sourceId);
+		NutsCsvCollection nutsCsvCollection = new NutsCsvCollection(source.id);
 		Set<String> nutsCodesCheckSet = new HashSet<>();
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
 		int rowIndex = -1;
@@ -80,7 +81,7 @@ public class NutsCsvParser {
 			}
 			if (nutsCode == null || nutsCode.isEmpty() || value == null || value.isEmpty()) {
 				if (Dev.DEV && Dev.NUTS_PRINT_EMPTY) {
-					System.err.println("Info - Empty: " + nutsCode + " " + rowIndex + " " + sourceId + " "
+					System.err.println("Info - Empty: " + nutsCode + " " + rowIndex + " " + source.id + " "
 							+ getClass().getSimpleName());
 				}
 				continue;
@@ -91,7 +92,7 @@ public class NutsCsvParser {
 			}
 			nutsCodesCheckSet.add(nutsCode);
 
-			nutsCsvCollection.add(new NutsCsvItem(Sources.getNutsScheme(SourceType.NUTS, sourceId), nutsCode, value));
+			nutsCsvCollection.add(new NutsCsvItem(Sources.getNutsScheme(SourceType.NUTS, source.id), nutsCode, value));
 		}
 		return nutsCsvCollection;
 	}

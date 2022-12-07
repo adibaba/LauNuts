@@ -26,7 +26,7 @@ import org.dice_research.launuts.sources.Sources;
 public abstract class Dev {
 
 	// Default: false. Enables Development mode.
-	public static final boolean DEV = false;
+	public static final boolean DEV = Boolean.FALSE;
 
 	// Mode constant for {@link Main} CLI
 	public static final String MODE = "dev";
@@ -35,8 +35,8 @@ public abstract class Dev {
 	public static final boolean NUTS_PRINT_EMPTY = Boolean.FALSE;
 
 	// Execute single methods in this class
-	public static final boolean HANDLE_NUTS = Boolean.FALSE;
-	public static final boolean HANDLE_LAU = Boolean.FALSE;
+	public static final boolean HANDLE_NUTS = Boolean.TRUE;
+	public static final boolean HANDLE_LAU = Boolean.TRUE;
 	public static final boolean HANDLE_NUTSRDF = Boolean.FALSE;
 
 	// Main (pre-defined) arguments to use
@@ -57,7 +57,7 @@ public abstract class Dev {
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM_2;
+	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
@@ -88,7 +88,7 @@ public abstract class Dev {
 
 	private static void handleNuts(Source source) throws Exception {
 		File file = new SourceCsvSheets(source).getNutsMainSheetFile();
-		NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source.id).parse();
+		NutsCsvCollection nutsCsvCollection = new NutsCsvParser(file, source).parse();
 
 		// Print sizes
 		if (Boolean.FALSE)
@@ -99,13 +99,13 @@ public abstract class Dev {
 			System.out.println(nutsCsvCollection.getValues(true));
 
 		// Print values as table
-		if (Boolean.TRUE)
+		if (Boolean.FALSE)
 			System.out.println(nutsCsvCollection.getMarkdownTable());
 	}
 
 	private static void handleLau(Source source, List<String> countyCodes) throws Exception {
 		for (File file : new SourceCsvSheets(source).getLauSheetFiles()) {
-			LauCsvParser parser = new LauCsvParser(file, source.id);
+			LauCsvParser parser = new LauCsvParser(file, source);
 
 			// Print headings
 			if (Boolean.FALSE)
@@ -123,7 +123,7 @@ public abstract class Dev {
 					System.out.println(parser.parse().getValues(true));
 
 			// Print values as table
-			if (Boolean.TRUE)
+			if (Boolean.FALSE)
 				if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
 					System.out.println(parser.parse().getMarkdownTable());
 		}
@@ -133,15 +133,4 @@ public abstract class Dev {
 		// Print stats of Eurostat KG
 		new NutsRdfReader().printStats();
 	}
-
-	// Notes
-
-	// Solve NUTS scheme not included in filename (Sources.java)
-
-	// TODO include Extra-Regio?
-
-	// TODO area sometimes given in m2 and sometime km2? e.g. lau2020
-
-	// TODO nuts-2013-2016.csv: Duplicate 2013 code 'FR7'. Checked:
-	// 'AUVERGNE-RHÔNE-ALPES' should probably not be 'FR7'.
 }

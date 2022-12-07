@@ -212,13 +212,13 @@ public class Main {
 						SourceCsvSheets sourceCsvSheets = new SourceCsvSheets(source);
 						for (File file : sourceCsvSheets.getLauSheetFiles()) {
 							if (countyCodes.isEmpty() || countyCodes.contains(SourceCsvSheets.getLauCountryCode(file)))
-								modelBuilder.lauCsvCollections.add(new LauCsvParser(file, source.id).parse());
+								modelBuilder.lauCsvCollections.add(new LauCsvParser(file, source).parse());
 						}
 					}
 					if (source.sourceType.equals(SourceType.NUTS)) {
 						SourceCsvSheets sourceCsvSheets = new SourceCsvSheets(source);
 						modelBuilder.nutsCsvCollections
-								.add(new NutsCsvParser(sourceCsvSheets.getNutsMainSheetFile(), source.id).parse());
+								.add(new NutsCsvParser(sourceCsvSheets.getNutsMainSheetFile(), source).parse());
 					}
 				}
 			}

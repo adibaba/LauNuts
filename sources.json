@@ -112,7 +112,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_LAU_2016"
-		]
+		],
+		"nuts-scheme":"2013"
 	},
 	{
 		"id":"lau2015",
@@ -120,7 +121,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2015.xlsx"
-		]
+		],
+		"nuts-scheme":"2013"
 	},
 	{
 		"id":"lau2014",
@@ -128,7 +130,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2014.xlsx"
-		]
+		],
+		"nuts-scheme":"2013"
 	},
 	{
 		"id":"lau2013",
@@ -136,7 +139,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2013.xlsx"
-		]
+		],
+		"nuts-scheme":"2013"
 	},
 	{
 		"id":"lau2012",
@@ -144,7 +148,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2012.xlsx"
-		]
+		],
+		"nuts-scheme":"2010"
 	},
 	{
 		"id":"lau2011-census",
@@ -152,7 +157,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-28_2011_Census.xlsx"
-		]
+		],
+		"nuts-scheme":"2010"
 	},
 	{
 		"id":"lau2011",
@@ -160,7 +166,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-27_2011.xlsx"
-		]
+		],
+		"nuts-scheme":"2010"
 	},
 	{
 		"id":"lau2010",
@@ -168,7 +175,8 @@
 		"filetype":"xlsx",
 		"sources":[
 			"https://ec.europa.eu/eurostat/documents/345175/501971/EU-27_2010.xlsx"
-		]
+		],
+		"nuts-scheme":"2010"
 	},
 	
 	

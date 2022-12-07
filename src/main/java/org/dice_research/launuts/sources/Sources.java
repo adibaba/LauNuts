@@ -20,6 +20,7 @@ public class Sources {
 	public static final String KEY_FILETYPE = "filetype";
 	public static final String KEY_SOURCES = "sources";
 	public static final String KEY_TYPE = "type";
+	public static final String KEY_NUTS_SCHEME = "nuts-scheme";
 
 	public static final String FILETYPE_XLSX = "xlsx";
 	public static final String FILETYPE_XLS = "xls";
@@ -45,8 +46,15 @@ public class Sources {
 			if (sourceId.length() == 16)
 				return Integer.parseInt(sourceId.substring(12, 16));
 			else
-				// TODO
-				return 1900;
+				try {
+					for (Source source : new Sources().getSources()) {
+						if (source.id.equals(sourceId))
+							return Integer.parseInt(source.nutsScheme);
+					}
+				} catch (Exception e) {
+					throw new RuntimeException("Could not find source for " + sourceId);
+				}
+			throw new RuntimeException("Could not find source for " + sourceId);
 		} else if (sourceType.equals(SourceType.NUTS)) {
 			// e.g. nuts-2016-2021
 			return Integer.parseInt(sourceId.substring(10, 14));

@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.dice_research.launuts.sources.Source;
 import org.dice_research.launuts.sources.SourceCsvSheets;
 import org.dice_research.launuts.sources.SourceType;
 import org.dice_research.launuts.sources.Sources;
@@ -23,7 +24,7 @@ import org.dice_research.launuts.sources.Sources;
 public class LauCsvParser {
 
 	private File file;
-	private String sourceId;
+	private Source source;
 
 	private int headingsRowIndex = -1;
 	private int headingColumnIndexNutsCode = -1;
@@ -34,9 +35,9 @@ public class LauCsvParser {
 	private int headingColumnIndexPopulation = -1;
 	private int headingColumnIndexArea = -1;
 
-	public LauCsvParser(File file, String sourceId) {
+	public LauCsvParser(File file, Source source) {
 		this.file = file;
-		this.sourceId = sourceId;
+		this.source = source;
 	}
 
 	/**
@@ -48,7 +49,7 @@ public class LauCsvParser {
 
 	private void setIndividualConfig() {
 		// Column "NAME_2_LAT" are empty values or "(Le)", "(L')", "(La)"
-		if (sourceId.equals("lau2015") && file.getName().equals("FR.csv")) {
+		if (source.id.equals("lau2015") && file.getName().equals("FR.csv")) {
 			headingColumnIndexNameLatin = -1;
 		}
 	}
@@ -67,7 +68,7 @@ public class LauCsvParser {
 		setIndividualConfig();
 
 		// Parse rows
-		LauCsvCollection lauCsvCollection = new LauCsvCollection(sourceId, file);
+		LauCsvCollection lauCsvCollection = new LauCsvCollection(source.id, file);
 		CSVParser csvParser = CSVParser.parse(file, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
 
 		List<String> noNumbers = Arrays.asList(new String[] { "n.a.", "n.a", "#N/A", "#VALUE!", "–" });
@@ -160,8 +161,13 @@ public class LauCsvParser {
 					}
 			}
 
-			lauScheme = Sources.getLauScheme(SourceType.LAU, sourceId);
-			nutsScheme = Sources.getNutsScheme(SourceType.LAU, sourceId);
+			lauScheme = Sources.getLauScheme(SourceType.LAU, source.id);
+			if (source.nutsScheme == null) {
+				nutsScheme = Sources.getNutsScheme(SourceType.LAU, source.id);
+			} else {
+				nutsScheme = Integer.parseInt(source.nutsScheme);
+			}
+
 			lauCsvCollection.add(new LauCsvItem(lauScheme, nutsScheme, lauCode, lauCodeSecond, relatedNutsCode,
 					nameLatin, nameNational, population, area));
 		}
@@ -256,7 +262,7 @@ public class LauCsvParser {
 				headingColumnIndexNameNational, headingColumnIndexPopulation, headingColumnIndexArea }) {
 			arrayIndex++;
 			if (index == -1) {
-				System.err.println("Warning: Column index not set. " + sourceId + " " + arrayIndex + " " + headings
+				System.err.println("Warning: Column index not set. " + source.id + " " + arrayIndex + " " + headings
 						+ " " + file.getName());
 			}
 		}
@@ -277,7 +283,7 @@ public class LauCsvParser {
 					if (indexFound == -1) {
 						indexFound = columnIndex;
 					} else {
-						System.err.println("Warning: Column index already found  " + sourceId + " " + file + "  "
+						System.err.println("Warning: Column index already found  " + source.id + " " + file + "  "
 								+ indexTitle + " " + indexFound + " " + string + " " + headings);
 					}
 				}

@@ -42,6 +42,11 @@ public class Source {
 	public List<String> sources = new LinkedList<>();
 
 	/**
+	 * Used NUTS scheme.
+	 */
+	public String nutsScheme;
+
+	/**
 	 * Constructor builds object variables based on JSON object.
 	 * 
 	 * @param jsonObject
@@ -64,6 +69,9 @@ public class Source {
 		if (this.sourceType == null) {
 			throw new RuntimeException("Unknown source type: " + type);
 		}
+
+		if (jsonObject.has(Sources.KEY_NUTS_SCHEME))
+			this.nutsScheme = jsonObject.getString(Sources.KEY_NUTS_SCHEME);
 	}
 
 	/**

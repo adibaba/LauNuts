@@ -15,7 +15,7 @@
 
 ## LAU
 
-- **Local Administrative Units (LAU) **  
+- **Local Administrative Units (LAU)**  
   https://ec.europa.eu/eurostat/web/nuts/local-administrative-units  
   lists Excel files
 
@@ -33,7 +33,7 @@
 
 ## Additional data
 
-- **Postcodes and NUTS **  
+- **Postcodes and NUTS**  
   https://ec.europa.eu/eurostat/web/nuts/correspondence-tables/postcodes-and-nuts  
   [POST]
 - **TERCET Flat Files**  
