@@ -59,6 +59,8 @@
   source: [NUTS2JSON]
 - **Statistical Atlas**  
   https://ec.europa.eu/statistical-atlas/viewer/
+- **Regions and cities**  
+  https://ec.europa.eu/eurostat/web/regions/data/main-tables
 
 ## RDF
 

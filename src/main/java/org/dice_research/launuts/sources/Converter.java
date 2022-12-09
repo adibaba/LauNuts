@@ -16,14 +16,14 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * Converts XLS to XLSX to CSV
  * 
  * 
- * LibreOffice
+ * LibreOffice ("LibreOffice 7.3.7.2 30(Build:2)")
  * 
  * https://libreoffice.org
  * 
  * Command: "libreoffice --convert-to xlsx file.xls --outdir directory/"
  * 
  * 
- * ssconvert / Gnumeric
+ * ssconvert / Gnumeric ("ssconvert Version »1.12.51«")
  * 
  * https://manpages.debian.org/stable/gnumeric/ssconvert.1.en.html
  * 
@@ -33,7 +33,7 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * sheet)
  * 
  * 
- * in2csv
+ * in2csv ("in2csv 1.0.7")
  * 
  * https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html
  * 
@@ -42,7 +42,7 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * Command: "in2csv --write-sheets - file.xlsx"
  * 
  * 
- * xlsx2csv
+ * xlsx2csv ("0.8")
  * 
  * https://github.com/dilshod/xlsx2csv
  * 

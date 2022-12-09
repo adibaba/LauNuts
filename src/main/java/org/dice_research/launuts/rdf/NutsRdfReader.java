@@ -202,6 +202,8 @@ public class NutsRdfReader {
 	public void printStats() {
 		NutsRdfReader reader = read();
 
+		System.out.println("Triples: " + model.size());
+
 		System.out.println("Predicate URIs");
 		for (String uri : reader.getAllPredicateUris()) {
 			System.out.println(uri);

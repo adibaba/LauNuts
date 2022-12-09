@@ -35,9 +35,9 @@ public abstract class Dev {
 	public static final boolean NUTS_PRINT_EMPTY = Boolean.FALSE;
 
 	// Execute single methods in this class
-	public static final boolean HANDLE_NUTS = Boolean.TRUE;
-	public static final boolean HANDLE_LAU = Boolean.TRUE;
-	public static final boolean HANDLE_NUTSRDF = Boolean.FALSE;
+	public static final boolean HANDLE_NUTS = Boolean.FALSE;
+	public static final boolean HANDLE_LAU = Boolean.FALSE;
+	public static final boolean HANDLE_NUTSRDF = Boolean.TRUE;
 
 	// Main (pre-defined) arguments to use
 	public static final String[] DEV_ARGS_ALL_LS = new String[] { Main.MODE_LIST };
