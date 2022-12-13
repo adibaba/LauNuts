@@ -39,6 +39,8 @@
 - **TERCET Flat Files**  
   https://gisco-services.ec.europa.eu/tercet/flat-files  
   files with post codes, source: [POST]
+- **Federal Statistical Office**  
+  https://www.destatis.de/Europa/EN/Methods/Classifications/OverviewClassification_NUTS.html
 - **Wikipedia category Nomenclature of Territorial Units for Statistics**  
   https://en.wikipedia.org/wiki/Category:Nomenclature_of_Territorial_Units_for_Statistics  
   mappings to wikipedia pages

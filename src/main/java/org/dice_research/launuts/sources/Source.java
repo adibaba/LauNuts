@@ -1,15 +1,13 @@
 package org.dice_research.launuts.sources;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.dice_research.launuts.Config;
+import org.dice_research.launuts.exceptions.DownloadRuntimeException;
+import org.dice_research.launuts.io.Io;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -128,22 +126,11 @@ public class Source {
 	 * Downloads file.
 	 * 
 	 * @param force True if existing files should be overwritten
-	 * @throws IOException
+	 * 
+	 * @throws DownloadRuntimeException On any exceptions during download.
 	 */
-	public void download(boolean force) throws IOException {
-		// Source: https://www.baeldung.com/java-download-file
-		File file = getDownloadFile();
-		if (!file.exists() || force) {
-			URL url = new URL(sources.get(0));
-			System.out.println("Downloading file " + file.getAbsolutePath() + " from " + url);
-			file.getParentFile().mkdirs();
-			ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
-			FileOutputStream fileOutputStream = new FileOutputStream(file);
-			fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
-			fileOutputStream.close();
-		} else if (file.exists()) {
-			System.out.println("Skipping download of existing file: " + file.getAbsolutePath());
-		}
+	public void download(boolean force) throws DownloadRuntimeException {
+		Io.download(sources.get(0), getDownloadFile(), force);
 	}
 
 	@Override

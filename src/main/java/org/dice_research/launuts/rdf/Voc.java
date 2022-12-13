@@ -35,6 +35,7 @@ public abstract class Voc {
 	public static final Property SKOS_notation = SKOS.notation;
 	public static final Property SKOS_prefLabel = SKOS.prefLabel;
 	public static final Property SKOS_altLabel = SKOS.altLabel;
+	public static final Property SKOS_related = SKOS.related;
 
 	// DBpedia
 

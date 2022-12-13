@@ -37,7 +37,7 @@ public abstract class Dev {
 	// Execute single methods in this class
 	public static final boolean HANDLE_NUTS = Boolean.FALSE;
 	public static final boolean HANDLE_LAU = Boolean.FALSE;
-	public static final boolean HANDLE_NUTSRDF = Boolean.TRUE;
+	public static final boolean HANDLE_NUTSRDF = Boolean.FALSE;
 
 	// Main (pre-defined) arguments to use
 	public static final String[] DEV_ARGS_ALL_LS = new String[] { Main.MODE_LIST };
@@ -57,7 +57,7 @@ public abstract class Dev {
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
+	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM_2;
 
 	/**
 	 * Called if {@link Main} mode is "dev".

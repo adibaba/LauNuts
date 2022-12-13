@@ -2,12 +2,15 @@ package org.dice_research.launuts.io;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +19,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import org.dice_research.launuts.exceptions.DownloadRuntimeException;
 import org.dice_research.launuts.exceptions.IoRuntimeException;
 
 /**
@@ -94,5 +98,45 @@ public abstract class Io {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		writer.write(string);
 		writer.close();
+	}
+
+	/**
+	 * Reads string to file.
+	 */
+	public static String readFileToString(File file) {
+		try {
+			return Files.readString(file.toPath());
+		} catch (IOException e) {
+			throw new IoRuntimeException(e);
+		}
+	}
+
+	/**
+	 * Downloads file.
+	 * 
+	 * @param url   URL to download
+	 * @param file  File to save
+	 * @param force True if existing files should be overwritten
+	 * 
+	 * @throws DownloadRuntimeException On any exceptions during download.
+	 */
+	public static void download(String urlString, File file, boolean force) {
+		try {
+			if (!file.exists() || force) {
+				URL url = new URL(urlString);
+				System.out.println("Downloading file " + file.getAbsolutePath() + " from " + url);
+				file.getParentFile().mkdirs();
+				// Source: https://www.baeldung.com/java-download-file
+				ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
+				fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
+				fileOutputStream.close();
+			} else if (file.exists()) {
+				System.out.println("Skipping download of existing file: " + file.getAbsolutePath());
+			}
+		} catch (IOException e) {
+			throw new DownloadRuntimeException(e, urlString, file);
+		}
+
 	}
 }
