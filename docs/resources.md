@@ -63,6 +63,8 @@
   https://ec.europa.eu/statistical-atlas/viewer/
 - **Regions and cities**  
   https://ec.europa.eu/eurostat/web/regions/data/main-tables
+- **Regions in Europe – 2022 interactive edition**  
+  https://ec.europa.eu/eurostat/en/web/products-interactive-publications/-/ks-09-22-376
 
 ## RDF
 
