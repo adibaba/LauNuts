@@ -1,5 +1,6 @@
 package org.dice_research.launuts.csv;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +42,15 @@ public class NutsCsvCollection {
 		default:
 			throw new RuntimeException("Unusual NUTS code: " + nutsCsvItem.nutsCode);
 		}
+	}
+
+	public List<NutsCsvItem> getAll() {
+		List<NutsCsvItem> list = new ArrayList<>(country.size() + nuts1.size() + nuts2.size() + nuts3.size());
+		list.addAll(country);
+		list.addAll(nuts1);
+		list.addAll(nuts2);
+		list.addAll(nuts3);
+		return list;
 	}
 
 	public String getValues(boolean breakLines) {

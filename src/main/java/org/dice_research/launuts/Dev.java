@@ -53,11 +53,11 @@ public abstract class Dev {
 	// lau2017-nuts2016, lau2017-nuts2013, lau2016, lau2015, lau2014, lau2013,
 	// lau2012, lau2011-census, lau2011, lau2010, nuts
 	public static final String[] DEV_ARGS_CUSTOM = new String[] //
-	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "dev" };
+	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "kg" };
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM_2;
+	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM;
 
 	/**
 	 * Called if {@link Main} mode is "dev".

@@ -2,16 +2,20 @@ package org.dice_research.launuts.rdf;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.rdf.model.Statement;
 import org.dice_research.launuts.csv.LauCsvCollection;
 import org.dice_research.launuts.csv.LauCsvItem;
 import org.dice_research.launuts.csv.NutsCsvCollection;
 import org.dice_research.launuts.csv.NutsCsvItem;
+import org.dice_research.launuts.linking.WikipediaLinking;
 
 /**
  * Creates Knowledge Graph.
@@ -25,12 +29,17 @@ public class ModelBuilder {
 
 	public Model build() {
 		Model model = ModelFactory.createDefaultModel();
+
 		for (LauCsvCollection lauCsvCollection : lauCsvCollections) {
 			addLauCsvCollection(model, lauCsvCollection);
 		}
+
 		for (NutsCsvCollection nutsCsvCollection : nutsCsvCollections) {
 			addNutsCsvCollection(model, nutsCsvCollection);
 		}
+
+		addRelated(model);
+
 		return model;
 	}
 
@@ -43,37 +52,50 @@ public class ModelBuilder {
 				continue;
 			}
 
-			// Resources
-			Resource resLaunuts = ResourceFactory
-					.createResource(Voc.getNutsWithSchemeUri(item.nutsSchema, item.nutsCodeToString()));
-			Resource resLau = ResourceFactory.createResource(Voc.getLauUri(item.lauSchema, item.getCountryCode(),
-					item.lauCodeToString(), item.lauCodeSecondToString()));
+			// LAU to NUTS
+			Resource resUniqueNuts = ResourceFactory
+					.createResource(Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCodeToString()));
+			Resource resUniqueLau = ResourceFactory.createResource(Voc.getUniqueLauUri(item.lauSchema,
+					item.getCountryCode(), item.lauCodeToString(), item.lauCodeSecondToString()));
+			model.add(resUniqueLau, Voc.SKOS_broader, resUniqueNuts);
 
-			// Hierarchy relations
-			model.add(resLau, Voc.SKOS_broader, resLaunuts);
-			model.add(resLaunuts, Voc.SKOS_narrower, resLau);
+			// Schema
+			Resource resLauSchema = ResourceFactory.createResource(Voc.getLauSchemeUri(item.lauSchema));
+			if (!model.containsResource(resLauSchema)) {
+				Literal litDate = ResourceFactory.createTypedLiteral(item.lauSchema + "-01-01", XSDDatatype.XSDdate);
+				model.add(resLauSchema, Voc.DCT_issued, litDate);
+				model.add(resUniqueLau, Voc.SKOS_inScheme, resLauSchema);
+			}
 
-			// Literals: Mandatory
-			model.addLiteral(resLau, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.lauCode));
+			// General LAU
+			Resource resLau = ResourceFactory.createResource(
+					Voc.getLauUri(item.getCountryCode(), item.lauCodeToString(), item.lauCodeSecondToString()));
+			if (!model.containsResource(resLau)) {
+				model.add(resLau, Voc.SKOS_inScheme, resLauSchema);
+				model.add(resUniqueLau, Voc.SKOS_hasTopConcept, resLau);
+				model.addLiteral(resLau, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.lauCode));
+			}
 
 			// Literals: Names
 			if (item.hasNameLatin())
-				model.addLiteral(resLau, Voc.SKOS_prefLabel, ResourceFactory.createPlainLiteral(item.nameLatin));
+				model.addLiteral(resUniqueLau, Voc.SKOS_prefLabel, ResourceFactory.createPlainLiteral(item.nameLatin));
 			if (item.hasNameNational())
 				// National names are only added if not already addded in latin
 				if (!item.nameNational.equals(item.nameLatin))
-					model.addLiteral(resLau, Voc.SKOS_altLabel, ResourceFactory.createPlainLiteral(item.nameNational));
+					model.addLiteral(resUniqueLau, Voc.SKOS_altLabel,
+							ResourceFactory.createPlainLiteral(item.nameNational));
 
 			// Literals: Numbers
 			if (item.hasArea())
-				model.addLiteral(resLau, Voc.DBO_area, ResourceFactory.createTypedLiteral(item.area));
+				model.addLiteral(resUniqueLau, Voc.DBO_area, ResourceFactory.createTypedLiteral(item.area));
 			if (item.hasPopulation())
-				model.addLiteral(resLau, Voc.DBO_populationTotal, ResourceFactory.createTypedLiteral(item.population));
+				model.addLiteral(resUniqueLau, Voc.DBO_populationTotal,
+						ResourceFactory.createTypedLiteral(item.population));
 		}
 	}
 
 	private void addNutsCsvCollection(Model model, NutsCsvCollection nutsCsvCollection) {
-		for (NutsCsvItem item : nutsCsvCollection.nuts3) {
+		for (NutsCsvItem item : nutsCsvCollection.getAll()) {
 
 			// Mandatory values
 			if (!item.hasNutsSchema() || !item.hasName() || !item.hasNutsCode()) {
@@ -81,30 +103,49 @@ public class ModelBuilder {
 				continue;
 			}
 
-			Resource resLaunutsNuts = ResourceFactory
-					.createResource(Voc.getNutsWithSchemeUri(item.nutsSchema, item.nutsCode));
-			Resource resEurostatNuts = ResourceFactory.createResource(VocEu.getNutsCodeUri(item.nutsCode));
-			Resource resEurostatNutsScheme = ResourceFactory.createResource(VocEu.getNutsSchemeUri(item.nutsSchema));
+			Resource resUniqueNuts = ResourceFactory
+					.createResource(Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode));
 
-			// Add LauNuts NUTS item to Eurostat NUTS and SCHEME
-			model.add(resLaunutsNuts, Voc.SKOS_hasTopConcept, resEurostatNuts);
-			model.add(resLaunutsNuts, Voc.SKOS_inScheme, resEurostatNutsScheme);
+			// Eurostat NUTS scheme
+			Resource resEurostatNutsScheme = ResourceFactory.createResource(VocEu.getNutsSchemeUri(item.nutsSchema));
+			if (!model.containsResource(resEurostatNutsScheme)) {
+				Literal litDate = ResourceFactory.createTypedLiteral(item.nutsSchema + "-01-01", XSDDatatype.XSDdate);
+				model.add(resEurostatNutsScheme, Voc.DCT_issued, litDate);
+			}
+			model.add(resUniqueNuts, Voc.SKOS_inScheme, resEurostatNutsScheme);
+
+			// Eurostat NUTS
+			Resource resEurostatNuts = ResourceFactory.createResource(VocEu.getNutsCodeUri(item.nutsCode));
+			if (!model.containsResource(resEurostatNuts)) {
+				model.addLiteral(resEurostatNuts, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.nutsCode));
+				model.add(resEurostatNuts, Voc.SKOS_inScheme, resEurostatNutsScheme);
+			}
+			model.add(resUniqueNuts, Voc.SKOS_hasTopConcept, resEurostatNuts);
 
 			// Add NUTS label/name
-			model.addLiteral(resLaunutsNuts, Voc.SKOS_prefLabel, ResourceFactory.createPlainLiteral(item.name));
+			model.addLiteral(resUniqueNuts, Voc.SKOS_prefLabel, ResourceFactory.createPlainLiteral(item.name));
 
-			// Add NUTS code to Eurostat NUTS
-			Statement nutsCodeStmt = ResourceFactory.createStatement(resEurostatNuts, Voc.SKOS_notation,
-					ResourceFactory.createPlainLiteral(item.nutsCode));
-			model.add(nutsCodeStmt);
-
-			// If exists a broader NUTS, add hierarchy relations
+			// Add hierarchy
 			if (item.getLevel() > 0) {
-				Resource resbroaderLaunutsNuts = ResourceFactory.createResource(Voc
-						.getNutsWithSchemeUri(item.nutsSchema, item.nutsCode.substring(0, item.nutsCode.length() - 1)));
-				model.add(resLaunutsNuts, Voc.SKOS_broader, resbroaderLaunutsNuts);
-				model.add(resbroaderLaunutsNuts, Voc.SKOS_narrower, resLaunutsNuts);
+				Resource resbroaderLaunutsNuts = ResourceFactory.createResource(
+						Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode.substring(0, item.nutsCode.length() - 1)));
+				model.add(resUniqueNuts, Voc.SKOS_broader, resbroaderLaunutsNuts);
 			}
+		}
+	}
+
+	private void addRelated(Model model) {
+		WikipediaLinking wikipediaLinking = new WikipediaLinking();
+		String markdown = wikipediaLinking.downloadWpNuts1().getWpNuts1Markdown();
+		Map<String, String> codesToUris = wikipediaLinking.getWpNuts1CodesToUris(markdown);
+		for (Entry<String, String> codeToUri : codesToUris.entrySet()) {
+			String uniqueNutsUri = Voc.getUniqueNutsUri(2021, codeToUri.getKey());
+			Resource nutsRes = ResourceFactory.createResource(uniqueNutsUri);
+			if (model.containsResource(nutsRes)) {
+				Resource wpRes = ResourceFactory.createResource(codeToUri.getValue());
+				model.add(nutsRes, Voc.SKOS_related, wpRes);
+			} else
+				System.err.println("Info: Not linked: " + uniqueNutsUri + " " + getClass().getSimpleName());
 		}
 	}
 }

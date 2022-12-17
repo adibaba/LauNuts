@@ -3,6 +3,7 @@ package org.dice_research.launuts.rdf;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.SKOS;
 
 /**
@@ -30,12 +31,15 @@ public abstract class Voc {
 	public static final Property SKOS_inScheme = SKOS.inScheme;
 
 	public static final Property SKOS_broader = SKOS.broader;
-	public static final Property SKOS_narrower = SKOS.narrower;
 
 	public static final Property SKOS_notation = SKOS.notation;
 	public static final Property SKOS_prefLabel = SKOS.prefLabel;
 	public static final Property SKOS_altLabel = SKOS.altLabel;
 	public static final Property SKOS_related = SKOS.related;
+
+	// Dublin Core
+
+	public static final Property DCT_issued = DCTerms.issued;
 
 	// DBpedia
 
@@ -54,12 +58,12 @@ public abstract class Voc {
 	 * @param nutsCode   nutsCode, e.g. "FR101" (Paris) or "DE" (Germany)
 	 * @return LauNuts URI of NUTS schema and NUTS code
 	 */
-	public static String getNutsWithSchemeUri(Integer nutsSchema, String nutsCode) {
+	public static String getUniqueNutsUri(Integer nutsSchema, String nutsCode) {
 		return PREFIX_NUTS + nutsSchema + "#" + nutsCode;
 	}
 
 	/**
-	 * Constructs LAU URI.
+	 * Constructs LAU URI including schema and country code.
 	 * 
 	 * For LAU until 2016, two LAU codes were used. However, in some cases the first
 	 * LAU code is not available or does not exist. Therefore, no URI can be
@@ -77,10 +81,9 @@ public abstract class Voc {
 	 * @param lauSchema     schema, e.g. 2016
 	 * @param countryCode   countryCode, e.g. FR
 	 * @param lauCode,      e.g. 75
-	 * @param lauCodeSecond e.g. 75056, null or empty. Only used until 2016,
-	 * @return
+	 * @param lauCodeSecond e.g. 75056, null or empty. Only used until 2016.
 	 */
-	public static String getLauUri(Integer lauSchema, String countryCode, String lauCode, String lauCodeSecond) {
+	public static String getUniqueLauUri(Integer lauSchema, String countryCode, String lauCode, String lauCodeSecond) {
 		if (lauSchema <= 2016) {
 			if (lauCodeSecond == null)
 				lauCodeSecond = "";
@@ -88,5 +91,25 @@ public abstract class Voc {
 		} else {
 			return PREFIX_LAU + lauSchema + "/" + countryCode + "#" + lauCode;
 		}
+	}
+
+	/**
+	 * Constructs LAU URI including country code.
+	 * 
+	 * @param countryCode   countryCode, e.g. FR
+	 * @param lauCode,      e.g. 75
+	 * @param lauCodeSecond e.g. 75056, null or empty. Only used until 2016.
+	 */
+	public static String getLauUri(String countryCode, String lauCode, String lauCodeSecond) {
+		return PREFIX_LAU + countryCode + "#" + lauCode;
+	}
+
+	/**
+	 * Constructs LAU scheme URI.
+	 * 
+	 * @param lauSchema schema, e.g. 2016
+	 */
+	public static String getLauSchemeUri(Integer lauSchema) {
+		return PREFIX_LAU + lauSchema;
 	}
 }
