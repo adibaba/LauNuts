@@ -1,8 +1,4 @@
-# LauNuts resources
-
-- **LauNuts**  
-  https://github.com/adibaba/LauNuts/  
-  RDF knowledge graph generator
+# review resources
 
 ## NUTS
 

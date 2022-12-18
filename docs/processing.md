@@ -1,4 +1,4 @@
-# LauNuts data processing
+# review data processing
 
 ## Resource files
 
@@ -12,7 +12,7 @@
 ## Download
 
 - The download URLs listed in [sources.json](../sources.json) are used for downloading data.
-- The used files are mirrored at the [Hobbit FTP server](https://hobbitdata.informatik.uni-leipzig.de/LauNuts/sources/download/).
+- The used files are mirrored at the [Hobbit FTP server](https://hobbitdata.informatik.uni-leipzig.de/review/sources/download/).
 
 ## Data conversion
 
@@ -20,14 +20,13 @@
 	- Use [LibreOffice](https://libreoffice.org) to convert XLS into XLSX.
 	- Use [ssconvert](https://manpages.debian.org/stable/gnumeric/ssconvert.1.en.html) (Gnumeric) to convert XLSX into CSV.
 	- Use [in2csv](https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html) (csvkit) to get XLSX sheet names.
-- The converted files are mirrored at the [Hobbit FTP server](https://hobbitdata.informatik.uni-leipzig.de/LauNuts/sources/csv/).
+- The converted files are mirrored at the [Hobbit FTP server](https://hobbitdata.informatik.uni-leipzig.de/review/sources/csv/).
 
 ### Previous data conversion approaches
 
 #### Apache POI
 
-With Apache POI the JVM ran out of memory.
-Previous code is available for the [Java Excel parser](https://github.com/adibaba/LauNuts/tree/e9e6d1c60060c084042df6971379747094d47c02/src/main/java/org/dice_research/launuts/excel) and a related [test case](https://github.com/adibaba/LauNuts/tree/e9e6d1c60060c084042df6971379747094d47c02/src/test/java/org/dice_research/launuts).
+-
 
 #### LibreOffice
 

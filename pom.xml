@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.dice_research.launuts</groupId>
-	<artifactId>launuts</artifactId>
+	<groupId>org.review</groupId>
+	<artifactId>review</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
-	<name>LauNuts</name>
+	<name>review</name>
 
 	<properties>
 		<java.version>11</java.version>
@@ -82,7 +82,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>org.dice_research.launuts.Main</mainClass>
+							<mainClass>org.review.Main</mainClass>
 						</manifest>
 
 						<!-- Handle logger exception -->
@@ -92,9 +92,9 @@
 						<!-- </manifestEntries> -->
 					</archive>
 
-					<!-- launuts.jar instead of launuts-x.x.x-SNAPSHOT-jar-with-dependencies.jar -->
+					<!-- review.jar instead of review-x.x.x-SNAPSHOT-jar-with-dependencies.jar -->
 					<!-- https://stackoverflow.com/a/3269902 -->
-					<finalName>launuts</finalName>
+					<finalName>review</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 
 				</configuration>

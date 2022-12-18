@@ -1,20 +1,18 @@
-[![Issues](https://img.shields.io/github/issues/adibaba/LauNuts)](https://github.com/adibaba/LauNuts/issues)
 
+# review
 
-# LauNuts
-
-LauNuts is a RDF Knowledge Graph consisting of:
+review is a RDF Knowledge Graph consisting of:
 
 - Local Administrative Units (LAU) and
 - Nomenclature of Territorial Units for Statistics (NUTS)
 
 
-## LauNuts Knowledge Graph
+## review Knowledge Graph
 
-The LauNuts Knowledge Graph is based on the *Eurostat: NUTS - Linked Open Data* dataset scheme and extends it by LAU data.
+The review Knowledge Graph is based on the *Eurostat: NUTS - Linked Open Data* dataset scheme and extends it by LAU data.
 
 
-## LauNuts Generator
+## review Generator
 
 The software in this repository can be executed as follows:
 
@@ -42,4 +40,4 @@ Options:
 
 ## Credits
 
-[Data Science Group (DICE)](https://dice-research.org/) at [Paderborn University](https://www.uni-paderborn.de/), Adrian Wilke
+-
