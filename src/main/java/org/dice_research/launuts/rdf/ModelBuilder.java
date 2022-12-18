@@ -26,6 +26,7 @@ public class ModelBuilder {
 
 	public List<LauCsvCollection> lauCsvCollections = new LinkedList<>();
 	public List<NutsCsvCollection> nutsCsvCollections = new LinkedList<>();
+	public Statistics statistics = new Statistics();
 
 	public Model build() {
 		Model model = ModelFactory.createDefaultModel();
@@ -39,6 +40,8 @@ public class ModelBuilder {
 		}
 
 		addRelated(model);
+
+		System.out.println(statistics);
 
 		return model;
 	}
@@ -91,6 +94,8 @@ public class ModelBuilder {
 			if (item.hasPopulation())
 				model.addLiteral(resUniqueLau, Voc.DBO_populationTotal,
 						ResourceFactory.createTypedLiteral(item.population));
+
+			statistics.countLauCsvItem(item);
 		}
 	}
 
@@ -131,6 +136,8 @@ public class ModelBuilder {
 						Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode.substring(0, item.nutsCode.length() - 1)));
 				model.add(resUniqueNuts, Voc.SKOS_broader, resbroaderLaunutsNuts);
 			}
+
+			statistics.countNutsCsvItem(item);
 		}
 	}
 
@@ -144,6 +151,7 @@ public class ModelBuilder {
 			if (model.containsResource(nutsRes)) {
 				Resource wpRes = ResourceFactory.createResource(codeToUri.getValue());
 				model.add(nutsRes, Voc.SKOS_related, wpRes);
+				statistics.countLinked();
 			} else
 				System.err.println("Info: Not linked: " + uniqueNutsUri + " " + getClass().getSimpleName());
 		}

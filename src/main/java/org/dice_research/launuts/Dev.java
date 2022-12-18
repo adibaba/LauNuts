@@ -44,6 +44,7 @@ public abstract class Dev {
 	public static final String[] DEV_ARGS_ALL_DL = new String[] { Main.MODE_DOWNLOAD };
 	public static final String[] DEV_ARGS_ALL_CSV = new String[] { Main.MODE_CSV };
 	public static final String[] DEV_ARGS_ALL_CT = new String[] { Main.MODE_COUNTRIES };
+	public static final String[] DEV_ARGS_ALL_KG = new String[] { Main.MODE_GRAPH };
 	public static final String[] DEV_ARGS_ALL_HELP = new String[] { Main.MODE_HELP };
 	public static final String[] DEV_ARGS_ALL_DEV = new String[] { Dev.MODE };
 	// Source IDs:
@@ -52,12 +53,14 @@ public abstract class Dev {
 	// lau2021-nuts2021, lau2020-nuts2016, lau2019-nuts2016, lau2018-nuts2016,
 	// lau2017-nuts2016, lau2017-nuts2013, lau2016, lau2015, lau2014, lau2013,
 	// lau2012, lau2011-census, lau2011, lau2010, nuts
-	public static final String[] DEV_ARGS_CUSTOM = new String[] //
+	public static final String[] DEV_ARGS_KG_2021 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "kg" };
+	public static final String[] DEV_ARGS_KG_2016 = new String[] //
+	{ "-" + Main.OPTION_IDS, "nuts-2013-2016 lau2016", "kg" };
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM;
+	public static final String[] DEV_ARGS = DEV_ARGS_ALL_DEV;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
