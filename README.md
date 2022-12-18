@@ -1,18 +1,19 @@
+# Note: We renamed code parts for the review
 
-# review
+# Review
 
-review is a RDF Knowledge Graph consisting of:
+a RDF Knowledge Graph consisting of:
 
 - Local Administrative Units (LAU) and
 - Nomenclature of Territorial Units for Statistics (NUTS)
 
 
-## review Knowledge Graph
+## Knowledge Graph
 
 The review Knowledge Graph is based on the *Eurostat: NUTS - Linked Open Data* dataset scheme and extends it by LAU data.
 
 
-## review Generator
+## Generator
 
 The software in this repository can be executed as follows:
 
@@ -36,8 +37,3 @@ Options:
 - [Data processing pipline](docs/processing.md)
 - [Related ressources](docs/resources.md)
 - [Additional nots](docs/notes.md)
-
-
-## Credits
-
--
