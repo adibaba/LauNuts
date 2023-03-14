@@ -20,12 +20,15 @@
    td {
     vertical-align: top;
    }
-   img {
+   img.normal {
     margin: auto;
-    max-width: 500px;
+    width: 500px;
+    max-width: 100%;
    }
    img.wide {
-    max-width: 600px;
+    margin: auto;
+    width: 600px;
+    max-width: 100%;
    }
    #content {
     margin: auto;
@@ -71,11 +74,11 @@
    <h2>Insights</h2>
    
    <p>The original Eurostat schema contains the following concepts:</p>
-   <img src="schema-eurostat.svg" alt="Eurostat schema">
+   <img src="schema-eurostat.svg" alt="Eurostat schema" class="normal">
    <br><br>
    
    <p>The LauNuts schema was extended by adding the following concepts:</p>
-   <img src="schema-extension.svg" alt="LauNuts schema">
+   <img src="schema-extension.svg" alt="LauNuts schema" class="normal">
    <br><br>
    
    <p>The LauNuts URI schema is formed as follows:</p>
