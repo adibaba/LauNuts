@@ -11,11 +11,21 @@
     font-family: 'Roboto Condensed', sans-serif;
     line-height: 1.3;
    }
+   h2 {
+    margin-top: 40px;
+   }
    table, tr, td {
     border: none
    }
    td {
     vertical-align: top;
+   }
+   img {
+    margin: auto;
+    max-width: 500px;
+   }
+   img.wide {
+    max-width: 600px;
    }
    #content {
     margin: auto;
@@ -37,6 +47,7 @@
    
    <h2>Resources</h2>
    <table>
+    <tr>
      <td>Article:</td>
      <td>
       <a target="_blank" href="https://scholar.google.com/scholar?q=LauNuts%3A+A+Knowledge+Graph+to+identify+and+compare+geographic+regions+in+the+European+Union">LauNuts: A Knowledge Graph to identify and compare geographic regions in the European Union</a>
@@ -54,8 +65,22 @@
      <td>Website:</td>
      <td><a href="https://w3id.org/launuts">w3id.org/launuts</a></td>
     </tr>
-    <tr>
    </table>
+   
+   
+   <h2>Insights</h2>
+   
+   <p>The original Eurostat schema contains the following concepts:</p>
+   <img src="schema-eurostat.svg" alt="Eurostat schema">
+   <br><br>
+   
+   <p>The LauNuts schema was extended by adding the following concepts:</p>
+   <img src="schema-extension.svg" alt="LauNuts schema">
+   <br><br>
+   
+   <p>The LauNuts URI schema is formed as follows:</p>
+   <img src="uris.svg" alt="LauNuts URI schema" class="wide">
+   
    
    <h2>Acknowledgements</h2>
     This work has been supported by the German Federal Ministry of Education and Research (BMBF) within the project <a target="_blank" href="https://eml4u.github.io/">EML4U</a> under the grant no 01IS19080B
