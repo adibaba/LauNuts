@@ -1,4 +1,5 @@
-[![Issues](https://img.shields.io/github/issues/adibaba/LauNuts)](https://github.com/adibaba/LauNuts/issues)
+[![website](https://img.shields.io/badge/Website-w3id.org/launuts-a9d4e8)](https://w3id.org/launuts)
+[![issues](https://img.shields.io/badge/Issue%20tracker-GitHub-d1e28a)](https://github.com/adibaba/LauNuts/issues)
 
 
 # LauNuts
@@ -9,12 +10,7 @@ LauNuts is a RDF Knowledge Graph consisting of:
 - Nomenclature of Territorial Units for Statistics (NUTS)
 
 
-## LauNuts Knowledge Graph
-
-The LauNuts Knowledge Graph is based on the *Eurostat: NUTS - Linked Open Data* dataset scheme and extends it by LAU data.
-
-
-## LauNuts Generator
+## Software
 
 The software in this repository can be executed as follows:
 
@@ -37,7 +33,12 @@ Options:
 
 - [Data processing pipline](docs/processing.md)
 - [Related ressources](docs/resources.md)
-- [Additional nots](docs/notes.md)
+- [Additional notes](docs/notes.md)
+
+
+## Acknowledgements
+
+This work has been supported by the German Federal Ministry of Education and Research (BMBF) within the project [EML4U](https://eml4u.github.io/) under the grant no 01IS19080B and by the German Federal Ministry of Transport and Digital Infrastructure (BMVI) within the project [OPAL](https://arxiv.org/pdf/2105.03161.pdf) under the grant no 19F2028A. 
 
 
 ## Credits
