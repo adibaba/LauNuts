@@ -1,5 +1,13 @@
 # LauNuts data processing
 
+## Installation
+
+The data extraction from Excel files uses external tools (see [Converter.java](../src/main/java/org/dice_research/launuts/sources/Converter.java)).
+
+On Debian systems, please install the APT packages *libreoffice* (for XLS to XLSX convertion) and *gnumeric* (for XLSX to CSV convertion).
+
+The *csvkit* tool (to extract sheet names) can be installed using `pip install csvkit`.
+
 ## Resource files
 
 - Source files are listed in [sources.json](../sources.json). A metadata entry consists of:
@@ -7,6 +15,7 @@
 	- *type*: e.g. nuts or lau.
 	- *filetype*: e.g. xls or xlsx.
 	- *sources*: At least one download URL.
+	- *nuts-scheme*: The year to be used.
 - To add additional files to the processing queue, add a respective entry.
 
 ## Download

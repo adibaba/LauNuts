@@ -9,6 +9,10 @@ LauNuts is a RDF Knowledge Graph consisting of:
 - Local Administrative Units (LAU) and
 - Nomenclature of Territorial Units for Statistics (NUTS)
 
+It is a hierarchical system where geographical areas are subdivided according to their population sizes.
+This repository provides a generator to create a RDF Knowledge Graph from Excel input data.
+Additional resources are available at [w3id.org/launuts](https://w3id.org/launuts).
+
 
 ## Software
 
@@ -29,9 +33,17 @@ Options:
  -ids <"ID1 ID2 ...">
 ```
 
+
+## Installation
+
+To run the Software, [Java](https://www.java.com/en/download/manual.jsp) has to be installed on your System.  
+If you want to convert Excel data, please have a look into [data processing](docs/processing.md).
+
+
 ## Documentation
 
 - [Data processing pipline](docs/processing.md)
+- [Development](docs/development.md)
 - [Related ressources](docs/resources.md)
 - [Additional notes](docs/notes.md)
 

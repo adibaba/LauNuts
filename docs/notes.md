@@ -1,6 +1,6 @@
 # LauNuts notes
 
-- Local Administrative Units (LAU)[Eurostat website], (https://ec.europa.eu/eurostat/web/nuts/local-administrative-units)
+- Local Administrative Units (LAU), [Eurostat website](https://ec.europa.eu/eurostat/web/nuts/local-administrative-units)
 - Nomenclature of Territorial Units for Statistics (NUTS), [Eurostat website](https://ec.europa.eu/eurostat/web/nuts/background)
 
 ## Additional code
@@ -9,8 +9,6 @@
 
 ## Notes
 
+- Image sources are located at [docs/images](./images/).
+- Additional notes can be found in the [LauNuts wiki](https://github.com/adibaba/LauNuts/wiki).
 - This is not related to the musical instrument [launut](https://www.metmuseum.org/art/collection/search/501966).
-
-## Acknowledgements
-
-- Parts of this work have been supported by the German Federal Ministry of Transport and Digital Infrastructure (BMVI) in the project [Open Data Portal Germany (OPAL)](http://projekt-opal.de/) (funding code 19F2028A).

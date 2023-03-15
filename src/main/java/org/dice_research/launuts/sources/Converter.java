@@ -20,6 +20,8 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * 
  * https://libreoffice.org
  * 
+ * Installation: sudo apt-get install libreoffice
+ * 
  * Command: "libreoffice --convert-to xlsx file.xls --outdir directory/"
  * 
  * 
@@ -42,7 +44,7 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * Command: "in2csv --write-sheets - file.xlsx"
  * 
  * 
- * xlsx2csv ("0.8")
+ * xlsx2csv ("0.8") NOT USED AT CURRENT APPROACH
  * 
  * https://github.com/dilshod/xlsx2csv
  * 
@@ -50,7 +52,8 @@ import org.dice_research.launuts.exceptions.CommandRuntimeException;
  * 
  * Command: "xlsx2csv -s 0 file.xlsx directory/" ("-s 0" means all sheets)
  * 
- * Note: xlsx2csv execution worked partly when Eclipse was started from command line.
+ * Note: xlsx2csv execution worked partly when Eclipse was started from command
+ * line.
  * 
  * 
  * @author Adrian Wilke
