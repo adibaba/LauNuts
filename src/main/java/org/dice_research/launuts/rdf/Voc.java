@@ -3,7 +3,10 @@ package org.dice_research.launuts.rdf;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.vocabulary.DCTerms;
+import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.SKOS;
 
 /**
@@ -20,8 +23,18 @@ public abstract class Voc {
 	private static final Model model = ModelFactory.createDefaultModel();
 
 	public static final String PREFIX_DBO = "https://dbpedia.org/ontology/";
-	public static final String PREFIX_NUTS = "https://w3id.org/launuts/nuts/";
-	public static final String PREFIX_LAU = "https://w3id.org/launuts/lau/";
+	public static final String PREFIX_LAUNUTS = "https://w3id.org/launuts/";
+	public static final String PREFIX_NUTS = PREFIX_LAUNUTS + "nuts/";
+	public static final String PREFIX_NUTS_CODE = PREFIX_NUTS + "code/";
+	public static final String PREFIX_NUTS_SCHEME = PREFIX_NUTS + "scheme/";
+	public static final String PREFIX_LAU = PREFIX_LAUNUTS + "lau/";
+	public static final String PREFIX_LEVEL = PREFIX_LAUNUTS + "level/";
+
+	// --- RESOURCES ---
+
+	public static final Resource resNutsScheme = ResourceFactory.createResource(PREFIX_LAUNUTS + "nutsScheme");
+	public static final Resource resLauScheme = ResourceFactory.createResource(PREFIX_LAUNUTS + "lauScheme");
+	public static final Resource resLevel0 = ResourceFactory.createResource(PREFIX_LEVEL + "0");
 
 	// --- PROPERTIES ---
 
@@ -40,6 +53,10 @@ public abstract class Voc {
 	// Dublin Core
 
 	public static final Property DCT_issued = DCTerms.issued;
+
+	// OWL
+
+	public static final Property OWL_sameAs = OWL.sameAs;
 
 	// DBpedia
 
@@ -111,5 +128,27 @@ public abstract class Voc {
 	 */
 	public static String getLauSchemeUri(Integer lauSchema) {
 		return PREFIX_LAU + lauSchema;
+	}
+
+	/**
+	 * Constructs URI of NUTS scheme.
+	 * 
+	 * @param scheme 2010 | 2013 | 2016
+	 * 
+	 * @return URI of NUTS scheme
+	 */
+	public static String getNutsSchemeUri(Integer scheme) {
+		return PREFIX_NUTS_SCHEME + scheme;
+	}
+
+	/**
+	 * Constructs URI of NUTS code.
+	 * 
+	 * @param nutsCode, e.g. "FR101" (Paris) or "DE" (Germany)
+	 * 
+	 * @return URI of URI of NUTS code
+	 */
+	public static String getNutsCodeUri(String nutsCode) {
+		return PREFIX_NUTS_CODE + nutsCode;
 	}
 }

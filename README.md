@@ -42,8 +42,8 @@ If you want to convert Excel data, please have a look into [data processing](doc
 
 ## Documentation
 
-- [Data processing pipline](docs/processing.md)
 - [Development](docs/development.md)
+- [Data processing pipline](docs/processing.md)
 - [Related ressources](docs/resources.md)
 - [Additional notes](docs/notes.md)
 

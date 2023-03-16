@@ -11,6 +11,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.vocabulary.RDF;
 import org.dice_research.launuts.csv.LauCsvCollection;
 import org.dice_research.launuts.csv.LauCsvItem;
 import org.dice_research.launuts.csv.NutsCsvCollection;
@@ -66,18 +67,19 @@ public class ModelBuilder {
 			Resource resLauSchema = ResourceFactory.createResource(Voc.getLauSchemeUri(item.lauSchema));
 			if (!model.containsResource(resLauSchema)) {
 				Literal litDate = ResourceFactory.createTypedLiteral(item.lauSchema + "-01-01", XSDDatatype.XSDdate);
-				model.add(resLauSchema, Voc.DCT_issued, litDate);
-				model.add(resUniqueLau, Voc.SKOS_inScheme, resLauSchema);
+				model.addLiteral(resLauSchema, Voc.DCT_issued, litDate);
 			}
+			model.add(resLauSchema, RDF.type, Voc.resLauScheme);
+			model.add(resUniqueLau, Voc.SKOS_inScheme, resLauSchema);
 
 			// General LAU
 			Resource resLau = ResourceFactory.createResource(
 					Voc.getLauUri(item.getCountryCode(), item.lauCodeToString(), item.lauCodeSecondToString()));
 			if (!model.containsResource(resLau)) {
-				model.add(resLau, Voc.SKOS_inScheme, resLauSchema);
-				model.add(resUniqueLau, Voc.SKOS_hasTopConcept, resLau);
 				model.addLiteral(resLau, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.lauCode));
 			}
+			model.add(resLau, Voc.SKOS_inScheme, resLauSchema);
+			model.add(resUniqueLau, Voc.SKOS_hasTopConcept, resLau);
 
 			// Literals: Names
 			if (item.hasNameLatin())
@@ -111,21 +113,22 @@ public class ModelBuilder {
 			Resource resUniqueNuts = ResourceFactory
 					.createResource(Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode));
 
-			// Eurostat NUTS scheme
-			Resource resEurostatNutsScheme = ResourceFactory.createResource(VocEu.getNutsSchemeUri(item.nutsSchema));
-			if (!model.containsResource(resEurostatNutsScheme)) {
+			// NUTS scheme
+			Resource resNutsScheme = ResourceFactory.createResource(Voc.getNutsSchemeUri(item.nutsSchema));
+			if (!model.containsResource(resNutsScheme)) {
 				Literal litDate = ResourceFactory.createTypedLiteral(item.nutsSchema + "-01-01", XSDDatatype.XSDdate);
-				model.add(resEurostatNutsScheme, Voc.DCT_issued, litDate);
+				model.addLiteral(resNutsScheme, Voc.DCT_issued, litDate);
 			}
-			model.add(resUniqueNuts, Voc.SKOS_inScheme, resEurostatNutsScheme);
+			model.add(resNutsScheme, RDF.type, Voc.resNutsScheme);
+			model.add(resUniqueNuts, Voc.SKOS_inScheme, resNutsScheme);
 
-			// Eurostat NUTS
-			Resource resEurostatNuts = ResourceFactory.createResource(VocEu.getNutsCodeUri(item.nutsCode));
-			if (!model.containsResource(resEurostatNuts)) {
-				model.addLiteral(resEurostatNuts, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.nutsCode));
-				model.add(resEurostatNuts, Voc.SKOS_inScheme, resEurostatNutsScheme);
+			// NUTS
+			Resource resNuts = ResourceFactory.createResource(Voc.getNutsCodeUri(item.nutsCode));
+			if (!model.containsResource(resNuts)) {
+				model.addLiteral(resNuts, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.nutsCode));
 			}
-			model.add(resUniqueNuts, Voc.SKOS_hasTopConcept, resEurostatNuts);
+			model.add(resNuts, Voc.SKOS_inScheme, resNutsScheme);
+			model.add(resUniqueNuts, Voc.SKOS_hasTopConcept, resNuts);
 
 			// Add NUTS label/name
 			model.addLiteral(resUniqueNuts, Voc.SKOS_prefLabel, ResourceFactory.createPlainLiteral(item.name));
@@ -135,7 +138,17 @@ public class ModelBuilder {
 				Resource resbroaderLaunutsNuts = ResourceFactory.createResource(
 						Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode.substring(0, item.nutsCode.length() - 1)));
 				model.add(resUniqueNuts, Voc.SKOS_broader, resbroaderLaunutsNuts);
+			} else {
+				model.add(resNuts, VocEu.EU_level, Voc.resLevel0);
 			}
+
+			// Eurostat NUTS scheme
+			Resource resEurostatNutsScheme = ResourceFactory.createResource(VocEu.getNutsSchemeUri(item.nutsSchema));
+			model.add(resNutsScheme, Voc.OWL_sameAs, resEurostatNutsScheme);
+
+			// Eurostat NUTS
+			Resource resEurostatNuts = ResourceFactory.createResource(VocEu.getNutsCodeUri(item.nutsCode));
+			model.add(resNuts, Voc.OWL_sameAs, resEurostatNuts);
 
 			statistics.countNutsCsvItem(item);
 		}
