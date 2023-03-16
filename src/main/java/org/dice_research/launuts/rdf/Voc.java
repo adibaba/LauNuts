@@ -22,7 +22,7 @@ public abstract class Voc {
 
 	private static final Model model = ModelFactory.createDefaultModel();
 
-	public static final String PREFIX_DBO = "https://dbpedia.org/ontology/";
+	public static final String PREFIX_DBO = "http://dbpedia.org/ontology/";
 	public static final String PREFIX_LAUNUTS = "https://w3id.org/launuts/";
 	public static final String PREFIX_NUTS = PREFIX_LAUNUTS + "nuts/";
 	public static final String PREFIX_NUTS_CODE = PREFIX_NUTS + "code/";
@@ -35,6 +35,9 @@ public abstract class Voc {
 	public static final Resource resNutsScheme = ResourceFactory.createResource(PREFIX_LAUNUTS + "nutsScheme");
 	public static final Resource resLauScheme = ResourceFactory.createResource(PREFIX_LAUNUTS + "lauScheme");
 	public static final Resource resLevel0 = ResourceFactory.createResource(PREFIX_LEVEL + "0");
+	public static final Resource resLevel1 = ResourceFactory.createResource(PREFIX_LEVEL + "1");
+	public static final Resource resLevel2 = ResourceFactory.createResource(PREFIX_LEVEL + "2");
+	public static final Resource resLevel3 = ResourceFactory.createResource(PREFIX_LEVEL + "3");
 
 	// --- PROPERTIES ---
 

@@ -138,8 +138,15 @@ public class ModelBuilder {
 				Resource resbroaderLaunutsNuts = ResourceFactory.createResource(
 						Voc.getUniqueNutsUri(item.nutsSchema, item.nutsCode.substring(0, item.nutsCode.length() - 1)));
 				model.add(resUniqueNuts, Voc.SKOS_broader, resbroaderLaunutsNuts);
-			} else {
+			}
+			if (item.getLevel() == 0) {
 				model.add(resNuts, VocEu.EU_level, Voc.resLevel0);
+			} else if (item.getLevel() == 1) {
+				model.add(resNuts, VocEu.EU_level, Voc.resLevel1);
+			} else if (item.getLevel() == 2) {
+				model.add(resNuts, VocEu.EU_level, Voc.resLevel2);
+			} else if (item.getLevel() == 3) {
+				model.add(resNuts, VocEu.EU_level, Voc.resLevel3);
 			}
 
 			// Eurostat NUTS scheme

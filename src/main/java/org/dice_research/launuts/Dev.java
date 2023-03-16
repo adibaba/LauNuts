@@ -26,7 +26,7 @@ import org.dice_research.launuts.sources.Sources;
 public abstract class Dev {
 
 	// Default: false. Enables Development mode.
-	public static final boolean DEV = Boolean.TRUE;
+	public static final boolean DEV = Boolean.FALSE;
 
 	// Mode constant for {@link Main} CLI
 	public static final String MODE = "dev";
@@ -57,11 +57,13 @@ public abstract class Dev {
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 lau2021-nuts2021", "kg" };
 	public static final String[] DEV_ARGS_KG_2016 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2013-2016 lau2016", "kg" };
+	public static final String[] DEV_ARGS_CUSTOM = new String[] //
+	{ "-" + Main.OPTION_IDS, "lau2021-nuts2021", "-" + Main.OPTION_COUNTRIES, "EL", "kg" };
 	public static final String[] DEV_ARGS_CUSTOM_2 = new String[] //
 	{ "-" + Main.OPTION_IDS, "nuts-2016-2021 nuts-2013-2016 lau2021-nuts2021 lau2020-nuts2016",
 			"-" + Main.OPTION_COUNTRIES, "DE", "kg" };
 	// Set final development arguments
-	public static final String[] DEV_ARGS = DEV_ARGS_CUSTOM_2;
+	public static final String[] DEV_ARGS = DEV_ARGS_KG_2021;
 
 	/**
 	 * Called if {@link Main} mode is "dev".
