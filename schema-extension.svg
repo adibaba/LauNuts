@@ -99,11 +99,11 @@
       <text x="134.6998" font-size="20px" y="1354.1461" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" font-style="italic" stroke="none" xml:space="preserve">NUTS code</text>
     </g>
     <g fill="rgb(250,224,130)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke="rgb(250,224,130)">
-      <rect x="685.6149" y="1413.9665" clip-path="url(#clipPath2)" width="133" rx="4" ry="4" height="37.4375" stroke="none"/>
+      <rect x="685.6149" y="1436.1987" clip-path="url(#clipPath2)" width="133" rx="4" ry="4" height="37.4375" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke-linecap="butt">
-      <rect x="685.6149" y="1413.9665" clip-path="url(#clipPath2)" fill="none" width="133" rx="4" ry="4" height="37.4375"/>
-      <text x="730.8649" font-size="20px" y="1439.5211" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" font-style="italic" stroke="none" xml:space="preserve">entity</text>
+      <rect x="685.6149" y="1436.1987" clip-path="url(#clipPath2)" fill="none" width="133" rx="4" ry="4" height="37.4375"/>
+      <text x="730.8649" font-size="20px" y="1461.7534" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" font-style="italic" stroke="none" xml:space="preserve">entity</text>
     </g>
     <g fill="rgb(200,226,138)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke="rgb(200,226,138)">
       <rect x="302.3544" y="1669.8037" clip-path="url(#clipPath2)" width="133" rx="4" ry="4" height="37.4375" stroke="none"/>
@@ -156,68 +156,76 @@
       <text x="252.5443" xml:space="preserve" y="1268.7711" clip-path="url(#clipPath2)" stroke="none">Eurostat NUTS entity</text>
       <text x="416.6276" y="1311.4586" clip-path="url(#clipPath2)" font-style="normal" stroke="none" font-weight="normal" xml:space="preserve">owl:sameAs</text>
     </g>
-    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" stroke-width="2" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke-linecap="butt">
-      <path fill="none" d="M426.4527 1451.3948 L426.4527 1476.3002 L440.1566 1476.3002 L440.1566 1463.8174" clip-path="url(#clipPath2)"/>
-      <path d="M440.1566 1451.4424 L433.4066 1464.9424 L446.9066 1464.9424 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="315.7875" font-size="20px" y="1482.2966" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:broader</text>
-      <path fill="none" d="M560.4847 1413.984 L560.4847 1378.4047" clip-path="url(#clipPath2)"/>
-      <path d="M560.4847 1366.0297 L553.7347 1379.5297 L567.2347 1379.5297 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="571.5761" font-size="20px" y="1396.8336" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:inScheme</text>
-      <path fill="none" d="M368.8544 1413.9681 L368.8544 1378.4003" clip-path="url(#clipPath2)"/>
-      <path d="M368.8544 1366.0253 L362.1044 1379.5253 L375.6044 1379.5253 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="194.065" font-size="20px" y="1396.8336" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:hasTopConcept    </text>
-      <path fill="none" d="M435.3355 1347.3102 L481.5936 1347.3102" clip-path="url(#clipPath2)"/>
-      <path d="M493.9686 1347.3102 L480.4686 1340.5602 L480.4686 1354.0602 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="405.0114" font-size="20px" y="1393.5627" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:inScheme</text>
-      <path fill="none" d="M302.3352 1432.6852 L256.0992 1432.6852" clip-path="url(#clipPath2)"/>
-      <path d="M243.7242 1432.6852 L257.2242 1439.4352 L257.2242 1425.9352 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="183.7439" font-size="20px" y="1482.7604" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:prefLabel</text>
-      <path fill="none" d="M472.1723 1499.363 L472.1723 1463.8097" clip-path="url(#clipPath2)"/>
-      <path d="M472.1723 1451.4347 L465.4223 1464.9347 L478.9223 1464.9347 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="476.1723" font-size="20px" y="1482.0836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve"> skos:broader</text>
-      <path fill="none" d="M129.792 1536.8074 L129.792 1572.3124" clip-path="url(#clipPath2)"/>
-      <path d="M129.792 1584.6874 L136.542 1571.1874 L123.042 1571.1874 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="142.7344" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:prefLabel</text>
-      <path fill="none" d="M271.1184 1536.7772 L271.1184 1572.3123" clip-path="url(#clipPath2)"/>
-      <path d="M271.1184 1584.6873 L277.8684 1571.1873 L264.3684 1571.1873 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="281.2054" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:altLabel</text>
-      <path fill="none" d="M799.2808 1536.787 L799.2808 1572.3301" clip-path="url(#clipPath2)"/>
-      <path d="M799.2808 1584.7051 L806.0308 1571.2051 L792.5308 1571.2051 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="630.1605" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">dbo:populationTotal</text>
-      <path fill="none" d="M611.0204 1536.8121 L611.0204 1572.3414" clip-path="url(#clipPath2)"/>
-      <path d="M611.0204 1584.7164 L617.7704 1571.2164 L604.2704 1571.2164 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="533.3951" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">dbo:area</text>
-      <path fill="none" d="M302.3734 1347.3102 L256.0992 1347.3102" clip-path="url(#clipPath2)"/>
-      <path d="M243.7242 1347.3102 L257.2242 1354.0602 L257.2242 1340.5602 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="223.3375" font-size="20px" y="1311.6803" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:notation</text>
-      <path fill="none" d="M626.9844 1432.6852 L673.2338 1432.6852" clip-path="url(#clipPath2)"/>
-      <path d="M685.6088 1432.6852 L672.1088 1425.9352 L672.1088 1439.4352 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="609.7469" font-size="20px" y="1482.0449" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:related</text>
-      <path fill="none" d="M302.3211 1688.5225 L255.9487 1688.5225" clip-path="url(#clipPath2)"/>
-      <path d="M243.5737 1688.5225 L257.0737 1695.2725 L257.0737 1681.7725 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="216.9741" font-size="20px" y="1732.0645" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:notation </text>
-      <path fill="none" d="M435.3355 1688.5225 L481.5936 1688.5225" clip-path="url(#clipPath2)"/>
-      <path d="M493.9686 1688.5225 L480.4686 1681.7725 L480.4686 1695.2725 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="407.1942" font-size="20px" y="1732.0457" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:inScheme</text>
-      <path fill="none" d="M511.6115 1536.7972 L511.6115 1657.4607" clip-path="url(#clipPath2)"/>
-      <path d="M511.6115 1669.8357 L518.3616 1656.3357 L504.8615 1656.3357 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="515.6116" font-size="20px" y="1652.7959" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:inScheme</text>
-      <path fill="none" d="M626.9833 1688.5225 L672.7526 1688.5225" clip-path="url(#clipPath2)"/>
-      <path d="M685.1276 1688.5225 L671.6276 1681.7725 L671.6276 1695.2725 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="615.0582" font-size="20px" y="1731.8058" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">dct:issued</text>
-      <path fill="none" d="M626.9658 1347.3102 L673.2399 1347.3102" clip-path="url(#clipPath2)"/>
-      <path d="M685.6149 1347.3102 L672.1149 1340.5602 L672.1149 1354.0602 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="614.8601" font-size="20px" y="1310.9941" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">dct:issued</text>
-      <path fill="none" d="M412.3436 1536.7598 L412.3436 1657.4287" clip-path="url(#clipPath2)"/>
-      <path d="M412.3436 1669.8037 L419.0936 1656.3037 L405.5936 1656.3037 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="242.2499" font-size="20px" y="1652.7959" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:hasTopConcept</text>
-      <path fill="none" stroke-dasharray="12,4" d="M521.3268 1328.5809 L521.3268 1293.049" clip-path="url(#clipPath2)"/>
-      <path stroke-dasharray="12,4" d="M521.3268 1280.674 L514.5768 1294.174 L528.0768 1294.174 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" stroke-dasharray="12,4" d="M407.1474 1328.5553 L407.1474 1293.0161" clip-path="url(#clipPath2)"/>
-      <path stroke-dasharray="12,4" d="M407.1474 1280.6411 L400.3974 1294.1411 L413.8974 1294.1411 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" d="M435.3652 1261.9352 L481.6178 1261.9352" clip-path="url(#clipPath2)"/>
-      <path d="M493.9928 1261.9352 L480.4928 1255.1852 L480.4928 1268.6852 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="411.3529" font-size="20px" y="1229.3545" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" stroke-width="1" xml:space="preserve">skos:inScheme</text>
+    <g fill="rgb(250,224,130)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke="rgb(250,224,130)">
+      <rect x="685.6149" y="1389.4345" clip-path="url(#clipPath2)" width="133" rx="4" ry="4" height="37.4375" stroke="none"/>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-109,-1207)" stroke-linecap="butt">
+      <rect x="685.6149" y="1389.4345" clip-path="url(#clipPath2)" fill="none" width="133" rx="4" ry="4" height="37.4375"/>
+      <text x="710.6061" font-size="20px" y="1414.9893" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" font-style="italic" stroke="none" xml:space="preserve">NUTS level</text>
+      <path fill="none" d="M409.689 1451.4398 L409.689 1476.3002 L423.8879 1476.3002 L423.8879 1463.8187" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M423.8879 1451.4437 L417.1379 1464.9437 L430.6379 1464.9437 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="298.6848" font-size="20px" y="1482.6388" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:broader</text>
+      <path fill="none" d="M539.1498 1413.9332 L539.1498 1378.3806" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M539.1498 1366.0056 L532.3998 1379.5056 L545.8998 1379.5056 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="552.1567" font-size="20px" y="1385.4153" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:inScheme</text>
+      <path fill="none" d="M368.8544 1413.9681 L368.8544 1378.4003" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M368.8544 1366.0253 L362.1044 1379.5253 L375.6044 1379.5253 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="194.065" font-size="20px" y="1396.8336" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:hasTopConcept    </text>
+      <path fill="none" d="M435.3355 1347.3102 L481.5936 1347.3102" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M493.9686 1347.3102 L480.4686 1340.5602 L480.4686 1354.0602 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="405.0114" font-size="20px" y="1393.5627" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:inScheme</text>
+      <path fill="none" d="M302.3352 1432.6852 L256.0992 1432.6852" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M243.7242 1432.6852 L257.2242 1439.4352 L257.2242 1425.9352 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="169.888" font-size="20px" y="1482.6924" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:prefLabel</text>
+      <path fill="none" d="M443.0982 1499.3617 L443.0982 1463.8083" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M443.0982 1451.4333 L436.3482 1464.9333 L449.8482 1464.9333 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="447.0982" font-size="20px" y="1482.3336" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve"> skos:broader</text>
+      <path fill="none" d="M129.792 1536.8074 L129.792 1572.3124" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M129.792 1584.6874 L136.542 1571.1874 L123.042 1571.1874 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="142.7344" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:prefLabel</text>
+      <path fill="none" d="M271.1184 1536.7772 L271.1184 1572.3123" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M271.1184 1584.6873 L277.8684 1571.1873 L264.3684 1571.1873 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="281.2054" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:altLabel</text>
+      <path fill="none" d="M799.2808 1536.787 L799.2808 1572.3301" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M799.2808 1584.7051 L806.0308 1571.2051 L792.5308 1571.2051 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="630.1605" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">dbo:populationTotal</text>
+      <path fill="none" d="M611.0204 1536.8121 L611.0204 1572.3414" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M611.0204 1584.7164 L617.7704 1571.2164 L604.2704 1571.2164 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="533.3951" font-size="20px" y="1567.5836" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">dbo:area</text>
+      <path fill="none" d="M302.3734 1347.3102 L256.0992 1347.3102" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M243.7242 1347.3102 L257.2242 1354.0602 L257.2242 1340.5602 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="223.3375" font-size="20px" y="1311.6803" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:notation</text>
+      <path fill="none" d="M627.0062 1446.7771 L673.2614 1446.7771" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M685.6364 1446.7771 L672.1364 1440.0271 L672.1364 1453.5271 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="584.4571" font-size="20px" y="1468.7869" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:related</text>
+      <path fill="none" d="M302.3211 1688.5225 L255.9487 1688.5225" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M243.5737 1688.5225 L257.0737 1695.2725 L257.0737 1681.7725 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="216.9741" font-size="20px" y="1732.0645" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:notation </text>
+      <path fill="none" d="M435.3355 1688.5225 L481.5936 1688.5225" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M493.9686 1688.5225 L480.4686 1681.7725 L480.4686 1695.2725 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="407.1942" font-size="20px" y="1732.0457" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:inScheme</text>
+      <path fill="none" d="M511.6115 1536.7972 L511.6115 1657.4607" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M511.6115 1669.8357 L518.3616 1656.3357 L504.8615 1656.3357 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="515.6116" font-size="20px" y="1652.7959" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:inScheme</text>
+      <path fill="none" d="M626.9833 1688.5225 L672.7526 1688.5225" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M685.1276 1688.5225 L671.6276 1681.7725 L671.6276 1695.2725 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="615.0582" font-size="20px" y="1731.8058" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">dct:issued</text>
+      <path fill="none" d="M626.9658 1347.3102 L673.2399 1347.3102" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M685.6149 1347.3102 L672.1149 1340.5602 L672.1149 1354.0602 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="614.8601" font-size="20px" y="1310.9941" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">dct:issued</text>
+      <path fill="none" d="M412.3436 1536.7598 L412.3436 1657.4287" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M412.3436 1669.8037 L419.0936 1656.3037 L405.5936 1656.3037 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="242.2499" font-size="20px" y="1652.7959" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:hasTopConcept</text>
+      <path fill="none" stroke-dasharray="12,4" d="M521.3268 1328.5809 L521.3268 1293.049" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path stroke-dasharray="12,4" d="M521.3268 1280.674 L514.5768 1294.174 L528.0768 1294.174 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" stroke-dasharray="12,4" d="M407.1474 1328.5553 L407.1474 1293.0161" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path stroke-dasharray="12,4" d="M407.1474 1280.6411 L400.3974 1294.1411 L413.8974 1294.1411 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" d="M435.3652 1261.9352 L481.6178 1261.9352" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M493.9928 1261.9352 L480.4928 1255.1852 L480.4928 1268.6852 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="411.3529" font-size="20px" y="1229.3545" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">skos:inScheme</text>
+      <path fill="none" d="M626.9937 1418.3552 L673.248 1418.3552" stroke-width="2" clip-path="url(#clipPath2)"/>
+      <path d="M685.623 1418.3552 L672.123 1411.6052 L672.123 1425.1052 Z" stroke-width="2" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="605.6973" font-size="20px" y="1409.9438" clip-path="url(#clipPath2)" font-family="'Roboto Condensed'" stroke="none" xml:space="preserve">nuts:level</text>
     </g>
   </g>
 </svg>
