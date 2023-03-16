@@ -23,7 +23,7 @@ public class WikipediaLinking {
 
 	public static final String PREFIX_WP_OLDID = "https://en.wikipedia.org/w/api.php?action=parse&prop=wikitext&format=json&oldid=";
 	public static final String WPNUTS1_OLDID = "1126125069";
-	public static final String WPNUTS1_FILENAME = "NUTS-1-EU.json";
+	public static final String WPNUTS1_FILENAME = "Wikipedia-NUTS-1-EU.json";
 
 	public static File getWpNuts1File() {
 		return new File(Config.get(Config.KEY_DOWNLOAD_DIRECTORY), WPNUTS1_FILENAME);
