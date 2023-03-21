@@ -116,11 +116,13 @@ ORDER BY DESC(?date)
 <h4>Get countries from a NUTS scheme:</h4>
 <pre>
 PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT (?uniqueNuts as ?nuts) ?code WHERE {
+SELECT (?uniqueNuts as ?nuts) ?code ?label ?related WHERE {
   ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
   ?nuts &#x3C;http://data.europa.eu/nuts/level&#x3E; &#x3C;https://w3id.org/launuts/level/0&#x3E; .
   ?nuts skos:notation ?code .
   ?uniqueNuts skos:hasTopConcept ?nuts .
+  ?uniqueNuts skos:prefLabel ?label .
+  OPTIONAL { ?uniqueNuts skos:related ?related } .
 }
 ORDER BY ASC(?code)
 </pre>
@@ -132,8 +134,8 @@ SELECT (?uniqueNuts as ?nuts) ?code ?label ?related WHERE {
   ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
   ?uniqueNutsBroader skos:hasTopConcept &#x3C;https://w3id.org/launuts/nuts/code/DE&#x3E; .
   ?uniqueNuts skos:broader ?uniqueNutsBroader .
-  ?uniqueNuts skos:hasTopConcept ?nutsBroader .
-  ?nutsBroader skos:notation ?code .
+  ?uniqueNuts skos:hasTopConcept ?nuts .
+  ?nuts skos:notation ?code .
   ?uniqueNuts skos:prefLabel ?label .
   OPTIONAL { ?uniqueNuts skos:related ?related } .
 }
