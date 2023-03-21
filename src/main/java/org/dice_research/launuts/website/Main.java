@@ -1,6 +1,8 @@
 package org.dice_research.launuts.website;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,13 +44,48 @@ public class Main {
 		model = ModelFactory.createDefaultModel();
 		RDFDataMgr.read(model, new File(filepath).toURI().toString());
 
+		// Schemes
 		List<NutsScheme> nutsSchemes = getNutsSchemes();
-		List<NutsEntity> nuts0 = getCoutries(nutsSchemes.get(0));
-		List<NutsEntity> nuts1 = getNarrowerNuts(nutsSchemes.get(0), nuts0.get(0));
 
-		System.out.println(nutsSchemes.get(0));
-		System.out.println(nuts0.get(0));
-		System.out.println(nuts1.get(0));
+		// NUTS-0
+		int counter = 0;
+		for (NutsScheme nutsScheme : nutsSchemes) {
+			counter += getCoutries(nutsScheme).size();
+		}
+		System.out.println("NUTS-0 " + counter);
+
+		// NUTS-1
+		counter = 0;
+		for (NutsScheme nutsScheme : nutsSchemes) {
+			for (UniqueNutsEntity nuts0 : nutsScheme.nuts0) {
+				counter += getNarrowerNuts(nutsScheme, nuts0).size();
+			}
+		}
+		System.out.println("NUTS-1 " + counter);
+
+		// NUTS-2
+		counter = 0;
+		for (NutsScheme nutsScheme : nutsSchemes) {
+			for (UniqueNutsEntity nuts0 : nutsScheme.nuts0) {
+				for (UniqueNutsEntity nuts1 : nuts0.narrowerNuts) {
+					counter += getNarrowerNuts(nutsScheme, nuts1).size();
+				}
+			}
+		}
+		System.out.println("NUTS-2 " + counter);
+
+		// NUTS-3
+		counter = 0;
+		for (NutsScheme nutsScheme : nutsSchemes) {
+			for (UniqueNutsEntity nuts0 : nutsScheme.nuts0) {
+				for (UniqueNutsEntity nuts1 : nuts0.narrowerNuts) {
+					for (UniqueNutsEntity nuts2 : nuts1.narrowerNuts) {
+						counter += getNarrowerNuts(nutsScheme, nuts2).size();
+					}
+				}
+			}
+		}
+		System.out.println("NUTS-3 " + counter);
 	}
 
 	private List<NutsScheme> getNutsSchemes() {
@@ -57,49 +94,77 @@ public class Main {
 		while (resIt.hasNext()) {
 			nutsSchemes.add(new NutsScheme(resIt.next().getURI()));
 		}
+		Collections.sort(nutsSchemes, new Comparator<NutsScheme>() {
+
+			@Override
+			public int compare(NutsScheme o1, NutsScheme o2) {
+				return o2.uri.compareTo(o1.uri);
+			}
+		});
 		return nutsSchemes;
 	}
 
-	private List<NutsEntity> getCoutries(NutsScheme nutsScheme) {
-		String queryString = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n" + "SELECT ?nuts ?code WHERE {\n"
-				+ "  ?nuts skos:inScheme <" + nutsScheme.uri + "> .\n"
-				+ "  ?nuts <http://data.europa.eu/nuts/level> <https://w3id.org/launuts/level/0> .\n"
-				+ "  ?nuts skos:notation ?code .\n" + "}\n" + "ORDER BY ASC(?code)";
+	private List<UniqueNutsEntity> getCoutries(NutsScheme nutsScheme) {
+		String queryString = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n" //
+				+ "SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {\n" //
+				+ "  ?uniqueNuts skos:inScheme <https://w3id.org/launuts/nuts/scheme/2021> .\n" //
+				+ "  ?nuts <http://data.europa.eu/nuts/level> <https://w3id.org/launuts/level/0> .\n" //
+				+ "  ?nuts skos:notation ?code .\n" //
+				+ "  ?uniqueNuts skos:hasTopConcept ?nuts .\n" //
+				+ "  ?uniqueNuts skos:prefLabel ?label .\n" //
+				+ "  OPTIONAL { ?uniqueNuts skos:related ?related } .\n" //
+				+ "}\n" //
+				+ "ORDER BY ASC(?code)";
 		Query query = QueryFactory.create(queryString);
 		QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
 		ResultSet resultSet = queryExecution.execSelect();
 		if (Boolean.FALSE)
 			ResultSetFormatter.out(System.out, resultSet, query);
-		List<NutsEntity> nutsEntities = new LinkedList<>();
+		List<UniqueNutsEntity> nutsEntities = new LinkedList<>();
 		while (resultSet.hasNext()) {
 			QuerySolution querySolution = resultSet.next();
-			NutsEntity nutsEntity = new NutsEntity(querySolution.get("nuts").asResource().getURI(), nutsScheme);
-			nutsEntities.add(nutsEntity);
-			nutsScheme.nuts0.add(nutsEntity);
+			UniqueNutsEntity uniqueNutsEntity = new UniqueNutsEntity(
+					querySolution.get("uniqueNuts").asResource().getURI());
+			uniqueNutsEntity.nutsEntityUri = querySolution.get("nuts").asResource().getURI();
+			uniqueNutsEntity.code = querySolution.get("code").asLiteral().getString();
+			uniqueNutsEntity.label = querySolution.get("label").asLiteral().getString();
+			nutsEntities.add(uniqueNutsEntity);
+
+			nutsScheme.nuts0.add(uniqueNutsEntity);
 		}
 		queryExecution.close();
 		return nutsEntities;
 	}
 
-	private List<NutsEntity> getNarrowerNuts(NutsScheme nutsScheme, NutsEntity nutsEntity) {
-		String queryString = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n"
-				+ "SELECT (?uniqueNuts as ?nuts) ?code ?label ?related WHERE {\n" + "  ?uniqueNuts skos:inScheme <"
-				+ nutsScheme.uri + "> .\n" + "  ?uniqueNutsBroader skos:hasTopConcept <" + nutsEntity.uri + "> .\n"
-				+ "  ?uniqueNuts skos:broader ?uniqueNutsBroader .\n"
-				+ "  ?uniqueNuts skos:hasTopConcept ?nutsBroader .\n" + "  ?nutsBroader skos:notation ?code .\n"
-				+ "  ?uniqueNuts skos:prefLabel ?label .\n" + "  OPTIONAL { ?uniqueNuts skos:related ?related } .\n"
+	private List<UniqueNutsEntity> getNarrowerNuts(NutsScheme nutsScheme, UniqueNutsEntity uniqueNutzEntity) {
+		String queryString = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n" //
+				+ "SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {\n" //
+				+ "  ?uniqueNuts skos:inScheme <" + nutsScheme.uri + "> .\n" //
+				+ "  ?uniqueNutsBroader skos:hasTopConcept <" + uniqueNutzEntity.nutsEntityUri + "> .\n" //
+				+ "  ?uniqueNuts skos:broader ?uniqueNutsBroader .\n" //
+				+ "  ?uniqueNuts skos:hasTopConcept ?nuts .\n" //
+				+ "  ?nuts skos:notation ?code .\n" //
+				+ "  ?uniqueNuts skos:prefLabel ?label .\n" //
+				+ "  OPTIONAL { ?uniqueNuts skos:related ?related } .\n" //
 				+ "}\n" + "ORDER BY ASC(?code)";
 		Query query = QueryFactory.create(queryString);
 		QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
 		ResultSet resultSet = queryExecution.execSelect();
 		if (Boolean.FALSE)
+			System.out.println(queryString);
+		if (Boolean.FALSE)
 			ResultSetFormatter.out(System.out, resultSet, query);
-		List<NutsEntity> nutsEntities = new LinkedList<>();
+		List<UniqueNutsEntity> nutsEntities = new LinkedList<>();
 		while (resultSet.hasNext()) {
 			QuerySolution querySolution = resultSet.next();
-			NutsEntity narrowerNutsEntity = new NutsEntity(querySolution.get("nuts").asResource().getURI(), nutsScheme);
-			nutsEntity.narrower.add(narrowerNutsEntity);
-			nutsEntities.add(narrowerNutsEntity);
+			UniqueNutsEntity uniqueNutsEntity = new UniqueNutsEntity(
+					querySolution.get("uniqueNuts").asResource().getURI());
+			uniqueNutsEntity.nutsEntityUri = querySolution.get("nuts").asResource().getURI();
+			uniqueNutsEntity.code = querySolution.get("code").asLiteral().getString();
+			uniqueNutsEntity.label = querySolution.get("label").asLiteral().getString();
+			nutsEntities.add(uniqueNutsEntity);
+
+			uniqueNutzEntity.narrowerNuts.add(uniqueNutsEntity);
 		}
 		queryExecution.close();
 		return nutsEntities;

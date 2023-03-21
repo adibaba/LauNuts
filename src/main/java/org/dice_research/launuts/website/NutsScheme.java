@@ -6,7 +6,7 @@ import java.util.List;
 public class NutsScheme {
 
 	public String uri;
-	public List<NutsEntity> nuts0 = new LinkedList<>();
+	public List<UniqueNutsEntity> nuts0 = new LinkedList<>();
 
 	public NutsScheme(String uri) {
 		this.uri = uri;
