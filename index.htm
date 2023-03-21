@@ -116,10 +116,11 @@ ORDER BY DESC(?date)
 <h4>Get countries from a NUTS scheme:</h4>
 <pre>
 PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT ?nuts ?code WHERE {
-  ?nuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
+SELECT (?uniqueNuts as ?nuts) ?code WHERE {
+  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
   ?nuts &#x3C;http://data.europa.eu/nuts/level&#x3E; &#x3C;https://w3id.org/launuts/level/0&#x3E; .
   ?nuts skos:notation ?code .
+  ?uniqueNuts skos:hasTopConcept ?nuts .
 }
 ORDER BY ASC(?code)
 </pre>
