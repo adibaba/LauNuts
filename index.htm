@@ -57,11 +57,11 @@
    It is a hierarchical system where geographical areas are subdivided according to their population sizes.
    
    <h2>Download</h2>
-   The current version <b>LauNuts2021a</b> can be downloaded here: <a href="https://hobbitdata.informatik.uni-leipzig.de/LauNuts/LauNuts2021a.nt.zip">LauNuts2021a.nt.zip</a> or at <a target="_blank" href="https://doi.org/10.5281/zenodo.7734325">Zenodo</a> or at <a target="_blank" href="https://doi.org/10.6084/m9.figshare.22272067.v1">figshare</a>.
+   The current version <b>LauNuts2021b</b> can be downloaded here: <a href="https://hobbitdata.informatik.uni-leipzig.de/LauNuts/LauNuts2021b.nt.zip">LauNuts2021b.nt.zip</a>.
    It contains the NUTS schemes 2021 and 2016 as well as LAU data from 2021 and 2020.
    The NUTS 2021 scheme consists of data for the countries 
    AL, AT, BE, BG, CH, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HR, HU, IE, IS, IT, LI, LT, LU, LV, ME, MK, MT, NL, NO, PL, PT, RO, RS, SE, SI, SK, TR and UK.
-   The knowled graph contains 1,373,688 triples.
+   The knowled graph contains 1,181,549 triples.
    
    <h2>Resources</h2>
    <table>
@@ -100,7 +100,7 @@
    <h2>SPARQL examples</h2>
 
 To execute the SPARQL queries, you can use a public SPARQL endpoint.
-Alternatively, <a target="_blank" href="https://archive.apache.org/dist/jena/binaries/">download the Fuseki triplestore</a>.
+Alternatively, <a target="_blank" href="https://archive.apache.org/dist/jena/binaries/">download the Fuseki triplestore</a> (e.g. apache-jena-fuseki-4.7.0.zip).
 After running the included launch script, you can import the LauNuts knowledge graph on <a target="_blank" href="http://127.0.0.1:3030">http://127.0.0.1:3030</a>.
 
 <h4>Get available NUTS schemes:</h4>
@@ -116,8 +116,8 @@ ORDER BY DESC(?date)
 <h4>Get countries from a NUTS scheme:</h4>
 <pre>
 PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT (?uniqueNuts as ?nuts) ?code ?label ?related WHERE {
-  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
+SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {
+  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#2021&#x3E; .
   ?nuts &#x3C;http://data.europa.eu/nuts/level&#x3E; &#x3C;https://w3id.org/launuts/level/0&#x3E; .
   ?nuts skos:notation ?code .
   ?uniqueNuts skos:hasTopConcept ?nuts .
@@ -130,9 +130,9 @@ ORDER BY ASC(?code)
 <h4>Get next NUTS level data:</h4>
 <pre>
 PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT (?uniqueNuts as ?nuts) ?code ?label ?related WHERE {
-  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme/2021&#x3E; .
-  ?uniqueNutsBroader skos:hasTopConcept &#x3C;https://w3id.org/launuts/nuts/code/DE&#x3E; .
+SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {
+  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#2021&#x3E; .
+  ?uniqueNutsBroader skos:hasTopConcept &#x3C;https://w3id.org/launuts/nuts/code#DE&#x3E; .
   ?uniqueNuts skos:broader ?uniqueNutsBroader .
   ?uniqueNuts skos:hasTopConcept ?nuts .
   ?nuts skos:notation ?code .
@@ -144,9 +144,10 @@ ORDER BY ASC(?code)
 
 <h4>Get available LAU schemes:</h4>
 <pre>
-SELECT ?scheme ?date WHERE {
-  ?scheme a &#x3C;https://w3id.org/launuts/lauScheme&#x3E; .
-  ?scheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .
+SELECT ?lauScheme ?nutsScheme ?date WHERE {
+  ?lauScheme a &#x3C;https://w3id.org/launuts/lauScheme&#x3E; .
+  ?lauScheme &#x3C;http://www.w3.org/2004/02/skos/core#related&#x3E; ?nutsScheme .
+  ?lauScheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .
 }
 ORDER BY DESC(?date)
 </pre>
