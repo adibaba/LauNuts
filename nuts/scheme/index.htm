@@ -4,13 +4,30 @@
   <meta charset="utf-8">
   <title>LauNuts</title>
   <script>
+// URI is e.g. https://w3id.org/launuts/nuts/scheme#2021
+// This redirects to https://adibaba.github.io/LauNuts/nuts/scheme/#2021
+// Locally it is e.g. file:///home/wilke/git/LauNuts-github_io/nuts/scheme/index.htm#2021
 var url = window.location.href;
-var path = url.substring(url.lastIndexOf("LauNuts")+7);
-var uri = "https://w3id.org/launuts" + path;
+url = url.replace('/#', '#');
+// Path is e.g. "/nuts/scheme#2021"
+var path = url.substring(url.lastIndexOf('LauNuts')+7);
+if(url.includes('github_io')) {
+  path = url.substring(url.lastIndexOf('github_io')+9);
+  path = path.replace('/index.htm', '');
+}
+// URI is e.g. "https://w3id.org/launuts/nuts/scheme#2021"
+var uri = 'https://w3id.org/launuts' + path;
 console.log(path);
 console.log(uri);
+// Redirect to lodview.it
+var lodview = 'https://lodview.it/lodview/';
+var endpoint = 'https://launuts.data.dice-research.org/sparql'
+var redirect = lodview+'?IRI='+encodeURIComponent(uri)+'&sparql='+encodeURIComponent(endpoint)
+console.log(redirect);
+window.location.replace(redirect);
   </script>
  </head>
  <body>
+  <a href="https://w3id.org/launuts">https://w3id.org/launuts</a>
  </body>
 </html>
