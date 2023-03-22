@@ -15,6 +15,9 @@ if(url.includes('github_io')) {
   path = url.substring(url.lastIndexOf('github_io')+9);
   path = path.replace('/index.htm', '');
 }
+if(path.slice(-1)=='/') {
+  path = path.slice(0, -1)
+}
 // URI is e.g. "https://w3id.org/launuts/nuts/scheme#2021"
 var uri = 'https://w3id.org/launuts' + path;
 // Redirect to lodview.it
