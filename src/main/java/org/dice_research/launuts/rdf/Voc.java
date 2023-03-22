@@ -25,8 +25,8 @@ public abstract class Voc {
 	public static final String PREFIX_DBO = "http://dbpedia.org/ontology/";
 	public static final String PREFIX_LAUNUTS = "https://w3id.org/launuts/";
 	public static final String PREFIX_NUTS = PREFIX_LAUNUTS + "nuts/";
-	public static final String PREFIX_NUTS_CODE = PREFIX_NUTS + "code/";
-	public static final String PREFIX_NUTS_SCHEME = PREFIX_NUTS + "scheme/";
+	public static final String PREFIX_NUTS_CODE = PREFIX_NUTS + "code#";
+	public static final String PREFIX_NUTS_SCHEME = PREFIX_NUTS + "scheme#";
 	public static final String PREFIX_LAU = PREFIX_LAUNUTS + "lau/";
 	public static final String PREFIX_LEVEL = PREFIX_LAUNUTS + "level/";
 

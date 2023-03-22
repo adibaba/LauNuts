@@ -65,12 +65,14 @@ public class ModelBuilder {
 
 			// Schema
 			Resource resLauSchema = ResourceFactory.createResource(Voc.getLauSchemeUri(item.lauSchema));
+			Resource resNutsSchema = ResourceFactory.createResource(Voc.getNutsSchemeUri(item.nutsSchema));
 			if (!model.containsResource(resLauSchema)) {
 				Literal litDate = ResourceFactory.createTypedLiteral(item.lauSchema + "-01-01", XSDDatatype.XSDdate);
 				model.addLiteral(resLauSchema, Voc.DCT_issued, litDate);
 			}
 			model.add(resLauSchema, RDF.type, Voc.resLauScheme);
 			model.add(resUniqueLau, Voc.SKOS_inScheme, resLauSchema);
+			model.add(resLauSchema, Voc.SKOS_related, resNutsSchema);
 
 			// General LAU
 			Resource resLau = ResourceFactory.createResource(
@@ -78,7 +80,6 @@ public class ModelBuilder {
 			if (!model.containsResource(resLau)) {
 				model.addLiteral(resLau, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.lauCode));
 			}
-			model.add(resLau, Voc.SKOS_inScheme, resLauSchema);
 			model.add(resUniqueLau, Voc.SKOS_hasTopConcept, resLau);
 
 			// Literals: Names
@@ -127,7 +128,6 @@ public class ModelBuilder {
 			if (!model.containsResource(resNuts)) {
 				model.addLiteral(resNuts, Voc.SKOS_notation, ResourceFactory.createPlainLiteral(item.nutsCode));
 			}
-			model.add(resNuts, Voc.SKOS_inScheme, resNutsScheme);
 			model.add(resUniqueNuts, Voc.SKOS_hasTopConcept, resNuts);
 
 			// Add NUTS label/name
