@@ -65,10 +65,14 @@ public class ModelBuilder {
 
 			// Schema
 			Resource resLauSchema = ResourceFactory.createResource(Voc.getLauSchemeUri(item.lauSchema));
-			Resource resNutsSchema = ResourceFactory.createResource(Voc.getNutsSchemeUri(item.nutsSchema));
 			if (!model.containsResource(resLauSchema)) {
 				Literal litDate = ResourceFactory.createTypedLiteral(item.lauSchema + "-01-01", XSDDatatype.XSDdate);
 				model.addLiteral(resLauSchema, Voc.DCT_issued, litDate);
+			}
+			Resource resNutsSchema = ResourceFactory.createResource(Voc.getNutsSchemeUri(item.nutsSchema));
+			if (!model.containsResource(resNutsSchema)) {
+				Literal litDate = ResourceFactory.createTypedLiteral(item.nutsSchema + "-01-01", XSDDatatype.XSDdate);
+				model.addLiteral(resNutsSchema, Voc.DCT_issued, litDate);
 			}
 			model.add(resLauSchema, RDF.type, Voc.resLauScheme);
 			model.add(resUniqueLau, Voc.SKOS_inScheme, resLauSchema);
