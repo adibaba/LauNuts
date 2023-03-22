@@ -4,4 +4,4 @@
 
 # LauNuts
 
-Generator for the LauNuts website
+Generator for the LauNuts website (currently not in use)
