@@ -2,7 +2,7 @@
 [![issues](https://img.shields.io/badge/Issue%20tracker-GitHub-d1e28a)](https://github.com/adibaba/LauNuts/issues)
 
 
-# LauNuts
+![LauNuts](docs/images/LauNuts-200px.png)
 
 LauNuts is a RDF Knowledge Graph consisting of:
 
