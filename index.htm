@@ -101,6 +101,7 @@
    <img src="schema-extension.svg" alt="LauNuts schema" class="normal">
 
    <h2>SPARQL examples</h2>
+   <!-- HTML entity encoder/decoder: https://mothereff.in/html-entities -->
 
 To execute the SPARQL queries, you can use a public SPARQL endpoint.
 Alternatively, <a target="_blank" href="https://archive.apache.org/dist/jena/binaries/">download the Fuseki triplestore</a> (e.g. apache-jena-fuseki-4.7.0.zip).
@@ -170,6 +171,14 @@ SELECT (?uniqueLau as ?lau) ?code ?name ?national ?area ?population WHERE {
   OPTIONAL { ?uniqueLau dbo:populationTotal ?population } .
 }
 ORDER BY ASC(?code)
+</pre>
+
+<h4>Search for label:</h4>
+<pre>
+SELECT ?uri ?label WHERE {
+  ?uri &#x3C;http://www.w3.org/2004/02/skos/core#prefLabel&#x3E; ?label
+  FILTER(REGEX(?label, &#x22;frankfurt&#x22;, &#x22;i&#x22;))
+}
 </pre>
 
    <h2>Notes</h2>
