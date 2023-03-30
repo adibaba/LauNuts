@@ -45,10 +45,12 @@
    }
    select {
     background: rgb(39, 40, 34);
-    width: 99%;
+    width: 98.5%;
    }
    option {
     color: rgb(248, 248, 242);
+    font-size: 1.2em;
+    padding: 5px 10px;
    }
    option:checked {
     background: rgb(99, 99, 99);
@@ -56,7 +58,10 @@
    input {
     background: rgb(39, 40, 34);
     color: rgb(248, 248, 242);
-    width: 99%;
+    width: 95.5%;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.05em;
+    padding: 5px 10px;
    }
    #content {
     margin: auto;
@@ -162,7 +167,8 @@
    
    <h3 style="margin-bottom:0px">Query</h3>
    <pre id="sparqlpre"><code class="language-sparql" id="sparqlcode"></code></pre>
-   <a href="" target="_blank" id="endpoint">Execute on SPARQL endpoint</a>
+   <a href="" target="_blank" id="endpointExec">Execute </a> or
+   <a href="" target="_blank" id="endpointEdit">edit</a> on public SPARQL endpoint
 
    <h2>Notes</h2>
     If you use the LauNuts Knowledge Graph, feel free to add you work to the <a target="_blank" href="https://github.com/adibaba/LauNuts/wiki/Usage">Usage wiki page</a>.
@@ -303,11 +309,13 @@ if(method == 'nuts0') {
  document.getElementById("hsearch").style.display = "block";
  sparql = sparqlsearch;
 }
-sparqlparam = decodeHtml(sparql)
-sparqllink = 'https://launuts.data.dice-research.org/sparql?query=' + encodeRFC5987ValueChars(sparqlparam)
-document.getElementById("endpoint").href = sparqllink;
 document.getElementById('sparqlcode').innerHTML = sparql;
+sparqlparam = decodeHtml(sparql)
 Prism.highlightAll();
+sparqledit = 'https://launuts.data.dice-research.org/sparql?qtxt=' + encodeRFC5987ValueChars(sparqlparam)
+sparqlexec = 'https://launuts.data.dice-research.org/sparql?query=' + encodeRFC5987ValueChars(sparqlparam)
+document.getElementById("endpointEdit").href = sparqledit;
+document.getElementById("endpointExec").href = sparqlexec;
 }
 
 window.onload = function () {
