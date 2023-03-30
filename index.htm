@@ -6,6 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="prism.css">
   <style>
    * {
     font-family: 'Roboto Condensed', sans-serif;
@@ -22,6 +23,10 @@
    h2 {
     margin-top: 30px;
    }
+   h3 {
+    margin-top: 10px;
+    margin-bottom: 2px;
+   }
    table, tr, td {
     border: none
    }
@@ -37,6 +42,21 @@
     margin: auto;
     width: 500px;
     max-width: 100%;
+   }
+   select {
+    background: rgb(39, 40, 34);
+    width: 99%;
+   }
+   option {
+    color: rgb(248, 248, 242);
+   }
+   option:checked {
+    background: rgb(99, 99, 99);
+   }
+   input {
+    background: rgb(39, 40, 34);
+    color: rgb(248, 248, 242);
+    width: 99%;
    }
    #content {
     margin: auto;
@@ -100,86 +120,49 @@
    <p>The LauNuts scheme contains the following concepts:</p>
    <img src="schema-extension.svg" alt="LauNuts schema" class="normal">
 
-   <h2>SPARQL examples</h2>
+   <h2 id="sparql">SPARQL examples</h2>
    <!-- HTML entity encoder/decoder: https://mothereff.in/html-entities -->
 
-To execute the SPARQL queries, you can use a public SPARQL endpoint.
-Alternatively, <a target="_blank" href="https://archive.apache.org/dist/jena/binaries/">download the Fuseki triplestore</a> (e.g. apache-jena-fuseki-4.7.0.zip).
-After running the included launch script, you can import the LauNuts knowledge graph on <a target="_blank" href="http://127.0.0.1:3030">http://127.0.0.1:3030</a>.
+   To execute the SPARQL queries, you can use a public SPARQL endpoint.
+   Alternatively, <a target="_blank" href="https://archive.apache.org/dist/jena/binaries/">download the Fuseki triplestore</a> (e.g. apache-jena-fuseki-4.7.0.zip).
+   After running the included launch script, you can import the LauNuts knowledge graph on <a target="_blank" href="http://127.0.0.1:3030">http://127.0.0.1:3030</a>.
 
-<h4>Get available NUTS schemes:</h4>
-<pre>
-SELECT ?scheme ?eurostat ?date WHERE {
-  ?scheme a &#x3C;https://w3id.org/launuts/nutsScheme&#x3E; .
-  ?scheme &#x3C;http://www.w3.org/2002/07/owl#sameAs&#x3E; ?eurostat .
-  ?scheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .
-}
-ORDER BY DESC(?date)
-</pre>
-
-<h4>Get countries from a NUTS scheme:</h4>
-<pre>
-PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {
-  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#2021&#x3E; .
-  ?nuts &#x3C;http://data.europa.eu/nuts/level&#x3E; &#x3C;https://w3id.org/launuts/level/0&#x3E; .
-  ?nuts skos:notation ?code .
-  ?uniqueNuts skos:hasTopConcept ?nuts .
-  ?uniqueNuts skos:prefLabel ?label .
-  OPTIONAL { ?uniqueNuts skos:related ?related } .
-}
-ORDER BY ASC(?code)
-</pre>
-
-<h4>Get next NUTS level data:</h4>
-<pre>
-PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {
-  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#2021&#x3E; .
-  ?uniqueNutsBroader skos:hasTopConcept &#x3C;https://w3id.org/launuts/nuts/code#DE&#x3E; .
-  ?uniqueNuts skos:broader ?uniqueNutsBroader .
-  ?uniqueNuts skos:hasTopConcept ?nuts .
-  ?nuts skos:notation ?code .
-  ?uniqueNuts skos:prefLabel ?label .
-  OPTIONAL { ?uniqueNuts skos:related ?related } .
-}
-ORDER BY ASC(?code)
-</pre>
-
-<h4>Get available LAU schemes:</h4>
-<pre>
-SELECT ?lauScheme ?nutsScheme ?date WHERE {
-  ?lauScheme a &#x3C;https://w3id.org/launuts/lauScheme&#x3E; .
-  ?lauScheme &#x3C;http://www.w3.org/2004/02/skos/core#related&#x3E; ?nutsScheme .
-  ?lauScheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .
-}
-ORDER BY DESC(?date)
-</pre>
-
-<h4>Get LAU level data:</h4>
-<pre>
-PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;
-PREFIX dbo: &#x3C;http://dbpedia.org/ontology/&#x3E;
-SELECT (?uniqueLau as ?lau) ?code ?name ?national ?area ?population WHERE {
-  ?uniqueLau skos:inScheme &#x3C;https://w3id.org/launuts/lau/2021&#x3E; .
-  ?uniqueLau skos:broader &#x3C;https://w3id.org/launuts/nuts/2021#DEA47&#x3E; .
-  ?uniqueLau skos:hasTopConcept ?lauBroader .
-  ?lauBroader skos:notation ?code .
-  OPTIONAL { ?uniqueLau skos:prefLabel ?name } .
-  OPTIONAL { ?uniqueLau skos:altLabel ?national } .
-  OPTIONAL { ?uniqueLau dbo:area ?area } .
-  OPTIONAL { ?uniqueLau dbo:populationTotal ?population } .
-}
-ORDER BY ASC(?code)
-</pre>
-
-<h4>Search for label:</h4>
-<pre>
-SELECT ?uri ?label WHERE {
-  ?uri &#x3C;http://www.w3.org/2004/02/skos/core#prefLabel&#x3E; ?label
-  FILTER(REGEX(?label, &#x22;frankfurt&#x22;, &#x22;i&#x22;))
-}
-</pre>
+   <form>
+    <h3>Query type</h3>
+    <select size=6 id="method">
+     <option value="nuts0" onclick="formHandler()" selected>Get NUTS countries (level 0)</option>
+     <option value="nuts" onclick="formHandler()">Get NUTS data (level 1-3)</option>
+     <option value="lau" onclick="formHandler()">Get LAU data</option>
+     <option value="nutsschemes" onclick="formHandler()">Get NUTS schemes</option>
+     <option value="lauschemes" onclick="formHandler()">Get LAU schemes</option>
+     <option value="search" onclick="formHandler()">Search for a region name</option>
+    </select>
+    
+    <h3 id="hnutsscheme" style="display:none">NUTS scheme</h3>
+    <select size=2 id="nutsscheme">
+     <option value="2021" onclick="formHandler()" selected>2021</option>
+     <option value="2016" onclick="formHandler()">2016</option>
+    </select>
+    
+    <h3 id="hlauscheme" style="display:none">LAU scheme</h3>
+    <select size=2 id="lauscheme" style="display:none">
+     <option value="2021" onclick="formHandler()" selected>2021</option>
+     <option value="2020" onclick="formHandler()">2020</option>
+    </select>
+    
+    <h3 id="hsearch" style="display:none">Region name</h3>
+    <input type="text" value="frankfurt" id="search" onkeyup="formHandler()" oninput="formHandler()" style="display:none">
+    
+    <h3 id="hnuts0" style="display:none">NUTS 1 code</h3>
+    <input type="text" value="DE"    id="nuts0" maxlength="2" onkeyup="formHandler()" oninput="formHandler()" style="display:none">
+    
+    <h3 id="hnuts" style="display:none">NUTS 3 code</h3>
+    <input type="text" value="DEA47" id="nuts"  maxlength="5" onkeyup="formHandler()" oninput="formHandler()" style="display:none">
+   </form>
+   
+   <h3 style="margin-bottom:0px">Query</h3>
+   <pre id="sparqlpre"><code class="language-sparql" id="sparqlcode"></code></pre>
+   <a href="" target="_blank" id="endpoint">Execute on SPARQL endpoint</a>
 
    <h2>Notes</h2>
     If you use the LauNuts Knowledge Graph, feel free to add you work to the <a target="_blank" href="https://github.com/adibaba/LauNuts/wiki/Usage">Usage wiki page</a>.
@@ -195,5 +178,141 @@ SELECT ?uri ?label WHERE {
     <a target="_blank" href="https://dice-research.org/">Data Science Group (DICE)</a> at <a target="_blank" href="https://www.uni-paderborn.de/">Paderborn University</a>, Adrian Wilke.
     The source data is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license by the European Union, 1995-2023, see https://ec.europa.eu/info/legal-notice_en.
   </div>
+
+  <script src="prism.js"></script>
+  <script>
+/* https://stackoverflow.com/a/7394787 */
+function decodeHtml(html) {
+ var txt = document.createElement("textarea");
+ txt.innerHTML = html;
+ return txt.value;
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent#encoding_for_content-disposition_and_link_headers */
+function encodeRFC5987ValueChars(str) {
+ return (
+  encodeURIComponent(str)
+   .replace(/['()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)
+   .replace(/%(7C|60|5E)/g, (str, hex) =>
+   String.fromCharCode(parseInt(hex, 16))
+  )
+ );
+}
+
+function formHandler() {
+var nutsscheme = document.getElementById('nutsscheme').value;
+var lauscheme = document.getElementById('lauscheme').value;
+var search = document.getElementById('search').value;
+var nuts0 = document.getElementById('nuts0').value.toUpperCase();
+var nuts = document.getElementById('nuts').value.toUpperCase();
+
+var sparqlnuts0='PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;\n' +
+'SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {\n' +
+'  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#' + nutsscheme + '&#x3E; .\n' +
+'  ?nuts &#x3C;http://data.europa.eu/nuts/level&#x3E; &#x3C;https://w3id.org/launuts/level/0&#x3E; .\n' +
+'  ?nuts skos:notation ?code .\n' +
+'  ?uniqueNuts skos:hasTopConcept ?nuts .\n' +
+'  ?uniqueNuts skos:prefLabel ?label .\n' +
+'  OPTIONAL { ?uniqueNuts skos:related ?related } .\n' +
+'}\n' +
+'ORDER BY ASC(?code)';
+
+var sparqlnuts='PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;\n' +
+'SELECT ?uniqueNuts ?nuts ?code ?label ?related WHERE {\n' +
+'  ?uniqueNuts skos:inScheme &#x3C;https://w3id.org/launuts/nuts/scheme#' + nutsscheme + '&#x3E; .\n' +
+'  ?uniqueNutsBroader skos:hasTopConcept &#x3C;https://w3id.org/launuts/nuts/code#' + nuts0 + '&#x3E; .\n' +
+'  ?uniqueNuts skos:broader ?uniqueNutsBroader .\n' +
+'  ?uniqueNuts skos:hasTopConcept ?nuts .\n' +
+'  ?nuts skos:notation ?code .\n' +
+'  ?uniqueNuts skos:prefLabel ?label .\n' +
+'  OPTIONAL { ?uniqueNuts skos:related ?related } .\n' +
+'}\n' +
+'ORDER BY ASC(?code)';
+
+var lautonuts = '2021';
+if(lauscheme == '2020') {
+ lautonuts = '2016';
+}
+var sparqllau='PREFIX skos: &#x3C;http://www.w3.org/2004/02/skos/core#&#x3E;\n' +
+'PREFIX dbo: &#x3C;http://dbpedia.org/ontology/&#x3E;\n' +
+'SELECT (?uniqueLau as ?lau) ?code ?name ?national ?area ?population WHERE {\n' +
+'  ?uniqueLau skos:inScheme &#x3C;https://w3id.org/launuts/lau/' + lauscheme + '&#x3E; .\n' +
+'  ?uniqueLau skos:broader &#x3C;https://w3id.org/launuts/nuts/' + lautonuts + '#' + nuts + '&#x3E; .\n' +
+'  ?uniqueLau skos:hasTopConcept ?lauBroader .\n' +
+'  ?lauBroader skos:notation ?code .\n' +
+'  OPTIONAL { ?uniqueLau skos:prefLabel ?name } .\n' +
+'  OPTIONAL { ?uniqueLau skos:altLabel ?national } .\n' +
+'  OPTIONAL { ?uniqueLau dbo:area ?area } .\n' +
+'  OPTIONAL { ?uniqueLau dbo:populationTotal ?population } .\n' +
+'}\n' +
+'ORDER BY ASC(?code)';
+
+var sparqlnutsschemes='SELECT ?scheme ?eurostat ?date WHERE {\n' +
+'  ?scheme a &#x3C;https://w3id.org/launuts/nutsScheme&#x3E; .\n' +
+'  ?scheme &#x3C;http://www.w3.org/2002/07/owl#sameAs&#x3E; ?eurostat .\n' +
+'  ?scheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .\n' +
+'}\n' +
+'ORDER BY DESC(?date)';
+
+var sparqllauschemes='SELECT ?lauScheme ?nutsScheme ?date WHERE {\n' +
+'  ?lauScheme a &#x3C;https://w3id.org/launuts/lauScheme&#x3E; .\n' +
+'  ?lauScheme &#x3C;http://www.w3.org/2004/02/skos/core#related&#x3E; ?nutsScheme .\n' +
+'  ?lauScheme &#x3C;http://purl.org/dc/terms/issued&#x3E; ?date .\n' +
+'}\n' +
+'ORDER BY DESC(?date)';
+
+var sparqlsearch='SELECT ?uri ?label WHERE {\n' +
+'  ?uri &#x3C;http://www.w3.org/2004/02/skos/core#prefLabel&#x3E; ?label\n' +
+'  FILTER(REGEX(?label, &#x22;' + search + '&#x22;, &#x22;i&#x22;))\n' +
+'}';
+
+var method = document.getElementById('method').value;
+document.getElementById("nutsscheme").style.display = "none";
+document.getElementById("hnutsscheme").style.display = "none";
+document.getElementById("lauscheme").style.display = "none";
+document.getElementById("hlauscheme").style.display = "none";
+document.getElementById("search").style.display = "none";
+document.getElementById("hsearch").style.display = "none";
+document.getElementById("nuts0").style.display = "none";
+document.getElementById("hnuts0").style.display = "none";
+document.getElementById("nuts").style.display = "none";
+document.getElementById("hnuts").style.display = "none";
+
+if(method == 'nuts0') {
+ document.getElementById("nutsscheme").style.display = "block";
+ document.getElementById("hnutsscheme").style.display = "block";
+ sparql = sparqlnuts0;
+} else if(method == 'nuts') {
+ document.getElementById("nutsscheme").style.display = "block";
+ document.getElementById("hnutsscheme").style.display = "block";
+ document.getElementById("nuts0").style.display = "block";
+ document.getElementById("hnuts0").style.display = "block";
+ sparql = sparqlnuts;
+} else if(method == 'lau') {
+ document.getElementById("lauscheme").style.display = "block";
+ document.getElementById("hlauscheme").style.display = "block";
+ document.getElementById("nuts").style.display = "block";
+ document.getElementById("hnuts").style.display = "block";
+ sparql = sparqllau;
+} else if(method == 'nutsschemes') {
+ sparql = sparqlnutsschemes;
+} else if(method == 'lauschemes') {
+ sparql = sparqllauschemes;
+} else {
+ document.getElementById("search").style.display = "block";
+ document.getElementById("hsearch").style.display = "block";
+ sparql = sparqlsearch;
+}
+sparqlparam = decodeHtml(sparql)
+sparqllink = 'https://launuts.data.dice-research.org/sparql?query=' + encodeRFC5987ValueChars(sparqlparam)
+document.getElementById("endpoint").href = sparqllink;
+document.getElementById('sparqlcode').innerHTML = sparql;
+Prism.highlightAll();
+}
+
+window.onload = function () {
+ formHandler();
+}
+  </script>
  </body>
 </html>
